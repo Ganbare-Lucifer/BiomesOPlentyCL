@@ -8,20 +8,21 @@ import biomesoplenty.worldgen.feature.BOPCaveFeatures;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.data.worldgen.features.CaveFeatures;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.BonemealableBlock;
-import net.minecraft.world.level.block.MossBlock;
+import net.minecraft.world.level.block.BonemealableFeaturePlacerBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 
-public class GlowingMossBlock extends MossBlock implements BonemealableBlock
+public class GlowingMossBlock extends BonemealableFeaturePlacerBlock implements BonemealableBlock
 {
     public GlowingMossBlock(BlockBehaviour.Properties p_153790_) {
-        super(p_153790_);
+        super(BOPCaveFeatures.GLOWING_MOSS_PATCH_BONEMEAL, p_153790_);
     }
 
     @Override
@@ -39,8 +40,8 @@ public class GlowingMossBlock extends MossBlock implements BonemealableBlock
     @Override
     public void performBonemeal(ServerLevel p_153792_, RandomSource p_153793_, BlockPos p_153794_, BlockState p_153795_)
     {
-        Registry<ConfiguredFeature<?, ?>> configuredFeatureRegistry = p_153792_.registryAccess().registryOrThrow(Registries.CONFIGURED_FEATURE);
-        configuredFeatureRegistry.get(BOPCaveFeatures.GLOWING_MOSS_PATCH_BONEMEAL).place(p_153792_, p_153792_.getChunkSource().getGenerator(), p_153793_, p_153794_.above());
-        configuredFeatureRegistry.get(BOPCaveFeatures.GLOWING_MOSS_PATCH_BONEMEAL_BOTTOM).place(p_153792_, p_153792_.getChunkSource().getGenerator(), p_153793_, p_153794_.below());
+        Registry<ConfiguredFeature<?, ?>> configuredFeatureRegistry = p_153792_.registryAccess().lookupOrThrow(Registries.CONFIGURED_FEATURE);
+        configuredFeatureRegistry.get(BOPCaveFeatures.GLOWING_MOSS_PATCH_BONEMEAL).orElseThrow().value().place(p_153792_, p_153792_.getChunkSource().getGenerator(), p_153793_, p_153794_.above());
+        configuredFeatureRegistry.get(BOPCaveFeatures.GLOWING_MOSS_PATCH_BONEMEAL_BOTTOM).orElseThrow().value().place(p_153792_, p_153792_.getChunkSource().getGenerator(), p_153793_, p_153794_.below());
     }
 }

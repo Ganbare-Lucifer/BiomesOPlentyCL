@@ -31,7 +31,7 @@ public class CypressTreeFeature extends BOPTreeFeature<CypressTreeConfiguration>
         CypressTreeConfiguration config = (CypressTreeConfiguration)configBase;
 
         // Move down until we reach the ground
-        while (startPos.getY() >= world.getMinBuildHeight()+1 && world.isEmptyBlock(startPos) || world.getBlockState(startPos).is(BlockTags.LEAVES)) {startPos = startPos.below();}
+        while (startPos.getY() >= world.getMinY()+1 && world.isEmptyBlock(startPos) || world.getBlockState(startPos).is(BlockTags.LEAVES)) {startPos = startPos.below();}
 
         // Choose heights and width
         int height = GeneratorUtil.nextIntBetween(random, config.minHeight, config.maxHeight);
@@ -114,7 +114,7 @@ public class CypressTreeFeature extends BOPTreeFeature<CypressTreeConfiguration>
     }
 
     // generates a layer of leafs with the given radius
-    public void generateLeafLayer(LevelAccessor world, BlockPos pos, int radius, FoliagePlacer.FoliageSetter leaves, CypressTreeConfiguration config)
+    public void generateLeafLayer(WorldGenLevel world, BlockPos pos, int radius, FoliagePlacer.FoliageSetter leaves, CypressTreeConfiguration config)
     {
         for(int x = -radius; x <= radius; x++)
         {

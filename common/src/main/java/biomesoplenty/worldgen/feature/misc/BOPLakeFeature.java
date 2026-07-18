@@ -39,7 +39,7 @@ public class BOPLakeFeature extends net.minecraft.world.level.levelgen.feature.L
         WorldGenLevel worldGenLevel = featurePlaceContext.level();
         RandomSource randomSource = featurePlaceContext.random();
         net.minecraft.world.level.levelgen.feature.LakeFeature.Configuration configuration = (net.minecraft.world.level.levelgen.feature.LakeFeature.Configuration)featurePlaceContext.config();
-        if (blockPos.getY() <= worldGenLevel.getMinBuildHeight() + 4) {
+        if (blockPos.getY() <= worldGenLevel.getMinY() + 4) {
             return false;
         } else {
             blockPos = blockPos.below(4);
@@ -69,7 +69,7 @@ public class BOPLakeFeature extends net.minecraft.world.level.levelgen.feature.L
                 }
             }
 
-            BlockState blockState = configuration.fluid().getState(randomSource, blockPos);
+            BlockState blockState = configuration.fluid().getState(worldGenLevel, randomSource, blockPos);
 
             int t;
             boolean w;
@@ -112,7 +112,7 @@ public class BOPLakeFeature extends net.minecraft.world.level.levelgen.feature.L
                 }
             }
 
-            BlockState blockState3 = configuration.barrier().getState(randomSource, blockPos);
+            BlockState blockState3 = configuration.barrier().getState(worldGenLevel, randomSource, blockPos);
             if (!blockState3.isAir()) {
                 for(t = 0; t < 16; ++t) {
                     for(u = 0; u < 16; ++u) {

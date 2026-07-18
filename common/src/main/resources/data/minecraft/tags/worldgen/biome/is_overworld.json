@@ -1,10 +1,6 @@
 {
   "values": [
     {
-      "id": "biomesoplenty:aspen_glade",
-      "required": false
-    },
-    {
       "id": "biomesoplenty:auroral_garden",
       "required": false
     },
@@ -65,10 +61,6 @@
       "required": false
     },
     {
-      "id": "biomesoplenty:grassland",
-      "required": false
-    },
-    {
       "id": "biomesoplenty:gravel_beach",
       "required": false
     },
@@ -78,10 +70,6 @@
     },
     {
       "id": "biomesoplenty:hot_springs",
-      "required": false
-    },
-    {
-      "id": "biomesoplenty:jacaranda_glade",
       "required": false
     },
     {
@@ -206,6 +194,10 @@
     },
     {
       "id": "biomesoplenty:spider_nest",
+      "required": false
+    },
+    {
+      "id": "biomesoplenty:subtropics",
       "required": false
     },
     {

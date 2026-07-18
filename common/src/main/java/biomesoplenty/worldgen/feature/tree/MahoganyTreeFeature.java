@@ -36,7 +36,7 @@ public class MahoganyTreeFeature extends BOPTreeFeature<MahoganyTreeConfiguratio
 
         //Generate only if we are above the lowest bedrock level (1) and reach less than the world height
         //There must be a gap of 1 between the top leaf block and the world height
-        if (pos.getY() >= world.getMinBuildHeight()+1 && pos.getY() + height + 1 <= world.getMaxBuildHeight())
+        if (pos.getY() >= world.getMinY()+1 && pos.getY() + height + 1 <= world.getMaxY())
         {
             int radius;
 
@@ -61,7 +61,7 @@ public class MahoganyTreeFeature extends BOPTreeFeature<MahoganyTreeConfiguratio
                 {
                     for (int z = pos.getZ() - radius; z <= pos.getZ() + radius && hasSpace; ++z)
                     {
-                        if (y >= world.getMinBuildHeight() && y < world.getMaxBuildHeight())
+                        if (y >= world.getMinY() && y < world.getMaxY())
                         {
                             if (!this.canReplace(world, new BlockPos(x, y, z)))
                             {
@@ -85,7 +85,7 @@ public class MahoganyTreeFeature extends BOPTreeFeature<MahoganyTreeConfiguratio
                 BlockPos soilPos = pos.below();
                 Block soil = world.getBlockState(soilPos).getBlock();
 
-                if (pos.getY() < world.getMaxBuildHeight() - height - 1)
+                if (pos.getY() < world.getMaxY() - height - 1)
                 {
                     world.setBlock(soilPos, Blocks.DIRT.defaultBlockState(), 3);
                     this.generateTrunk(logs, leaves, world, pos, height, config);
@@ -103,7 +103,7 @@ public class MahoganyTreeFeature extends BOPTreeFeature<MahoganyTreeConfiguratio
         }
     }
 
-    protected void generateTrunk(BiConsumer<BlockPos, BlockState> logs, FoliagePlacer.FoliageSetter leaves, LevelAccessor world, BlockPos start, int height, MahoganyTreeConfiguration config)
+    protected void generateTrunk(BiConsumer<BlockPos, BlockState> logs, FoliagePlacer.FoliageSetter leaves, WorldGenLevel world, BlockPos start, int height, MahoganyTreeConfiguration config)
     {
         int endHeight = height;
 
@@ -126,7 +126,7 @@ public class MahoganyTreeFeature extends BOPTreeFeature<MahoganyTreeConfiguratio
         generateBranch(logs, leaves, world, branchStartPos, Direction.WEST, config);
     }
 
-    private void generateBranch(BiConsumer<BlockPos, BlockState> logs, FoliagePlacer.FoliageSetter leaves, LevelAccessor world, BlockPos middle, Direction direction, MahoganyTreeConfiguration config)
+    private void generateBranch(BiConsumer<BlockPos, BlockState> logs, FoliagePlacer.FoliageSetter leaves, WorldGenLevel world, BlockPos middle, Direction direction, MahoganyTreeConfiguration config)
     {
         BlockPos pos = middle;
         int length = 1 + world.getRandom().nextInt(2);
@@ -171,7 +171,7 @@ public class MahoganyTreeFeature extends BOPTreeFeature<MahoganyTreeConfiguratio
                     //Randomly prevent the generation of leaves on the corners of each layer
                     if (Math.abs(x) < leavesRadius || Math.abs(z) < leavesRadius || world.getRandom().nextInt(4) == 0)
                     {
-                        if (config.altFoliageProvider.getState(world.getRandom(), pos) != Blocks.AIR.defaultBlockState())
+                        if (config.altFoliageProvider.getState(world, world.getRandom(), pos) != Blocks.AIR.defaultBlockState())
                         {
                             if (world.getRandom().nextInt(4) == 0)
                             {

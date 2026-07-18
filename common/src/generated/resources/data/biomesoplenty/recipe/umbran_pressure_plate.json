@@ -3,15 +3,12 @@
   "category": "redstone",
   "group": "wooden_pressure_plate",
   "key": {
-    "#": {
-      "item": "biomesoplenty:umbran_planks"
-    }
+    "#": "biomesoplenty:umbran_planks"
   },
   "pattern": [
     "##"
   ],
   "result": {
-    "count": 1,
     "id": "biomesoplenty:umbran_pressure_plate"
   }
 }

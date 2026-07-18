@@ -31,7 +31,7 @@ public class DeadCoralTreeFeature extends CoralTreeFeature
         RandomSource $$1 = $$0.random();
         WorldGenLevel $$2 = $$0.level();
         BlockPos $$3 = $$0.origin();
-        Optional<Block> $$4 = BuiltInRegistries.BLOCK.getTag(ModTags.Blocks.DEAD_CORAL_BLOCKS).flatMap(($$1x) -> {
+        Optional<Block> $$4 = BuiltInRegistries.BLOCK.get(ModTags.Blocks.DEAD_CORAL_BLOCKS).flatMap(($$1x) -> {
             return $$1x.getRandomElement($$1);
         }).map(Holder::value);
         return $$4.isEmpty() ? false : this.placeFeature($$2, $$1, $$3, ((Block)$$4.get()).defaultBlockState());
@@ -47,7 +47,7 @@ public class DeadCoralTreeFeature extends CoralTreeFeature
             $$0.setBlock($$2, $$3, 3);
             if ($$1.nextFloat() < 0.25F)
             {
-                BuiltInRegistries.BLOCK.getTag(ModTags.Blocks.DEAD_CORALS).flatMap(($$1x) -> {
+                BuiltInRegistries.BLOCK.get(ModTags.Blocks.DEAD_CORALS).flatMap(($$1x) -> {
                     return $$1x.getRandomElement($$1);
                 }).map(Holder::value).ifPresent(($$2x) -> {
                     $$0.setBlock($$4, $$2x.defaultBlockState().setValue(BaseCoralPlantTypeBlock.WATERLOGGED, false), 2);
@@ -68,7 +68,7 @@ public class DeadCoralTreeFeature extends CoralTreeFeature
                     BlockPos $$7 = $$2.relative($$6);
                     if ($$0.getBlockState($$7).isAir() || $$0.getBlockState($$7).getBlock() == BOPBlocks.BARNACLES)
                     {
-                        BuiltInRegistries.BLOCK.getTag(ModTags.Blocks.DEAD_WALL_CORALS).flatMap(($$1x) -> {
+                        BuiltInRegistries.BLOCK.get(ModTags.Blocks.DEAD_WALL_CORALS).flatMap(($$1x) -> {
                             return $$1x.getRandomElement($$1);
                         }).map(Holder::value).ifPresent(($$3x) -> {
                             BlockState $$4x = $$3x.defaultBlockState().setValue(BaseCoralPlantTypeBlock.WATERLOGGED, false);

@@ -32,7 +32,7 @@ public class PalmTreeFeature extends BOPTreeFeature<PalmTreeConfiguration>
         PalmTreeConfiguration config = (PalmTreeConfiguration)configBase;
 
         // Move down until we reach the ground
-        while (startPos.getY() >= world.getMinBuildHeight()+1 && world.isEmptyBlock(startPos) || world.getBlockState(startPos).is(BlockTags.LEAVES)) {startPos = startPos.below();}
+        while (startPos.getY() >= world.getMinY()+1 && world.isEmptyBlock(startPos) || world.getBlockState(startPos).is(BlockTags.LEAVES)) {startPos = startPos.below();}
 
         // Generation settings
         int height = GeneratorUtil.nextIntBetween(random, config.minHeight, config.maxHeight);
@@ -108,7 +108,7 @@ public class PalmTreeFeature extends BOPTreeFeature<PalmTreeConfiguration>
     }
 
     // generate the top of the tree (3 blocks)
-    public void generateLeavesTop(LevelAccessor world, BlockPos pos, int maxRadius, FoliagePlacer.FoliageSetter leaves, PalmTreeConfiguration config)
+    public void generateLeavesTop(WorldGenLevel world, BlockPos pos, int maxRadius, FoliagePlacer.FoliageSetter leaves, PalmTreeConfiguration config)
     {
         placeLeaves(world, pos.offset(2, -2, 0), leaves, config);
         placeLeaves(world, pos.offset(-2, -2, 0), leaves, config);

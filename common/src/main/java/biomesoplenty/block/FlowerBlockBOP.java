@@ -12,6 +12,8 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
+import net.minecraft.world.entity.InsideBlockEffectApplier;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
@@ -30,9 +32,14 @@ public class FlowerBlockBOP extends FlowerBlock
     protected static final VoxelShape MEDIUM = Block.box(3.0D, 0.0D, 3.0D, 13.0D, 12.0D, 13.0D);
 	protected static final VoxelShape LARGE = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 14.0D, 15.0D);
 	
-    public FlowerBlockBOP(Holder<MobEffect> effect, int effectDuration, Block.Properties properties)
+    public FlowerBlockBOP(Holder<MobEffect> effect, Block.Properties properties)
     {
-        super(effect, 0, properties);
+        this(effect, 5, properties);
+    }
+
+    public FlowerBlockBOP(Holder<MobEffect> effect, float duration, Block.Properties properties)
+    {
+        super(effect, duration, properties);
     }
 
     @Override
@@ -54,7 +61,7 @@ public class FlowerBlockBOP extends FlowerBlock
             shape = SHORT;
         }
 
-        Vec3 vec3 = state.getOffset(worldIn, pos);
+        Vec3 vec3 = state.getOffset(pos);
         return shape.move(vec3.x, vec3.y, vec3.z);
     }
     
@@ -80,25 +87,23 @@ public class FlowerBlockBOP extends FlowerBlock
     }
     
     @Override
-    public void entityInside(BlockState stateIn, Level worldIn, BlockPos pos, Entity entityIn)
+    protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier effectApplier, boolean b)
     {
-    	Block block = stateIn.getBlock();
+    	Block block = state.getBlock();
 
-        if (block == BOPBlocks.BURNING_BLOSSOM && entityIn.getType() != EntityType.HOGLIN && entityIn.getType() != EntityType.PIGLIN && entityIn.getType() != EntityType.PIGLIN_BRUTE)
+        if (block == BOPBlocks.BURNING_BLOSSOM && entity.getType() != EntityTypes.HOGLIN && entity.getType() != EntityTypes.PIGLIN && entity.getType() != EntityTypes.PIGLIN_BRUTE)
         {
-            if (!entityIn.fireImmune())
+            if (!entity.fireImmune())
             {
-                entityIn.setRemainingFireTicks(entityIn.getRemainingFireTicks() + 1);
-                if (entityIn.getRemainingFireTicks() == 0)
+                entity.setRemainingFireTicks(entity.getRemainingFireTicks() + 1);
+                if (entity.getRemainingFireTicks() == 0)
                 {
-                    entityIn.igniteForSeconds(1);
+                    entity.igniteForSeconds(1);
                 }
             }
 
-            entityIn.hurt(worldIn.damageSources().inFire(), 1.0F);
+            entity.hurt(level.damageSources().inFire(), 1.0F);
         }
-
-        super.entityInside(stateIn, worldIn, pos, entityIn);
     }
     
     @Override

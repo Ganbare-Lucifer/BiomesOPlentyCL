@@ -57,7 +57,7 @@ public class UmbranTreeFeature extends BOPTreeFeature<TaigaTreeConfiguration>
     }
 
     // generates a layer of leafs
-    public void generateLeafLayer(LevelAccessor world, RandomSource rand, BlockPos pos, int leavesRadius, int trunkStart, int trunkEnd, FoliagePlacer.FoliageSetter leaves, TaigaTreeConfiguration config)
+    public void generateLeafLayer(WorldGenLevel world, RandomSource rand, BlockPos pos, int leavesRadius, int trunkStart, int trunkEnd, FoliagePlacer.FoliageSetter leaves, TaigaTreeConfiguration config)
     {
         int start = trunkStart - leavesRadius;
         int end = trunkEnd + leavesRadius;
@@ -92,7 +92,7 @@ public class UmbranTreeFeature extends BOPTreeFeature<TaigaTreeConfiguration>
         }
     }
 
-    public void generateBranch(LevelAccessor world, RandomSource rand, BlockPos pos, Direction direction, int length, BiConsumer<BlockPos, BlockState> logs, FoliagePlacer.FoliageSetter leaves, TaigaTreeConfiguration config)
+    public void generateBranch(WorldGenLevel world, RandomSource rand, BlockPos pos, Direction direction, int length, BiConsumer<BlockPos, BlockState> logs, FoliagePlacer.FoliageSetter leaves, TaigaTreeConfiguration config)
     {
         Direction.Axis axis = direction.getAxis();
         Direction sideways = direction.getClockWise();
@@ -129,7 +129,7 @@ public class UmbranTreeFeature extends BOPTreeFeature<TaigaTreeConfiguration>
         TaigaTreeConfiguration config = (TaigaTreeConfiguration)configBase;
 
         // Move down until we reach the ground
-        while (startPos.getY() >= world.getMinBuildHeight()+1 && world.isEmptyBlock(startPos) || world.getBlockState(startPos).is(BlockTags.LEAVES))
+        while (startPos.getY() >= world.getMinY()+1 && world.isEmptyBlock(startPos) || world.getBlockState(startPos).is(BlockTags.LEAVES))
         {
             startPos = startPos.below();
         }

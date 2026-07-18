@@ -3,9 +3,7 @@
   "category": "redstone",
   "group": "wooden_trapdoor",
   "key": {
-    "#": {
-      "item": "biomesoplenty:mahogany_planks"
-    }
+    "#": "biomesoplenty:mahogany_planks"
   },
   "pattern": [
     "###",

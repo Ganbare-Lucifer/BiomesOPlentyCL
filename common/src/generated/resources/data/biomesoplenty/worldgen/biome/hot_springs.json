@@ -1,25 +1,25 @@
 {
-  "carvers": {
-    "air": [
-      "minecraft:cave",
-      "minecraft:cave_extra_underground",
-      "minecraft:canyon"
-    ]
+  "attributes": {
+    "minecraft:audio/background_music": {
+      "default": {
+        "max_delay": 24000,
+        "min_delay": 12000,
+        "sound": "minecraft:music.overworld.sulfur_caves"
+      }
+    },
+    "minecraft:visual/sky_color": "#7ea2ff",
+    "minecraft:visual/water_fog_color": "#041f33"
   },
+  "carvers": [
+    "minecraft:cave",
+    "minecraft:cave_extra_underground",
+    "minecraft:canyon"
+  ],
   "downfall": 0.5,
   "effects": {
-    "fog_color": 12638463,
-    "foliage_color": 6332795,
-    "grass_color": 8434839,
-    "mood_sound": {
-      "block_search_extent": 8,
-      "offset": 2.0,
-      "sound": "minecraft:ambient.cave",
-      "tick_delay": 6000
-    },
-    "sky_color": 8299263,
-    "water_color": 4445678,
-    "water_fog_color": 270131
+    "foliage_color": "#60a17b",
+    "grass_color": "#80b497",
+    "water_color": "#43d5ee"
   },
   "features": [
     [],
@@ -70,7 +70,10 @@
       "biomesoplenty:disk_hot_spring_calcite",
       "biomesoplenty:disk_hot_spring_basalt",
       "biomesoplenty:disk_hot_spring_packed_mud",
-      "biomesoplenty:disk_hot_spring_thermal_calcite"
+      "biomesoplenty:disk_hot_spring_cinnabar",
+      "biomesoplenty:disk_hot_spring_orpiment",
+      "biomesoplenty:disk_hot_spring_sulfur",
+      "biomesoplenty:disk_hot_spring_sphalerite"
     ],
     [
       "minecraft:spring_water",
@@ -159,6 +162,12 @@
         "maxCount": 1,
         "minCount": 1,
         "weight": 5
+      },
+      {
+        "type": "minecraft:sulfur_cube",
+        "maxCount": 2,
+        "minCount": 1,
+        "weight": 10
       }
     ],
     "underground_water_creature": [

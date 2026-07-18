@@ -1,25 +1,28 @@
 {
-  "carvers": {
-    "air": [
-      "minecraft:cave",
-      "minecraft:cave_extra_underground",
-      "minecraft:canyon"
-    ]
+  "attributes": {
+    "minecraft:audio/background_music": {
+      "default": {
+        "max_delay": 24000,
+        "min_delay": 12000,
+        "sound": "biomesoplenty:music.overworld.nostalgic"
+      }
+    },
+    "minecraft:visual/sky_color": "#7da2ff",
+    "minecraft:visual/water_fog_end_distance": {
+      "argument": 0.85,
+      "modifier": "multiply"
+    }
   },
+  "carvers": [
+    "minecraft:cave",
+    "minecraft:cave_extra_underground",
+    "minecraft:canyon"
+  ],
   "downfall": 0.5,
   "effects": {
-    "fog_color": 12638463,
-    "foliage_color": 13008731,
-    "grass_color": 11048279,
-    "mood_sound": {
-      "block_search_extent": 8,
-      "offset": 2.0,
-      "sound": "minecraft:ambient.cave",
-      "tick_delay": 6000
-    },
-    "sky_color": 8233727,
-    "water_color": 4159204,
-    "water_fog_color": 329011
+    "foliage_color": "#c67f5b",
+    "grass_color": "#a89557",
+    "water_color": "#3f76e4"
   },
   "features": [
     [],
@@ -75,9 +78,13 @@
       "minecraft:glow_lichen",
       "minecraft:brown_mushroom_normal",
       "minecraft:red_mushroom_normal",
-      "minecraft:patch_berry_common",
+      "minecraft:patch_sugar_cane_swamp",
+      "minecraft:patch_pumpkin",
+      "minecraft:patch_firefly_bush_swamp",
+      "minecraft:patch_firefly_bush_near_water_swamp",
       "biomesoplenty:trees_bog",
-      "biomesoplenty:patch_bush_10",
+      "biomesoplenty:patch_bog_berry_bush",
+      "biomesoplenty:patch_bush_4",
       "biomesoplenty:patch_fern_4",
       "biomesoplenty:patch_reed_10",
       "biomesoplenty:patch_grass_6"
@@ -98,14 +105,7 @@
       }
     ],
     "axolotls": [],
-    "creature": [
-      {
-        "type": "minecraft:pig",
-        "maxCount": 4,
-        "minCount": 4,
-        "weight": 10
-      }
-    ],
+    "creature": [],
     "misc": [],
     "monster": [
       {
@@ -130,7 +130,7 @@
         "type": "minecraft:skeleton",
         "maxCount": 4,
         "minCount": 4,
-        "weight": 100
+        "weight": 70
       },
       {
         "type": "minecraft:creeper",
@@ -155,6 +155,18 @@
         "maxCount": 1,
         "minCount": 1,
         "weight": 5
+      },
+      {
+        "type": "minecraft:slime",
+        "maxCount": 1,
+        "minCount": 1,
+        "weight": 1
+      },
+      {
+        "type": "minecraft:bogged",
+        "maxCount": 4,
+        "minCount": 4,
+        "weight": 30
       }
     ],
     "underground_water_creature": [

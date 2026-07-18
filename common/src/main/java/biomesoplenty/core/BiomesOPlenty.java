@@ -29,6 +29,8 @@ public class BiomesOPlenty
         ModTags.setup();
         addRegistrars();
         addHandlers();
+
+        ModLegacy.setupBiomes();
     }
 
     private static void addRegistrars()
@@ -48,9 +50,6 @@ public class BiomesOPlenty
 
     private static void addHandlers()
     {
-        // Misc handlers
-        if (ModConfig.gameplay.wanderingTraderTrades) { EventManager.addListener(ModVillagerTrades::addWanderingVillagerTrades); }
-
         if (Environment.isClient())
         {
             ModClient.addClientHandlers();

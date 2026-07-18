@@ -3,9 +3,7 @@
   "category": "building",
   "group": "planks",
   "ingredients": [
-    {
-      "tag": "biomesoplenty:mahogany_logs"
-    }
+    "#biomesoplenty:mahogany_logs"
   ],
   "result": {
     "count": 4,

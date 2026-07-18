@@ -45,9 +45,38 @@ public class BOPItems
     public static Item BLACK_SANDSTONE_STAIRS;
     public static Item BLACK_SANDSTONE_WALL;
 
-    public static Item THERMAL_CALCITE;
-    public static Item THERMAL_CALCITE_VENT;
     public static Item DRIED_SALT;
+
+    public static Item SPHALERITE;
+    public static Item SPHALERITE_SLAB;
+    public static Item SPHALERITE_STAIRS;
+    public static Item SPHALERITE_WALL;
+    public static Item POLISHED_SPHALERITE;
+    public static Item POLISHED_SPHALERITE_SLAB;
+    public static Item POLISHED_SPHALERITE_STAIRS;
+    public static Item POLISHED_SPHALERITE_WALL;
+    public static Item SPHALERITE_BRICKS;
+    public static Item SPHALERITE_BRICK_SLAB;
+    public static Item SPHALERITE_BRICK_STAIRS;
+    public static Item SPHALERITE_BRICK_WALL;
+    public static Item CHISELED_SPHALERITE;
+    public static Item POTENT_SPHALERITE;
+    public static Item ORPIMENT;
+    public static Item ORPIMENT_SLAB;
+    public static Item ORPIMENT_STAIRS;
+    public static Item ORPIMENT_WALL;
+    public static Item POLISHED_ORPIMENT;
+    public static Item POLISHED_ORPIMENT_SLAB;
+    public static Item POLISHED_ORPIMENT_STAIRS;
+    public static Item POLISHED_ORPIMENT_WALL;
+    public static Item ORPIMENT_BRICKS;
+    public static Item ORPIMENT_BRICK_SLAB;
+    public static Item ORPIMENT_BRICK_STAIRS;
+    public static Item ORPIMENT_BRICK_WALL;
+    public static Item CHISELED_ORPIMENT;
+    public static Item ORPIMENT_FUMAROLE;
+    public static Item ORPIMENT_CLUSTER;
+    public static Item ORPIMENT_BUD;
 
     public static Item FLESH;
     public static Item POROUS_FLESH;
@@ -59,15 +88,6 @@ public class BOPItems
     public static Item BLOOD;
     public static Item BLOOD_BUCKET;
 
-    public static Item BRIMSTONE;
-    public static Item BRIMSTONE_BRICKS;
-    public static Item BRIMSTONE_BRICK_SLAB;
-    public static Item BRIMSTONE_BRICK_STAIRS;
-    public static Item BRIMSTONE_BRICK_WALL;
-    public static Item CHISELED_BRIMSTONE_BRICKS;
-    public static Item BRIMSTONE_FUMAROLE;
-    public static Item BRIMSTONE_CLUSTER;
-    public static Item BRIMSTONE_BUD;
     public static Item BLACKSTONE_SPINES;
     public static Item BLACKSTONE_BULB;
 
@@ -81,6 +101,9 @@ public class BOPItems
 
     public static Item BARNACLES;
     public static Item WISPJELLY;
+    //public static Item VOIDCAP;
+    //public static Item VOIDCAP_BLOCK;
+    //public static Item VOCYLIUM;
     public static Item ALGAL_END_STONE;
     public static Item UNMAPPED_END_STONE;
     public static Item NULL_END_STONE;
@@ -106,18 +129,54 @@ public class BOPItems
     public static Item STRINGY_COBWEB;
     public static Item WEBBING;
 
+    public static Item WHITE_FLOWER_PETAL_BLOCK;
+    public static Item LIGHT_GRAY_FLOWER_PETAL_BLOCK;
+    public static Item GRAY_FLOWER_PETAL_BLOCK;
+    public static Item BLACK_FLOWER_PETAL_BLOCK;
+    public static Item BROWN_FLOWER_PETAL_BLOCK;
+    public static Item RED_FLOWER_PETAL_BLOCK;
+    public static Item ORANGE_FLOWER_PETAL_BLOCK;
+    public static Item YELLOW_FLOWER_PETAL_BLOCK;
+    public static Item LIME_FLOWER_PETAL_BLOCK;
+    public static Item GREEN_FLOWER_PETAL_BLOCK;
+    public static Item CYAN_FLOWER_PETAL_BLOCK;
+    public static Item LIGHT_BLUE_FLOWER_PETAL_BLOCK;
+    public static Item BLUE_FLOWER_PETAL_BLOCK;
+    public static Item PURPLE_FLOWER_PETAL_BLOCK;
+    public static Item MAGENTA_FLOWER_PETAL_BLOCK;
+    public static Item PINK_FLOWER_PETAL_BLOCK;
+    public static Item FLOWER_STEM;
+
     public static Item ORIGIN_GRASS_BLOCK;
 
-    public static Item ORIGIN_SAPLING;
-    public static Item ORIGIN_LEAVES;
     public static Item FLOWERING_OAK_SAPLING;
     public static Item FLOWERING_OAK_LEAVES;
     public static Item CYPRESS_SAPLING;
     public static Item CYPRESS_LEAVES;
     public static Item SNOWBLOSSOM_SAPLING;
     public static Item SNOWBLOSSOM_LEAVES;
-    public static Item RAINBOW_BIRCH_SAPLING;
-    public static Item RAINBOW_BIRCH_LEAVES;
+
+    public static Item ORIGIN_OAK_SAPLING;
+    public static Item ORIGIN_OAK_LEAVES;
+    public static Item ORIGIN_OAK_LOG;
+    public static Item STRIPPED_ORIGIN_OAK_LOG;
+    public static Item ORIGIN_OAK_WOOD;
+    public static Item STRIPPED_ORIGIN_OAK_WOOD;
+    public static Item ORIGIN_OAK_PLANKS;
+    public static Item ORIGIN_OAK_SLAB;
+    public static Item ORIGIN_OAK_STAIRS;
+    public static Item ORIGIN_OAK_FENCE;
+    public static Item ORIGIN_OAK_FENCE_GATE;
+    public static Item ORIGIN_OAK_DOOR;
+    public static Item ORIGIN_OAK_TRAPDOOR;
+    public static Item ORIGIN_OAK_PRESSURE_PLATE;
+    public static Item ORIGIN_OAK_BUTTON;
+    public static Item ORIGIN_OAK_SHELF;
+    public static Item ORIGIN_OAK_SIGN;
+    public static Item ORIGIN_OAK_HANGING_SIGN;
+    public static Item ORIGIN_OAK_BOAT;
+    public static Item ORIGIN_OAK_CHEST_BOAT;
+
     public static Item FIR_SAPLING;
     public static Item FIR_LEAVES;
     public static Item FIR_LOG;
@@ -133,6 +192,7 @@ public class BOPItems
     public static Item FIR_TRAPDOOR;
     public static Item FIR_PRESSURE_PLATE;
     public static Item FIR_BUTTON;
+    public static Item FIR_SHELF;
     public static Item FIR_SIGN;
     public static Item FIR_HANGING_SIGN;
     public static Item FIR_BOAT;
@@ -153,19 +213,20 @@ public class BOPItems
     public static Item PINE_TRAPDOOR;
     public static Item PINE_PRESSURE_PLATE;
     public static Item PINE_BUTTON;
+    public static Item PINE_SHELF;
     public static Item PINE_SIGN;
     public static Item PINE_HANGING_SIGN;
     public static Item PINE_BOAT;
     public static Item PINE_CHEST_BOAT;
 
     public static Item RED_MAPLE_SAPLING;
-    public static Item RED_MAPLE_LEAF_PILE;
+    public static Item RED_MAPLE_LEAF_LITTER;
     public static Item RED_MAPLE_LEAVES;
     public static Item ORANGE_MAPLE_SAPLING;
-    public static Item ORANGE_MAPLE_LEAF_PILE;
+    public static Item ORANGE_MAPLE_LEAF_LITTER;
     public static Item ORANGE_MAPLE_LEAVES;
     public static Item YELLOW_MAPLE_SAPLING;
-    public static Item YELLOW_MAPLE_LEAF_PILE;
+    public static Item YELLOW_MAPLE_LEAF_LITTER;
     public static Item YELLOW_MAPLE_LEAVES;
     public static Item MAPLE_LOG;
     public static Item STRIPPED_MAPLE_LOG;
@@ -180,6 +241,7 @@ public class BOPItems
     public static Item MAPLE_TRAPDOOR;
     public static Item MAPLE_PRESSURE_PLATE;
     public static Item MAPLE_BUTTON;
+    public static Item MAPLE_SHELF;
     public static Item MAPLE_SIGN;
     public static Item MAPLE_HANGING_SIGN;
     public static Item MAPLE_BOAT;
@@ -200,6 +262,7 @@ public class BOPItems
     public static Item REDWOOD_TRAPDOOR;
     public static Item REDWOOD_PRESSURE_PLATE;
     public static Item REDWOOD_BUTTON;
+    public static Item REDWOOD_SHELF;
     public static Item REDWOOD_SIGN;
     public static Item REDWOOD_HANGING_SIGN;
     public static Item REDWOOD_BOAT;
@@ -220,6 +283,7 @@ public class BOPItems
     public static Item MAHOGANY_TRAPDOOR;
     public static Item MAHOGANY_PRESSURE_PLATE;
     public static Item MAHOGANY_BUTTON;
+    public static Item MAHOGANY_SHELF;
     public static Item MAHOGANY_SIGN;
     public static Item MAHOGANY_HANGING_SIGN;
     public static Item MAHOGANY_BOAT;
@@ -240,6 +304,7 @@ public class BOPItems
     public static Item JACARANDA_TRAPDOOR;
     public static Item JACARANDA_PRESSURE_PLATE;
     public static Item JACARANDA_BUTTON;
+    public static Item JACARANDA_SHELF;
     public static Item JACARANDA_SIGN;
     public static Item JACARANDA_HANGING_SIGN;
     public static Item JACARANDA_BOAT;
@@ -260,6 +325,7 @@ public class BOPItems
     public static Item PALM_TRAPDOOR;
     public static Item PALM_PRESSURE_PLATE;
     public static Item PALM_BUTTON;
+    public static Item PALM_SHELF;
     public static Item PALM_SIGN;
     public static Item PALM_HANGING_SIGN;
     public static Item PALM_BOAT;
@@ -283,6 +349,7 @@ public class BOPItems
     public static Item WILLOW_TRAPDOOR;
     public static Item WILLOW_PRESSURE_PLATE;
     public static Item WILLOW_BUTTON;
+    public static Item WILLOW_SHELF;
     public static Item WILLOW_SIGN;
     public static Item WILLOW_HANGING_SIGN;
     public static Item WILLOW_BOAT;
@@ -304,6 +371,7 @@ public class BOPItems
     public static Item DEAD_TRAPDOOR;
     public static Item DEAD_PRESSURE_PLATE;
     public static Item DEAD_BUTTON;
+    public static Item DEAD_SHELF;
     public static Item DEAD_SIGN;
     public static Item DEAD_HANGING_SIGN;
     public static Item DEAD_BOAT;
@@ -324,6 +392,7 @@ public class BOPItems
     public static Item MAGIC_TRAPDOOR;
     public static Item MAGIC_PRESSURE_PLATE;
     public static Item MAGIC_BUTTON;
+    public static Item MAGIC_SHELF;
     public static Item MAGIC_SIGN;
     public static Item MAGIC_HANGING_SIGN;
     public static Item MAGIC_BOAT;
@@ -344,6 +413,7 @@ public class BOPItems
     public static Item UMBRAN_TRAPDOOR;
     public static Item UMBRAN_PRESSURE_PLATE;
     public static Item UMBRAN_BUTTON;
+    public static Item UMBRAN_SHELF;
     public static Item UMBRAN_SIGN;
     public static Item UMBRAN_HANGING_SIGN;
     public static Item UMBRAN_BOAT;
@@ -364,6 +434,7 @@ public class BOPItems
     public static Item HELLBARK_TRAPDOOR;
     public static Item HELLBARK_PRESSURE_PLATE;
     public static Item HELLBARK_BUTTON;
+    public static Item HELLBARK_SHELF;
     public static Item HELLBARK_SIGN;
     public static Item HELLBARK_HANGING_SIGN;
     public static Item HELLBARK_BOAT;
@@ -384,12 +455,16 @@ public class BOPItems
     public static Item EMPYREAL_TRAPDOOR;
     public static Item EMPYREAL_PRESSURE_PLATE;
     public static Item EMPYREAL_BUTTON;
+    public static Item EMPYREAL_SHELF;
     public static Item EMPYREAL_SIGN;
     public static Item EMPYREAL_HANGING_SIGN;
     public static Item EMPYREAL_BOAT;
     public static Item EMPYREAL_CHEST_BOAT;
 
-    public static Item ROSE;
+    public static Item FLOWER_BUD;
+    public static Item ORIGIN_DANDELION;
+    public static Item ORIGIN_ROSE;
+    public static Item MARIGOLD;
     public static Item VIOLET;
     public static Item LAVENDER;
     public static Item TALL_LAVENDER;
@@ -400,7 +475,7 @@ public class BOPItems
     public static Item ORANGE_COSMOS;
     public static Item PINK_DAFFODIL;
     public static Item PINK_HIBISCUS;
-    public static Item WILDFLOWER;
+    public static Item PURPLE_WILDFLOWERS;
     public static Item WHITE_PETALS;
     public static Item ICY_IRIS;
     public static Item GLOWFLOWER;
@@ -409,7 +484,6 @@ public class BOPItems
     public static Item ENDBLOOM;
 
     public static Item SPROUT;
-    public static Item BUSH;
     public static Item HIGH_GRASS;
     public static Item HIGH_GRASS_PLANT;
     public static Item CLOVER;
@@ -436,11 +510,10 @@ public class BOPItems
 
     public static Item MUSIC_DISC_WANDERER;
 
-    public static Item POTTED_ORIGIN_SAPLING;
     public static Item POTTED_FLOWERING_OAK_SAPLING;
     public static Item POTTED_CYPRESS_SAPLING;
     public static Item POTTED_SNOWBLOSSOM_SAPLING;
-    public static Item POTTED_RAINBOW_BIRCH_SAPLING;
+    public static Item POTTED_ORIGIN_OAK_SAPLING;
     public static Item POTTED_FIR_SAPLING;
     public static Item POTTED_PINE_SAPLING;
     public static Item POTTED_RED_MAPLE_SAPLING;
@@ -456,7 +529,10 @@ public class BOPItems
     public static Item POTTED_UMBRAN_SAPLING;
     public static Item POTTED_HELLBARK_SAPLING;
     public static Item POTTED_EMPYREAL_SAPLING;
-    public static Item POTTED_ROSE;
+    public static Item POTTED_FLOWER_BUD;
+    public static Item POTTED_ORIGIN_DANDELION;
+    public static Item POTTED_ORIGIN_ROSE;
+    public static Item POTTED_MARIGOLD;
     public static Item POTTED_VIOLET;
     public static Item POTTED_LAVENDER;
     public static Item POTTED_WHITE_LAVENDER;
@@ -471,4 +547,5 @@ public class BOPItems
     public static Item POTTED_TINY_CACTUS;
     public static Item POTTED_TOADSTOOL;
     public static Item POTTED_GLOWSHROOM;
+    //public static Item POTTED_VOIDCAP;
 }

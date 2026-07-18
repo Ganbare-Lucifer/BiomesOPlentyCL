@@ -31,18 +31,18 @@ public class OvergrownSandBlock extends ColoredFallingBlock implements Bonemeala
         super(dustColor, properties);
     }
 
-    private static boolean canBeGrass(BlockState p_56824_, LevelReader p_56825_, BlockPos p_56826_)
+    private static boolean canBeGrass(BlockState state, LevelReader p_56825_, BlockPos p_56826_)
     {
-        BlockPos blockpos = p_56826_.above();
-        BlockState blockstate = p_56825_.getBlockState(blockpos);
-        if (blockstate.getFluidState().getAmount() == 8)
+        BlockPos abovePos = p_56826_.above();
+        BlockState aboveState = p_56825_.getBlockState(abovePos);
+        if (aboveState.getFluidState().getAmount() == 8)
         {
             return false;
         }
         else
         {
-            int i = LightEngine.getLightBlockInto(p_56825_, p_56824_, p_56826_, blockstate, blockpos, Direction.UP, blockstate.getLightBlock(p_56825_, blockpos));
-            return i < p_56825_.getMaxLightLevel();
+            int i = LightEngine.getLightDampeningInto(state, aboveState, Direction.UP, aboveState.getLightDampening());
+            return i < 15;
         }
     }
 
@@ -72,7 +72,7 @@ public class OvergrownSandBlock extends ColoredFallingBlock implements Bonemeala
     {
         BlockPos blockpos = p_221272_.above();
         BlockState blockstate = Blocks.SHORT_GRASS.defaultBlockState();
-        Optional<Holder.Reference<PlacedFeature>> optional = p_221270_.registryAccess().registryOrThrow(Registries.PLACED_FEATURE).getHolder(BOPVegetationPlacements.SPROUT_BONEMEAL);
+        Optional<Holder.Reference<PlacedFeature>> optional = p_221270_.registryAccess().lookupOrThrow(Registries.PLACED_FEATURE).get(BOPVegetationPlacements.SPROUT_BONEMEAL);
 
         label49:
         for(int i = 0; i < 128; ++i)

@@ -2,7 +2,6 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:alternatives",
@@ -16,7 +15,7 @@
                     {
                       "condition": "minecraft:match_tool",
                       "predicate": {
-                        "items": "#biomesoplenty:shears"
+                        "items": "#c:tools/shear"
                       }
                     },
                     {
@@ -64,7 +63,6 @@
       "rolls": 1.0
     },
     {
-      "bonus_rolls": 0.0,
       "conditions": [
         {
           "condition": "minecraft:inverted",
@@ -74,7 +72,7 @@
               {
                 "condition": "minecraft:match_tool",
                 "predicate": {
-                  "items": "#biomesoplenty:shears"
+                  "items": "#c:tools/shear"
                 }
               },
               {
@@ -114,7 +112,6 @@
           ],
           "functions": [
             {
-              "add": false,
               "count": {
                 "type": "minecraft:uniform",
                 "max": 2.0,

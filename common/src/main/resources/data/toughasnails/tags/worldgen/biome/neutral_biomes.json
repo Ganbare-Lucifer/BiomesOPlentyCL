@@ -13,15 +13,7 @@
 	  "required": false
     },
 	{
-      "id": "biomesoplenty:grassland",
-	  "required": false
-    },
-	{
       "id": "biomesoplenty:highland",
-	  "required": false
-    },
-	{
-      "id": "biomesoplenty:jacaranda_glade",
 	  "required": false
     },
 	{
@@ -83,6 +75,10 @@
     {
       "id": "biomesoplenty:spider_nest",
 	  "required": false
+    },
+    {
+      "id": "biomesoplenty:subtropics",
+      "required": false
     },
 	{
       "id": "biomesoplenty:wetland",

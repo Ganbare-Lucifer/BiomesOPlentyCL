@@ -1,5 +1,7 @@
 {
-    "variants": {
-        "": { "model": "biomesoplenty:block/dead_leaves" }
+  "variants": {
+    "": {
+      "model": "biomesoplenty:block/dead_leaves"
     }
+  }
 }

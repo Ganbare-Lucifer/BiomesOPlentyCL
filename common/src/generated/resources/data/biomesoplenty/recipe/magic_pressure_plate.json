@@ -3,15 +3,12 @@
   "category": "redstone",
   "group": "wooden_pressure_plate",
   "key": {
-    "#": {
-      "item": "biomesoplenty:magic_planks"
-    }
+    "#": "biomesoplenty:magic_planks"
   },
   "pattern": [
     "##"
   ],
   "result": {
-    "count": 1,
     "id": "biomesoplenty:magic_pressure_plate"
   }
 }

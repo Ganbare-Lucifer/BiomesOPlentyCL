@@ -1,23 +1,16 @@
 {
-  "carvers": {
-    "air": [
-      "minecraft:cave",
-      "minecraft:cave_extra_underground",
-      "minecraft:canyon"
-    ]
+  "attributes": {
+    "minecraft:visual/sky_color": "#78a7ff",
+    "minecraft:visual/water_fog_color": "#041633"
   },
+  "carvers": [
+    "minecraft:cave",
+    "minecraft:cave_extra_underground",
+    "minecraft:canyon"
+  ],
   "downfall": 0.275,
   "effects": {
-    "fog_color": 12638463,
-    "mood_sound": {
-      "block_search_extent": 8,
-      "offset": 2.0,
-      "sound": "minecraft:ambient.cave",
-      "tick_delay": 6000
-    },
-    "sky_color": 7907327,
-    "water_color": 4566514,
-    "water_fog_color": 267827
+    "water_color": "#45adf2"
   },
   "features": [
     [],
@@ -73,7 +66,10 @@
     ],
     [
       "minecraft:glow_lichen",
+      "minecraft:patch_leaf_litter",
       "minecraft:patch_pumpkin",
+      "minecraft:patch_sugar_cane",
+      "minecraft:patch_firefly_bush_near_water",
       "biomesoplenty:trees_mediterranean_forest",
       "biomesoplenty:flower_default_extended_6",
       "biomesoplenty:patch_bush_1",

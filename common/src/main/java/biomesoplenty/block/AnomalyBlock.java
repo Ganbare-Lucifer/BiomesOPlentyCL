@@ -44,7 +44,7 @@ public class AnomalyBlock extends BaseEntityBlock
     public BlockState getStateForPlacement(BlockPlaceContext p_49479_)
     {
         AnomalyType type;
-        switch (p_49479_.getLevel().random.nextInt(4))
+        switch (p_49479_.getLevel().getRandom().nextInt(4))
         {
             default:
             case 0:
@@ -67,7 +67,7 @@ public class AnomalyBlock extends BaseEntityBlock
     }
 
     @Override
-    public boolean propagatesSkylightDown(BlockState state, BlockGetter getter, BlockPos pos)
+    public boolean propagatesSkylightDown(BlockState state)
     {
         return state.getValue(ANOMALY_TYPE) != AnomalyType.STABLE;
     }
@@ -79,7 +79,7 @@ public class AnomalyBlock extends BaseEntityBlock
     }
 
     @Override
-    public VoxelShape getOcclusionShape(BlockState state, BlockGetter getter, BlockPos pos)
+    public VoxelShape getOcclusionShape(BlockState state)
     {
         if (state.getValue(ANOMALY_TYPE) == AnomalyType.STABLE) return Shapes.block();
         else return Shapes.empty();

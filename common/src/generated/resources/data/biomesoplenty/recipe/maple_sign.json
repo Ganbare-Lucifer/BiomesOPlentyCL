@@ -1,14 +1,9 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "group": "wooden_sign",
   "key": {
-    "#": {
-      "item": "biomesoplenty:maple_planks"
-    },
-    "X": {
-      "item": "minecraft:stick"
-    }
+    "#": "biomesoplenty:maple_planks",
+    "X": "minecraft:stick"
   },
   "pattern": [
     "###",

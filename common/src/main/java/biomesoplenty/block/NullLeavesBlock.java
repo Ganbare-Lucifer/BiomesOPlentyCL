@@ -13,18 +13,21 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.LeavesBlock;
+import net.minecraft.world.level.block.TintedParticleLeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 
 import java.util.OptionalInt;
 
-public class NullLeavesBlock extends LeavesBlock
+public class NullLeavesBlock extends TintedParticleLeavesBlock
 {
     public NullLeavesBlock(Properties p_273704_)
     {
-        super(p_273704_);
+        super(0.01F, p_273704_);
     }
 
     @Override
@@ -33,17 +36,18 @@ public class NullLeavesBlock extends LeavesBlock
     }
 
     @Override
-    public BlockState updateShape(BlockState $$0, Direction $$1, BlockState $$2, LevelAccessor $$3, BlockPos $$4, BlockPos $$5) {
-        if ((Boolean)$$0.getValue(WATERLOGGED)) {
-            $$3.scheduleTick($$4, Fluids.WATER, Fluids.WATER.getTickDelay($$3));
+    protected BlockState updateShape(BlockState state, LevelReader level, ScheduledTickAccess tickAccess, BlockPos pos, Direction facing, BlockPos facingPos, BlockState facingState, RandomSource random)
+    {
+        if ((Boolean)state.getValue(WATERLOGGED)) {
+            tickAccess.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
         }
 
-        int $$6 = getDistanceAt($$2) + 1;
-        if ($$6 != 1 || (Integer)$$0.getValue(DISTANCE) != $$6) {
-            $$3.scheduleTick($$4, this, 1);
+        int $$6 = getDistanceAt(facingState) + 1;
+        if ($$6 != 1 || (Integer)state.getValue(DISTANCE) != $$6) {
+            tickAccess.scheduleTick(pos, this, 1);
         }
 
-        return $$0;
+        return state;
     }
 
     private static BlockState updateDistance(BlockState $$0, LevelAccessor $$1, BlockPos $$2) {

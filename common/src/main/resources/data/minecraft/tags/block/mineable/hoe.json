@@ -1,11 +1,27 @@
 {
   "replace": false,
   "values": [
-	"biomesoplenty:origin_leaves",
+	"biomesoplenty:white_flower_petal_block",
+	"biomesoplenty:light_gray_flower_petal_block",
+	"biomesoplenty:gray_flower_petal_block",
+	"biomesoplenty:black_flower_petal_block",
+	"biomesoplenty:brown_flower_petal_block",
+	"biomesoplenty:red_flower_petal_block",
+	"biomesoplenty:orange_flower_petal_block",
+	"biomesoplenty:yellow_flower_petal_block",
+	"biomesoplenty:lime_flower_petal_block",
+	"biomesoplenty:green_flower_petal_block",
+	"biomesoplenty:cyan_flower_petal_block",
+	"biomesoplenty:light_blue_flower_petal_block",
+	"biomesoplenty:blue_flower_petal_block",
+	"biomesoplenty:purple_flower_petal_block",
+	"biomesoplenty:magenta_flower_petal_block",
+	"biomesoplenty:pink_flower_petal_block",
+	"biomesoplenty:flower_stem",
 	"biomesoplenty:flowering_oak_leaves",
 	"biomesoplenty:cypress_leaves",
 	"biomesoplenty:snowblossom_leaves",
-	"biomesoplenty:rainbow_birch_leaves",
+	"biomesoplenty:origin_oak_leaves",
 	"biomesoplenty:fir_leaves",
 	"biomesoplenty:pine_leaves",
 	"biomesoplenty:redwood_leaves",
@@ -24,8 +40,8 @@
 	"biomesoplenty:glowing_moss_block",
 	"biomesoplenty:glowing_moss_carpet",
 	"biomesoplenty:white_petals",
-	"biomesoplenty:red_maple_leaf_pile",
-	"biomesoplenty:orange_maple_leaf_pile",
-	"biomesoplenty:yellow_maple_leaf_pile"
+	"biomesoplenty:red_maple_leaf_litter",
+	"biomesoplenty:orange_maple_leaf_litter",
+	"biomesoplenty:yellow_maple_leaf_litter"
   ]
 }

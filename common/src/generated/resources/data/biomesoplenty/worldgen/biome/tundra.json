@@ -1,25 +1,24 @@
 {
-  "carvers": {
-    "air": [
-      "minecraft:cave",
-      "minecraft:cave_extra_underground",
-      "minecraft:canyon"
-    ]
+  "attributes": {
+    "minecraft:audio/background_music": {
+      "default": {
+        "max_delay": 24000,
+        "min_delay": 12000,
+        "sound": "biomesoplenty:music.overworld.nostalgic"
+      }
+    },
+    "minecraft:visual/sky_color": "#7da2ff"
   },
+  "carvers": [
+    "minecraft:cave",
+    "minecraft:cave_extra_underground",
+    "minecraft:canyon"
+  ],
   "downfall": 0.5,
   "effects": {
-    "fog_color": 12638463,
-    "foliage_color": 12949340,
-    "grass_color": 12616537,
-    "mood_sound": {
-      "block_search_extent": 8,
-      "offset": 2.0,
-      "sound": "minecraft:ambient.cave",
-      "tick_delay": 6000
-    },
-    "sky_color": 8233727,
-    "water_color": 4159204,
-    "water_fog_color": 329011
+    "foliage_color": "#c5975c",
+    "grass_color": "#c08359",
+    "water_color": "#3f76e4"
   },
   "features": [
     [],
@@ -73,6 +72,7 @@
     [
       "minecraft:glow_lichen",
       "biomesoplenty:trees_tundra",
+      "biomesoplenty:patch_bush_1",
       "biomesoplenty:patch_fern_2",
       "biomesoplenty:patch_reed_5",
       "biomesoplenty:patch_grass_6",

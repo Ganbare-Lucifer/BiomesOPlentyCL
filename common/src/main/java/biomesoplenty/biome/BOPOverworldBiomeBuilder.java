@@ -113,7 +113,7 @@ public class BOPOverworldBiomeBuilder
     protected final ResourceKey<Biome>[][] PLATEAU_BIOMES_VARIANT = new ResourceKey[][]{
             {Biomes.ICE_SPIKES,      null,                   null,          null,                null},
             {Biomes.CHERRY_GROVE,    null,                   Biomes.MEADOW, Biomes.MEADOW,       Biomes.OLD_GROWTH_PINE_TAIGA},
-            {Biomes.CHERRY_GROVE,    Biomes.CHERRY_GROVE,    Biomes.FOREST, Biomes.BIRCH_FOREST, null},
+            {Biomes.CHERRY_GROVE,    Biomes.CHERRY_GROVE,    Biomes.FOREST, Biomes.BIRCH_FOREST, Biomes.PALE_GARDEN},
             {null,                   null,                   null,          null,                null},
             {Biomes.ERODED_BADLANDS, Biomes.ERODED_BADLANDS, null,          null,                null}
     };
@@ -148,7 +148,7 @@ public class BOPOverworldBiomeBuilder
     protected final ResourceKey<Biome>[][] MIDDLE_BIOMES_BOP = new ResourceKey[][]{
             {BOPBiomes.COLD_DESERT,       BOPBiomes.COLD_DESERT,       BOPBiomes.SNOWY_CONIFEROUS_FOREST, BOPBiomes.SNOWY_CONIFEROUS_FOREST, BOPBiomes.SNOWY_CONIFEROUS_FOREST},
             {BOPBiomes.CONIFEROUS_FOREST, BOPBiomes.CONIFEROUS_FOREST, BOPBiomes.CONIFEROUS_FOREST,       BOPBiomes.FIELD,                   BOPBiomes.FIELD},
-            {BOPBiomes.PASTURE,           BOPBiomes.PRAIRIE,           BOPBiomes.REDWOOD_FOREST,          BOPBiomes.OVERGROWN_GREENS,        BOPBiomes.OVERGROWN_GREENS},
+            {BOPBiomes.PASTURE,           BOPBiomes.PRAIRIE,           BOPBiomes.REDWOOD_FOREST,          BOPBiomes.OVERGROWN_GREENS,        BOPBiomes.SUBTROPICS},
             {BOPBiomes.SCRUBLAND,         BOPBiomes.SCRUBLAND,         BOPBiomes.WOODLAND,                BOPBiomes.RAINFOREST,              BOPBiomes.RAINFOREST},
             {BOPBiomes.DRYLAND,           BOPBiomes.DRYLAND,           BOPBiomes.LUSH_DESERT,             BOPBiomes.LUSH_DESERT,             BOPBiomes.LUSH_DESERT}
     };
@@ -156,7 +156,7 @@ public class BOPOverworldBiomeBuilder
     protected final ResourceKey<Biome>[][] MIDDLE_BIOMES_VARIANT_BOP = new ResourceKey[][]{
             {null,              null,                   BOPBiomes.SNOWY_FIR_CLEARING,  BOPBiomes.SNOWY_FIR_CLEARING, BOPBiomes.SNOWY_MAPLE_WOODS},
             {null,              BOPBiomes.FIR_CLEARING, null,                          null,                         BOPBiomes.FORESTED_FIELD},
-            {null,              null,                   null,                          null,                         BOPBiomes.GRASSLAND},
+            {null,              null,                   null,                          null,                         null},
             {null,              null,                   BOPBiomes.OLD_GROWTH_WOODLAND, null,                         BOPBiomes.ROCKY_RAINFOREST},
             {null,              null,                   null,                          BOPBiomes.LUSH_SAVANNA,       BOPBiomes.LUSH_SAVANNA}
     };
@@ -522,8 +522,8 @@ public class BOPOverworldBiomeBuilder
 
     protected void addUndergroundBiomes(Registry<Biome> biomeRegistry, Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> mapper)
     {
-        this.addUndergroundBiome(biomeRegistry, mapper, this.FULL_RANGE, this.FULL_RANGE, Climate.Parameter.span(0.8F, 1.0F), this.FULL_RANGE, this.FULL_RANGE, 0.0F, BOPBiomes.SPIDER_NEST);
-        this.addUndergroundBiome(biomeRegistry, mapper, this.FULL_RANGE, Climate.Parameter.span(0.7F, 1.0F), this.FULL_RANGE, this.FULL_RANGE, this.FULL_RANGE, 0.0F, BOPBiomes.GLOWING_GROTTO);
+        this.addUndergroundBiome(biomeRegistry, mapper, this.FULL_RANGE, this.FULL_RANGE, Climate.Parameter.span(0.8F, 1.0F), this.FULL_RANGE, this.FULL_RANGE, 0.0F, BOPBiomes.SPIDER_NEST, Biomes.DRIPSTONE_CAVES);
+        this.addUndergroundBiome(biomeRegistry, mapper, this.FULL_RANGE, Climate.Parameter.span(0.7F, 1.0F), this.FULL_RANGE, this.FULL_RANGE, this.FULL_RANGE, 0.0F, BOPBiomes.GLOWING_GROTTO, Biomes.LUSH_CAVES);
         this.addBottomBiome(mapper, this.FULL_RANGE, this.FULL_RANGE, this.FULL_RANGE, Climate.Parameter.span(this.erosions[0], this.erosions[1]), this.FULL_RANGE, 0.0F, Biomes.DEEP_DARK);
     }
 
@@ -655,12 +655,9 @@ public class BOPOverworldBiomeBuilder
         mapper.accept(Pair.of(Climate.parameters(temperature, humidity, continentalness, erosion, Climate.Parameter.point(1.0F), weirdness, offset), biome));
     }
 
-    protected void addUndergroundBiome(Registry<Biome> biomeRegistry, Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> mapper, Climate.Parameter temperature, Climate.Parameter humidity, Climate.Parameter continentalness, Climate.Parameter erosion, Climate.Parameter weirdness, float offset, ResourceKey<Biome> biome)
+    protected void addUndergroundBiome(Registry<Biome> biomeRegistry, Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> mapper, Climate.Parameter temperature, Climate.Parameter humidity, Climate.Parameter continentalness, Climate.Parameter erosion, Climate.Parameter weirdness, float offset, ResourceKey<Biome> biome, ResourceKey<Biome> fallbackBiome)
     {
-        if (!ModConfig.isBiomeEnabled(biome))
-            return;
-
-        mapper.accept(Pair.of(Climate.parameters(temperature, humidity, continentalness, erosion, Climate.Parameter.span(0.2F, 0.9F), weirdness, offset), biome));
+        mapper.accept(Pair.of(Climate.parameters(temperature, humidity, continentalness, erosion, Climate.Parameter.span(0.2F, 0.9F), weirdness, offset), BiomeUtil.biomeOrFallback(biomeRegistry, biome, fallbackBiome)));
     }
 
     private void addBottomBiome(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> mapper, Climate.Parameter temperature, Climate.Parameter humidity, Climate.Parameter continentalness, Climate.Parameter erosion, Climate.Parameter weirdness, float offset, ResourceKey<Biome> biome)

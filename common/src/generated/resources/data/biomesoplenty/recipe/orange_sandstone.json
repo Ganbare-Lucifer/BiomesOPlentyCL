@@ -2,16 +2,13 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "#": {
-      "item": "biomesoplenty:orange_sand"
-    }
+    "#": "biomesoplenty:orange_sand"
   },
   "pattern": [
     "##",
     "##"
   ],
   "result": {
-    "count": 1,
     "id": "biomesoplenty:orange_sandstone"
   }
 }

@@ -8,17 +8,19 @@ import biomesoplenty.api.biome.BOPBiomes;
 import biomesoplenty.biome.BOPEndBiomes;
 import biomesoplenty.biome.BOPNetherBiomes;
 import biomesoplenty.biome.BOPOverworldBiomes;
+import biomesoplenty.core.BiomesOPlenty;
 import biomesoplenty.worldgen.*;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.entity.npc.VillagerType;
+import net.minecraft.world.entity.npc.villager.VillagerType;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.carver.ConfiguredWorldCarver;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import terrablender.api.EndBiomeRegistry;
 import terrablender.api.Regions;
+import terrablender.api.SurfaceRuleManager;
 
 public class ModBiomes
 {
@@ -38,9 +40,13 @@ public class ModBiomes
         Regions.register(new BOPNetherRegionRare(ModConfig.generation.bopNetherRareRegionWeight));
 
         // Register end biomes
-        EndBiomeRegistry.registerHighlandsBiome(BOPBiomes.END_WILDS, 9);
-        EndBiomeRegistry.registerHighlandsBiome(BOPBiomes.END_REEF, 6);
-        EndBiomeRegistry.registerHighlandsBiome(BOPBiomes.END_CORRUPTION, 3);
+        registerHighlandsBiome(BOPBiomes.END_WILDS, 10);
+        registerHighlandsBiome(BOPBiomes.END_REEF, 8);
+        //registerHighlandsBiome(BOPBiomes.END_MYCOSIS, 6);
+        registerHighlandsBiome(BOPBiomes.END_FLATS, 4);
+        registerHighlandsBiome(BOPBiomes.END_CORRUPTION, 2);
+
+
     }
 
     public static void bootstrapBiomes(BootstrapContext<Biome> context)
@@ -48,7 +54,6 @@ public class ModBiomes
         HolderGetter<ConfiguredWorldCarver<?>> carverGetter = context.lookup(Registries.CONFIGURED_CARVER);
         HolderGetter<PlacedFeature> placedFeatureGetter = context.lookup(Registries.PLACED_FEATURE);
 
-        register(context, BOPBiomes.ASPEN_GLADE, BOPOverworldBiomes.aspenGlade(placedFeatureGetter, carverGetter));
         register(context, BOPBiomes.AURORAL_GARDEN, BOPOverworldBiomes.auroralGarden(placedFeatureGetter, carverGetter));
         register(context, BOPBiomes.BAYOU, BOPOverworldBiomes.bayou(placedFeatureGetter, carverGetter));
         register(context, BOPBiomes.BOG, BOPOverworldBiomes.bog(placedFeatureGetter, carverGetter));
@@ -63,11 +68,9 @@ public class ModBiomes
         register(context, BOPBiomes.FLOODPLAIN, BOPOverworldBiomes.floodplain(placedFeatureGetter, carverGetter));
         register(context, BOPBiomes.FORESTED_FIELD, BOPOverworldBiomes.field(placedFeatureGetter, carverGetter, true));
         register(context, BOPBiomes.FUNGAL_JUNGLE, BOPOverworldBiomes.fungalJungle(placedFeatureGetter, carverGetter));
-        register(context, BOPBiomes.GRASSLAND, BOPOverworldBiomes.grassland(placedFeatureGetter, carverGetter));
         register(context, BOPBiomes.GRAVEL_BEACH, BOPOverworldBiomes.gravelBeach(placedFeatureGetter, carverGetter));
         register(context, BOPBiomes.HIGHLAND, BOPOverworldBiomes.highland(placedFeatureGetter, carverGetter));
         register(context, BOPBiomes.HOT_SPRINGS, BOPOverworldBiomes.hotSprings(placedFeatureGetter, carverGetter));
-        register(context, BOPBiomes.JACARANDA_GLADE, BOPOverworldBiomes.jacarandaGlade(placedFeatureGetter, carverGetter));
         register(context, BOPBiomes.JADE_CLIFFS, BOPOverworldBiomes.jadeCliffs(placedFeatureGetter, carverGetter));
         register(context, BOPBiomes.LAVENDER_FIELD, BOPOverworldBiomes.lavenderField(placedFeatureGetter, carverGetter));
         register(context, BOPBiomes.LUSH_DESERT, BOPOverworldBiomes.lushDesert(placedFeatureGetter, carverGetter));
@@ -98,6 +101,7 @@ public class ModBiomes
         register(context, BOPBiomes.SNOWY_CONIFEROUS_FOREST, BOPOverworldBiomes.coniferousForest(placedFeatureGetter, carverGetter, true));
         register(context, BOPBiomes.SNOWY_FIR_CLEARING, BOPOverworldBiomes.firClearing(placedFeatureGetter, carverGetter, true));
         register(context, BOPBiomes.SNOWY_MAPLE_WOODS, BOPOverworldBiomes.mapleWoods(placedFeatureGetter, carverGetter, true));
+        register(context, BOPBiomes.SUBTROPICS, BOPOverworldBiomes.subtropics(placedFeatureGetter, carverGetter));
         register(context, BOPBiomes.TROPICS, BOPOverworldBiomes.tropics(placedFeatureGetter, carverGetter));
         register(context, BOPBiomes.TUNDRA, BOPOverworldBiomes.tundra(placedFeatureGetter, carverGetter));
         register(context, BOPBiomes.VOLCANIC_PLAINS, BOPOverworldBiomes.volcanicPlains(placedFeatureGetter, carverGetter));
@@ -122,12 +126,13 @@ public class ModBiomes
         // End biomes
         register(context, BOPBiomes.END_WILDS, BOPEndBiomes.endWilds(placedFeatureGetter, carverGetter));
         register(context, BOPBiomes.END_REEF, BOPEndBiomes.endReef(placedFeatureGetter, carverGetter));
+        //register(context, BOPBiomes.END_MYCOSIS, BOPEndBiomes.endMycosis(placedFeatureGetter, carverGetter));
+        register(context, BOPBiomes.END_FLATS, BOPEndBiomes.endFlats(placedFeatureGetter, carverGetter));
         register(context, BOPBiomes.END_CORRUPTION, BOPEndBiomes.endCorruption(placedFeatureGetter, carverGetter));
     }
     
     private static void registerVillagerTypes()
     {
-        registerVillagerType(BOPBiomes.ASPEN_GLADE, VillagerType.PLAINS);
         registerVillagerType(BOPBiomes.AURORAL_GARDEN, VillagerType.SNOW);
         registerVillagerType(BOPBiomes.BAYOU, VillagerType.SWAMP);
         registerVillagerType(BOPBiomes.BOG, VillagerType.SWAMP);
@@ -142,11 +147,9 @@ public class ModBiomes
         registerVillagerType(BOPBiomes.FLOODPLAIN, VillagerType.JUNGLE);
         registerVillagerType(BOPBiomes.FORESTED_FIELD, VillagerType.TAIGA);
         registerVillagerType(BOPBiomes.FUNGAL_JUNGLE, VillagerType.JUNGLE);
-        registerVillagerType(BOPBiomes.GRASSLAND, VillagerType.PLAINS);
         registerVillagerType(BOPBiomes.GRAVEL_BEACH, VillagerType.PLAINS);
         registerVillagerType(BOPBiomes.HIGHLAND, VillagerType.PLAINS);
         registerVillagerType(BOPBiomes.HOT_SPRINGS, VillagerType.TAIGA);
-        registerVillagerType(BOPBiomes.JACARANDA_GLADE, VillagerType.PLAINS);
         registerVillagerType(BOPBiomes.JADE_CLIFFS, VillagerType.PLAINS);
         registerVillagerType(BOPBiomes.LAVENDER_FIELD, VillagerType.PLAINS);
         registerVillagerType(BOPBiomes.LUSH_DESERT, VillagerType.SAVANNA);
@@ -177,6 +180,7 @@ public class ModBiomes
         registerVillagerType(BOPBiomes.SNOWY_CONIFEROUS_FOREST, VillagerType.TAIGA);
         registerVillagerType(BOPBiomes.SNOWY_FIR_CLEARING, VillagerType.TAIGA);
         registerVillagerType(BOPBiomes.SNOWY_MAPLE_WOODS, VillagerType.TAIGA);
+        registerVillagerType(BOPBiomes.SUBTROPICS, VillagerType.PLAINS);
         registerVillagerType(BOPBiomes.TROPICS, VillagerType.JUNGLE);
         registerVillagerType(BOPBiomes.TUNDRA, VillagerType.TAIGA);
         registerVillagerType(BOPBiomes.VOLCANIC_PLAINS, VillagerType.PLAINS);
@@ -193,11 +197,19 @@ public class ModBiomes
         context.register(key, biome);
     }
 
-    private static void registerVillagerType(ResourceKey<Biome> key, VillagerType type)
+    private static void registerVillagerType(ResourceKey<Biome> key, ResourceKey<VillagerType> type)
     {
         if (ModConfig.isBiomeEnabled(key))
         {
             VillagerType.BY_BIOME.put(key, type);
+        }
+    }
+
+    private static void registerHighlandsBiome(ResourceKey<Biome> key, int weight)
+    {
+        if (ModConfig.isBiomeEnabled(key))
+        {
+            EndBiomeRegistry.registerHighlandsBiome(key, weight);
         }
     }
 }

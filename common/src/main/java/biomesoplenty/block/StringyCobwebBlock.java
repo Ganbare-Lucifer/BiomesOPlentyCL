@@ -8,16 +8,15 @@ import biomesoplenty.api.block.BOPBlocks;
 import biomesoplenty.block.properties.ConnectedProperty;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.InsideBlockEffectApplier;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -26,7 +25,7 @@ import javax.annotation.Nullable;
 
 public class StringyCobwebBlock extends Block
 {
-    public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
+    public static final EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
     public static final EnumProperty<ConnectedProperty> CONNECTED = EnumProperty.create("connected", ConnectedProperty.class);
     protected static final VoxelShape SHAPE_X = Block.box(0.0D, 0.0D, 7.0D, 16.0D, 16.0D, 9.0D);
     protected static final VoxelShape SHAPE_Z = Block.box(7.0D, 0.0D, 0.0D, 9.0D, 16.0D, 16.0D);
@@ -68,9 +67,9 @@ public class StringyCobwebBlock extends Block
     }
 
     @Override
-    public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, LevelAccessor worldIn, BlockPos currentPos, BlockPos facingPos)
+    protected BlockState updateShape(BlockState state, LevelReader level, ScheduledTickAccess tickAccess, BlockPos currentPos, Direction facing, BlockPos facingPos, BlockState facingState, RandomSource randomSource)
     {
-        return !stateIn.canSurvive(worldIn, currentPos) ? Blocks.AIR.defaultBlockState() : stateIn;
+        return !state.canSurvive(level, currentPos) ? Blocks.AIR.defaultBlockState() : state;
     }
 
     @Override
@@ -94,10 +93,8 @@ public class StringyCobwebBlock extends Block
     }
 
     @Override
-    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean p_55572_)
+    protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean p_394545_)
     {
-        super.onRemove(state, level, pos, newState, p_55572_);
-
         Direction direction = state.getValue(FACING);
         BlockPos abovePos = pos.relative(direction).above();
         BlockPos belowPos = pos.relative(direction.getOpposite()).below();
@@ -115,29 +112,12 @@ public class StringyCobwebBlock extends Block
     @Nullable
     public BlockState getStateForPlacement(BlockPlaceContext context)
     {
-        BlockState blockstate = super.getStateForPlacement(context);
-        Level LevelReader = context.getLevel();
-        BlockPos blockpos = context.getClickedPos();
-        Direction[] adirection = context.getNearestLookingDirections();
-
-        for (Direction direction : adirection)
-        {
-            if (direction.getAxis().isHorizontal())
-            {
-                blockstate = blockstate.setValue(FACING, direction.getOpposite());
-                if (blockstate.canSurvive(LevelReader, blockpos))
-                {
-                    return blockstate;
-                }
-            }
-        }
-
-        return null;
+        return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
     }
 
     @Override
-    public void entityInside(BlockState p_58180_, Level p_58181_, BlockPos p_58182_, Entity p_58183_)
+    protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier effectApplier, boolean b)
     {
-        p_58183_.setDeltaMovement(p_58183_.getDeltaMovement().multiply(0.75D, 1.0D, 0.75D));
+        entity.setDeltaMovement(entity.getDeltaMovement().multiply(0.75D, 1.0D, 0.75D));
     }
 }

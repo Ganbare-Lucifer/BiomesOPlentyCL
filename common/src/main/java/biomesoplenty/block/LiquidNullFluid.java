@@ -11,6 +11,7 @@ import biomesoplenty.init.ModTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.Item;
@@ -55,7 +56,7 @@ public abstract class LiquidNullFluid extends FlowingFluid
     }
 
     @Override
-    protected boolean canConvertToSource(Level p_256009_)
+    protected boolean canConvertToSource(ServerLevel p_256009_)
     {
         return true;
     }

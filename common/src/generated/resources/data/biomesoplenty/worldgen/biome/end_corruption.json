@@ -1,25 +1,20 @@
 {
-  "carvers": {},
+  "attributes": {
+    "minecraft:visual/ambient_particles": [
+      {
+        "particle": {
+          "type": "biomesoplenty:binary"
+        },
+        "probability": 3.75E-4
+      }
+    ]
+  },
+  "carvers": [],
   "downfall": 0.5,
   "effects": {
-    "fog_color": 10518688,
-    "foliage_color": 4764952,
-    "grass_color": 8174955,
-    "mood_sound": {
-      "block_search_extent": 8,
-      "offset": 2.0,
-      "sound": "minecraft:ambient.cave",
-      "tick_delay": 6000
-    },
-    "particle": {
-      "options": {
-        "type": "biomesoplenty:binary"
-      },
-      "probability": 3.75E-4
-    },
-    "sky_color": 0,
-    "water_color": 4159204,
-    "water_fog_color": 329011
+    "foliage_color": "#48b518",
+    "grass_color": "#7cbd6b",
+    "water_color": "#3f76e4"
   },
   "features": [
     [],

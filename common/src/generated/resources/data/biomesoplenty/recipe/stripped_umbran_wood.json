@@ -3,9 +3,7 @@
   "category": "building",
   "group": "bark",
   "key": {
-    "#": {
-      "item": "biomesoplenty:stripped_umbran_log"
-    }
+    "#": "biomesoplenty:stripped_umbran_log"
   },
   "pattern": [
     "##",

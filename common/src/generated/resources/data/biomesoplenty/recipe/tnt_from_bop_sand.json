@@ -3,19 +3,11 @@
   "category": "redstone",
   "key": {
     "#": [
-      {
-        "item": "biomesoplenty:white_sand"
-      },
-      {
-        "item": "biomesoplenty:orange_sand"
-      },
-      {
-        "item": "biomesoplenty:black_sand"
-      }
+      "biomesoplenty:white_sand",
+      "biomesoplenty:orange_sand",
+      "biomesoplenty:black_sand"
     ],
-    "X": {
-      "item": "minecraft:gunpowder"
-    }
+    "X": "minecraft:gunpowder"
   },
   "pattern": [
     "X#X",
@@ -23,7 +15,6 @@
     "X#X"
   ],
   "result": {
-    "count": 1,
     "id": "minecraft:tnt"
   }
 }

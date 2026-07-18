@@ -1,25 +1,25 @@
 {
-  "carvers": {
-    "air": [
-      "minecraft:cave",
-      "minecraft:cave_extra_underground",
-      "minecraft:canyon"
-    ]
+  "attributes": {
+    "minecraft:audio/background_music": {
+      "default": {
+        "max_delay": 24000,
+        "min_delay": 12000,
+        "sound": "biomesoplenty:music.overworld.nostalgic"
+      }
+    },
+    "minecraft:visual/sky_color": "#7da3ff"
   },
+  "carvers": [
+    "minecraft:cave",
+    "minecraft:cave_extra_underground",
+    "minecraft:canyon"
+  ],
+  "creature_spawn_probability": 0.07,
   "downfall": 0.0,
   "effects": {
-    "fog_color": 12638463,
-    "foliage_color": 11904876,
-    "grass_color": 11375460,
-    "mood_sound": {
-      "block_search_extent": 8,
-      "offset": 2.0,
-      "sound": "minecraft:ambient.cave",
-      "tick_delay": 6000
-    },
-    "sky_color": 8233983,
-    "water_color": 4159204,
-    "water_fog_color": 329011
+    "foliage_color": "#b5a76c",
+    "grass_color": "#ad9364",
+    "water_color": "#3f76e4"
   },
   "features": [
     [],
@@ -92,6 +92,12 @@
     "axolotls": [],
     "creature": [
       {
+        "type": "minecraft:rabbit",
+        "maxCount": 3,
+        "minCount": 2,
+        "weight": 10
+      },
+      {
         "type": "minecraft:polar_bear",
         "maxCount": 2,
         "minCount": 1,
@@ -116,7 +122,7 @@
         "type": "minecraft:zombie",
         "maxCount": 4,
         "minCount": 4,
-        "weight": 95
+        "weight": 90
       },
       {
         "type": "minecraft:zombie_villager",
@@ -125,10 +131,16 @@
         "weight": 5
       },
       {
+        "type": "minecraft:zombie_horse",
+        "maxCount": 1,
+        "minCount": 1,
+        "weight": 5
+      },
+      {
         "type": "minecraft:skeleton",
         "maxCount": 4,
         "minCount": 4,
-        "weight": 100
+        "weight": 20
       },
       {
         "type": "minecraft:creeper",
@@ -153,6 +165,12 @@
         "maxCount": 1,
         "minCount": 1,
         "weight": 5
+      },
+      {
+        "type": "minecraft:stray",
+        "maxCount": 4,
+        "minCount": 4,
+        "weight": 80
       }
     ],
     "underground_water_creature": [

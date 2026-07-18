@@ -13,8 +13,8 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.CocoaBlock;
+import net.minecraft.world.level.block.VegetationBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
@@ -34,7 +34,7 @@ public class TwigletTreeFeature extends BOPTreeFeature<TwigletTreeConfiguration>
         TwigletTreeConfiguration config = (TwigletTreeConfiguration)configBase;
 
         // Move down until we reach the ground
-        while (startPos.getY() >= world.getMinBuildHeight()+1 && startPos.getY() <= world.getMaxBuildHeight()-1 && (world.isEmptyBlock(startPos) || world.getBlockState(startPos).is(BlockTags.LEAVES)))
+        while (startPos.getY() >= world.getMinY()+1 && startPos.getY() <= world.getMaxY()-1 && (world.isEmptyBlock(startPos) || world.getBlockState(startPos).is(BlockTags.LEAVES)))
         {
             startPos = startPos.below();
         }
@@ -85,7 +85,7 @@ public class TwigletTreeFeature extends BOPTreeFeature<TwigletTreeConfiguration>
             for (Direction dir : Direction.Plane.HORIZONTAL)
             {
                 BlockPos fruitPos = pos.offset(dir.getStepX(), y, dir.getStepZ());
-                BlockState trunkFruit = config.trunkFruitProvider.getState(random, fruitPos);
+                BlockState trunkFruit = config.trunkFruitProvider.getState(world, random, fruitPos);
 
                 if (trunkFruit.getBlock() != Blocks.AIR && random.nextInt(4) == 0)
                 {
@@ -102,20 +102,20 @@ public class TwigletTreeFeature extends BOPTreeFeature<TwigletTreeConfiguration>
         return true;
     }
 
-    private void generateTrunkFruit(LevelAccessor world, int age, BlockPos pos, Direction direction, TwigletTreeConfiguration config)
+    private void generateTrunkFruit(WorldGenLevel world, int age, BlockPos pos, Direction direction, TwigletTreeConfiguration config)
     {
-        BlockState trunkFruit = config.trunkFruitProvider.getState(world.getRandom(), pos);
+        BlockState trunkFruit = config.trunkFruitProvider.getState(world, world.getRandom(), pos);
 
         if (trunkFruit == Blocks.COCOA.defaultBlockState())
         {
-            if (world.getBlockState(pos).getBlock() == Blocks.AIR || world.getBlockState(pos).getBlock() instanceof BushBlock)
+            if (world.getBlockState(pos).getBlock() == Blocks.AIR || world.getBlockState(pos).getBlock() instanceof VegetationBlock)
             {
                 this.setBlock(world, pos, trunkFruit.setValue(CocoaBlock.AGE, Integer.valueOf(age)).setValue(CocoaBlock.FACING, direction));
             }
         }
         else
         {
-            if (world.getBlockState(pos).getBlock() == Blocks.AIR || world.getBlockState(pos).getBlock() instanceof BushBlock)
+            if (world.getBlockState(pos).getBlock() == Blocks.AIR || world.getBlockState(pos).getBlock() instanceof VegetationBlock)
             {
                 this.setBlock(world, pos, trunkFruit.setValue(CocoaBlock.FACING, direction));
             }

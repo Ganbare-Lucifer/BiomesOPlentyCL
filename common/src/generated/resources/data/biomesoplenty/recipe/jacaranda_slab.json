@@ -3,9 +3,7 @@
   "category": "building",
   "group": "wooden_slab",
   "key": {
-    "#": {
-      "item": "biomesoplenty:jacaranda_planks"
-    }
+    "#": "biomesoplenty:jacaranda_planks"
   },
   "pattern": [
     "###"

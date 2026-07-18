@@ -3,15 +3,12 @@
   "category": "redstone",
   "group": "wooden_pressure_plate",
   "key": {
-    "#": {
-      "item": "biomesoplenty:willow_planks"
-    }
+    "#": "biomesoplenty:willow_planks"
   },
   "pattern": [
     "##"
   ],
   "result": {
-    "count": 1,
     "id": "biomesoplenty:willow_pressure_plate"
   }
 }

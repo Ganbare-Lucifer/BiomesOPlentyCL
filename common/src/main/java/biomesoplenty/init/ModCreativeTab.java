@@ -9,7 +9,7 @@ import biomesoplenty.api.item.BOPItems;
 import biomesoplenty.core.BiomesOPlenty;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -20,19 +20,19 @@ import java.util.function.BiConsumer;
 
 public class ModCreativeTab
 {
-    public static void registerCreativeTabs(BiConsumer<ResourceLocation, CreativeModeTab> func)
+    public static void registerCreativeTabs(BiConsumer<Identifier, CreativeModeTab> func)
     {
         List<Item> ITEM_BLACKLIST = ImmutableList.of(BOPItems.BOP_ICON, BOPItems.BLOOD, BOPItems.LIQUID_NULL, BOPItems.HIGH_GRASS_PLANT, BOPItems.SPANISH_MOSS_PLANT,
-                BOPItems.LUMALOOP_PLANT, BOPItems.GLOWWORM_SILK_STRAND, BOPItems.HANGING_COBWEB_STRAND, BOPItems.STRINGY_COBWEB, BOPItems.FLESH_TENDONS_STRAND,
-                BOPItems.POTTED_ORIGIN_SAPLING, BOPItems.POTTED_FLOWERING_OAK_SAPLING, BOPItems.POTTED_CYPRESS_SAPLING, BOPItems.POTTED_SNOWBLOSSOM_SAPLING,
-                BOPItems.POTTED_RAINBOW_BIRCH_SAPLING, BOPItems.POTTED_FIR_SAPLING, BOPItems.POTTED_PINE_SAPLING, BOPItems.POTTED_RED_MAPLE_SAPLING,
-                BOPItems.POTTED_ORANGE_MAPLE_SAPLING, BOPItems.POTTED_YELLOW_MAPLE_SAPLING, BOPItems.POTTED_REDWOOD_SAPLING, BOPItems.POTTED_MAHOGANY_SAPLING,
-                BOPItems.POTTED_JACARANDA_SAPLING, BOPItems.POTTED_PALM_SAPLING, BOPItems.POTTED_WILLOW_SAPLING, BOPItems.POTTED_DEAD_SAPLING,
-                BOPItems.POTTED_MAGIC_SAPLING, BOPItems.POTTED_UMBRAN_SAPLING, BOPItems.POTTED_HELLBARK_SAPLING, BOPItems.POTTED_EMPYREAL_SAPLING,
-                BOPItems.POTTED_ROSE, BOPItems.POTTED_VIOLET, BOPItems.POTTED_LAVENDER, BOPItems.POTTED_WHITE_LAVENDER, BOPItems.POTTED_ORANGE_COSMOS,
-                BOPItems.POTTED_PINK_DAFFODIL, BOPItems.POTTED_PINK_HIBISCUS, BOPItems.POTTED_GLOWFLOWER, BOPItems.POTTED_WILTED_LILY,
-                BOPItems.POTTED_BURNING_BLOSSOM, BOPItems.POTTED_ENDBLOOM, BOPItems.POTTED_SPROUT, BOPItems.POTTED_TINY_CACTUS, BOPItems.POTTED_TOADSTOOL,
-                BOPItems.POTTED_GLOWSHROOM);
+                BOPItems.LUMALOOP_PLANT, BOPItems.GLOWWORM_SILK_STRAND, BOPItems.HANGING_COBWEB_STRAND, BOPItems.FLESH_TENDONS_STRAND,
+                BOPItems.POTTED_FLOWERING_OAK_SAPLING, BOPItems.POTTED_CYPRESS_SAPLING, BOPItems.POTTED_SNOWBLOSSOM_SAPLING, BOPItems.POTTED_ORIGIN_OAK_SAPLING,
+                BOPItems.POTTED_FIR_SAPLING, BOPItems.POTTED_PINE_SAPLING, BOPItems.POTTED_RED_MAPLE_SAPLING, BOPItems.POTTED_ORANGE_MAPLE_SAPLING,
+                BOPItems.POTTED_YELLOW_MAPLE_SAPLING, BOPItems.POTTED_REDWOOD_SAPLING, BOPItems.POTTED_MAHOGANY_SAPLING, BOPItems.POTTED_JACARANDA_SAPLING,
+                BOPItems.POTTED_PALM_SAPLING, BOPItems.POTTED_WILLOW_SAPLING, BOPItems.POTTED_DEAD_SAPLING, BOPItems.POTTED_MAGIC_SAPLING,
+                BOPItems.POTTED_UMBRAN_SAPLING, BOPItems.POTTED_HELLBARK_SAPLING, BOPItems.POTTED_EMPYREAL_SAPLING, BOPItems.POTTED_FLOWER_BUD,
+                BOPItems.POTTED_ORIGIN_DANDELION, BOPItems.POTTED_ORIGIN_ROSE, BOPItems.POTTED_MARIGOLD, BOPItems.POTTED_VIOLET, BOPItems.POTTED_LAVENDER,
+                BOPItems.POTTED_WHITE_LAVENDER, BOPItems.POTTED_ORANGE_COSMOS, BOPItems.POTTED_PINK_DAFFODIL, BOPItems.POTTED_PINK_HIBISCUS,
+                BOPItems.POTTED_GLOWFLOWER, BOPItems.POTTED_WILTED_LILY, BOPItems.POTTED_BURNING_BLOSSOM, BOPItems.POTTED_ENDBLOOM, BOPItems.POTTED_SPROUT,
+                BOPItems.POTTED_TINY_CACTUS, BOPItems.POTTED_TOADSTOOL, BOPItems.POTTED_GLOWSHROOM);
 
         var tab = CreativeModeTab.builder(CreativeModeTab.Row.TOP, 0)
             .icon(() -> new ItemStack(BOPItems.BOP_ICON))
@@ -62,9 +62,9 @@ public class ModCreativeTab
         register(func, "main", tab);
     }
 
-    private static CreativeModeTab register(BiConsumer<ResourceLocation, CreativeModeTab> func, String name, CreativeModeTab tab)
+    private static CreativeModeTab register(BiConsumer<Identifier, CreativeModeTab> func, String name, CreativeModeTab tab)
     {
-        func.accept(ResourceLocation.fromNamespaceAndPath(BiomesOPlenty.MOD_ID, name), tab);
+        func.accept(Identifier.fromNamespaceAndPath(BiomesOPlenty.MOD_ID, name), tab);
         return tab;
     }
 }

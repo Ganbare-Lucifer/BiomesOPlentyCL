@@ -135,6 +135,60 @@
       }
     ]
   },
+  "music.overworld.nostalgic": {
+    "sounds": [
+      {
+        "name": "minecraft:music/game/creative/aria_math",
+        "stream": true,
+		"weight": 3
+      },
+      {
+        "name": "minecraft:music/game/creative/biome_fest",
+        "stream": true,
+		"weight": 3
+      },
+      {
+        "name": "minecraft:music/game/creative/blind_spots",
+        "stream": true,
+		"weight": 3
+      },
+      {
+        "name": "minecraft:music/game/creative/dreiton",
+        "stream": true,
+		"weight": 3
+      },
+      {
+        "name": "minecraft:music/game/creative/haunt_muskie",
+        "stream": true,
+		"weight": 3
+      },
+      {
+        "name": "minecraft:music/game/creative/taswell",
+        "stream": true,
+		"weight": 3
+      },
+	  {
+        "name": "minecraft:music/game/mice_on_venus",
+        "stream": true,
+		"weight": 1
+      },
+	  {
+        "name": "minecraft:music/game/living_mice",
+        "stream": true,
+		"weight": 1
+      },
+	  {
+        "name": "minecraft:music/game/subwoofer_lullaby",
+        "stream": true,
+		"weight": 1
+      },
+	  {
+        "name": "minecraft:music/game/minecraft",
+        "stream": true,
+		"weight": 1
+      }
+    ]
+  },
   "music.nether.crystalline_chasm": {
     "sounds": [
 	  {

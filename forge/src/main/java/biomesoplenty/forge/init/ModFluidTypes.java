@@ -6,19 +6,18 @@ package biomesoplenty.forge.init;
 
 import biomesoplenty.api.block.BOPBlocks;
 import biomesoplenty.forge.core.BiomesOPlentyForge;
-import com.mojang.blaze3d.shaders.FogShape;
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.renderer.FogRenderer;
+import net.minecraft.client.renderer.fog.FogData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.FogType;
 import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.minecraftforge.common.ForgeMod;
@@ -29,6 +28,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
+import org.joml.Vector4f;
 
 import java.util.Map;
 import java.util.function.Consumer;
@@ -67,21 +67,21 @@ public class ModFluidTypes
             {
                 consumer.accept(new IClientFluidTypeExtensions()
                 {
-                    private static final ResourceLocation BLOOD_UNDERWATER = ResourceLocation.parse("biomesoplenty:textures/block/blood_underwater.png"),
-                            BLOOD_STILL = ResourceLocation.parse("biomesoplenty:block/blood_still"),
-                            BLOOD_FLOW = ResourceLocation.parse("biomesoplenty:block/blood_flow");
+                    private static final Identifier BLOOD_UNDERWATER = Identifier.parse("biomesoplenty:textures/block/blood_underwater.png"),
+                            BLOOD_STILL = Identifier.parse("biomesoplenty:block/blood_still"),
+                            BLOOD_FLOW = Identifier.parse("biomesoplenty:block/blood_flow");
 
                     @Override
-                    public ResourceLocation getStillTexture()
+                    public Identifier getStillTexture()
                     {
                         return BLOOD_STILL;
                     }
 
                     @Override
-                    public ResourceLocation getFlowingTexture() { return BLOOD_FLOW; }
+                    public Identifier getFlowingTexture() { return BLOOD_FLOW; }
 
                     @Override
-                    public ResourceLocation getRenderOverlayTexture(Minecraft mc) { return BLOOD_UNDERWATER; }
+                    public Identifier getRenderOverlayTexture(Minecraft mc) { return BLOOD_UNDERWATER; }
 
                     @Override
                     public Vector3f modifyFogColor(Camera camera, float partialTick, ClientLevel level, int renderDistance, float darkenWorldAmount, Vector3f fluidFogColor)
@@ -90,10 +90,10 @@ public class ModFluidTypes
                     }
 
                     @Override
-                    public void modifyFogRender(Camera camera, FogRenderer.FogMode mode, float renderDistance, float partialTick, float nearDistance, float farDistance, FogShape shape)
+                    public void modifyFogRender(Camera camera, FogType type, float partialTick, FogData data, Vector4f color)
                     {
-                        RenderSystem.setShaderFogStart(0.125F);
-                        RenderSystem.setShaderFogEnd(5.0F);
+                        data.environmentalStart = 0.125F;
+                        data.environmentalEnd = 5.0F;
                     }
                 });
             }
@@ -120,21 +120,21 @@ public class ModFluidTypes
             {
                 consumer.accept(new IClientFluidTypeExtensions()
                 {
-                    private static final ResourceLocation LIQUID_NULL_UNDERWATER = ResourceLocation.parse("biomesoplenty:textures/block/liquid_null_underwater.png"),
-                            LIQUID_NULL_STILL = ResourceLocation.parse("biomesoplenty:block/liquid_null_still"),
-                            LIQUID_NULL_FLOW = ResourceLocation.parse("biomesoplenty:block/liquid_null_flow");
+                    private static final Identifier LIQUID_NULL_UNDERWATER = Identifier.parse("biomesoplenty:textures/block/liquid_null_underwater.png"),
+                            LIQUID_NULL_STILL = Identifier.parse("biomesoplenty:block/liquid_null_still"),
+                            LIQUID_NULL_FLOW = Identifier.parse("biomesoplenty:block/liquid_null_flow");
 
                     @Override
-                    public ResourceLocation getStillTexture()
+                    public Identifier getStillTexture()
                     {
                         return LIQUID_NULL_STILL;
                     }
 
                     @Override
-                    public ResourceLocation getFlowingTexture() { return LIQUID_NULL_FLOW; }
+                    public Identifier getFlowingTexture() { return LIQUID_NULL_FLOW; }
 
                     @Override
-                    public ResourceLocation getRenderOverlayTexture(Minecraft mc) { return LIQUID_NULL_UNDERWATER; }
+                    public Identifier getRenderOverlayTexture(Minecraft mc) { return LIQUID_NULL_UNDERWATER; }
 
                     @Override
                     public Vector3f modifyFogColor(Camera camera, float partialTick, ClientLevel level, int renderDistance, float darkenWorldAmount, Vector3f fluidFogColor)
@@ -143,10 +143,10 @@ public class ModFluidTypes
                     }
 
                     @Override
-                    public void modifyFogRender(Camera camera, FogRenderer.FogMode mode, float renderDistance, float partialTick, float nearDistance, float farDistance, FogShape shape)
+                    public void modifyFogRender(Camera camera, FogType type, float partialTick, FogData data, Vector4f color)
                     {
-                        RenderSystem.setShaderFogStart(0.1F);
-                        RenderSystem.setShaderFogEnd(2.5F);
+                        data.environmentalStart = 0.1F;
+                        data.environmentalEnd = 2.5F;
                     }
                 });
             }

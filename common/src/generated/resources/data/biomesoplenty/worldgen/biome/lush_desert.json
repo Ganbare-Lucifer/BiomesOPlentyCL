@@ -1,31 +1,26 @@
 {
-  "carvers": {
-    "air": [
-      "minecraft:cave",
-      "minecraft:cave_extra_underground",
-      "minecraft:canyon"
-    ]
+  "attributes": {
+    "minecraft:audio/background_music": {
+      "default": {
+        "max_delay": 24000,
+        "min_delay": 12000,
+        "sound": "minecraft:music.overworld.desert"
+      }
+    },
+    "minecraft:gameplay/snow_golem_melts": true,
+    "minecraft:visual/sky_color": "#77a8ff",
+    "minecraft:visual/water_fog_color": "#041633"
   },
+  "carvers": [
+    "minecraft:cave",
+    "minecraft:cave_extra_underground",
+    "minecraft:canyon"
+  ],
   "downfall": 0.5,
   "effects": {
-    "fog_color": 12638463,
-    "foliage_color": 13881686,
-    "grass_color": 15720834,
-    "mood_sound": {
-      "block_search_extent": 8,
-      "offset": 2.0,
-      "sound": "minecraft:ambient.cave",
-      "tick_delay": 6000
-    },
-    "music": {
-      "max_delay": 24000,
-      "min_delay": 12000,
-      "replace_current_music": false,
-      "sound": "minecraft:music.overworld.desert"
-    },
-    "sky_color": 7842047,
-    "water_color": 4566514,
-    "water_fog_color": 267827
+    "foliage_color": "#d3d156",
+    "grass_color": "#efe182",
+    "water_color": "#45adf2"
   },
   "features": [
     [],
@@ -86,7 +81,7 @@
       "minecraft:patch_cactus_decorated",
       "biomesoplenty:trees_lush_desert",
       "biomesoplenty:flower_lush_desert",
-      "biomesoplenty:patch_desert_grass",
+      "biomesoplenty:patch_dry_grass_extra",
       "biomesoplenty:sparse_dune_grass"
     ],
     [
@@ -102,6 +97,12 @@
         "maxCount": 8,
         "minCount": 8,
         "weight": 10
+      },
+      {
+        "type": "minecraft:bat",
+        "maxCount": 8,
+        "minCount": 8,
+        "weight": 10
       }
     ],
     "axolotls": [],
@@ -110,13 +111,13 @@
         "type": "minecraft:rabbit",
         "maxCount": 3,
         "minCount": 2,
-        "weight": 4
+        "weight": 12
       },
       {
-        "type": "minecraft:armadillo",
-        "maxCount": 2,
+        "type": "minecraft:camel",
+        "maxCount": 1,
         "minCount": 1,
-        "weight": 6
+        "weight": 1
       }
     ],
     "misc": [],
@@ -170,13 +171,73 @@
         "weight": 5
       },
       {
+        "type": "minecraft:spider",
+        "maxCount": 4,
+        "minCount": 4,
+        "weight": 100
+      },
+      {
+        "type": "minecraft:zombie",
+        "maxCount": 4,
+        "minCount": 4,
+        "weight": 19
+      },
+      {
+        "type": "minecraft:zombie_villager",
+        "maxCount": 1,
+        "minCount": 1,
+        "weight": 1
+      },
+      {
+        "type": "minecraft:skeleton",
+        "maxCount": 4,
+        "minCount": 4,
+        "weight": 50
+      },
+      {
+        "type": "minecraft:creeper",
+        "maxCount": 4,
+        "minCount": 4,
+        "weight": 100
+      },
+      {
+        "type": "minecraft:slime",
+        "maxCount": 4,
+        "minCount": 4,
+        "weight": 100
+      },
+      {
+        "type": "minecraft:enderman",
+        "maxCount": 4,
+        "minCount": 1,
+        "weight": 10
+      },
+      {
+        "type": "minecraft:witch",
+        "maxCount": 1,
+        "minCount": 1,
+        "weight": 5
+      },
+      {
         "type": "minecraft:husk",
         "maxCount": 4,
         "minCount": 4,
         "weight": 80
+      },
+      {
+        "type": "minecraft:parched",
+        "maxCount": 4,
+        "minCount": 4,
+        "weight": 50
       }
     ],
     "underground_water_creature": [
+      {
+        "type": "minecraft:glow_squid",
+        "maxCount": 6,
+        "minCount": 4,
+        "weight": 10
+      },
       {
         "type": "minecraft:glow_squid",
         "maxCount": 6,

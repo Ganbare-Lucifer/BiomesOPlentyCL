@@ -3,12 +3,9 @@
   "category": "redstone",
   "group": "wooden_button",
   "ingredients": [
-    {
-      "item": "biomesoplenty:empyreal_planks"
-    }
+    "biomesoplenty:empyreal_planks"
   ],
   "result": {
-    "count": 1,
     "id": "biomesoplenty:empyreal_button"
   }
 }

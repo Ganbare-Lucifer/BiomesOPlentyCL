@@ -1,31 +1,27 @@
 {
-  "carvers": {
-    "air": [
-      "minecraft:cave",
-      "minecraft:cave_extra_underground",
-      "minecraft:canyon"
-    ]
+  "attributes": {
+    "minecraft:audio/background_music": {
+      "default": {
+        "max_delay": 24000,
+        "min_delay": 12000,
+        "sound": "minecraft:music.overworld.cherry_grove"
+      }
+    },
+    "minecraft:visual/cloud_color": "#33ffffff",
+    "minecraft:visual/fog_color": "#f0fdfd",
+    "minecraft:visual/sky_color": "#bdecfc",
+    "minecraft:visual/water_fog_color": "#050533"
   },
+  "carvers": [
+    "minecraft:cave",
+    "minecraft:cave_extra_underground",
+    "minecraft:canyon"
+  ],
   "downfall": 0.5,
   "effects": {
-    "fog_color": 15793661,
-    "foliage_color": 10876919,
-    "grass_color": 14417148,
-    "mood_sound": {
-      "block_search_extent": 8,
-      "offset": 2.0,
-      "sound": "minecraft:ambient.cave",
-      "tick_delay": 6000
-    },
-    "music": {
-      "max_delay": 24000,
-      "min_delay": 12000,
-      "replace_current_music": false,
-      "sound": "minecraft:music.overworld.cherry_grove"
-    },
-    "sky_color": 12446972,
-    "water_color": 3750089,
-    "water_fog_color": 329011
+    "foliage_color": "#d1ffff",
+    "grass_color": "#dbfcfc",
+    "water_color": "#3938c9"
   },
   "features": [
     [],
@@ -34,7 +30,8 @@
       "minecraft:lake_lava_surface"
     ],
     [
-      "minecraft:amethyst_geode"
+      "minecraft:amethyst_geode",
+      "biomesoplenty:prismarine_spike"
     ],
     [
       "minecraft:monster_room",
@@ -104,12 +101,6 @@
     ],
     "axolotls": [],
     "creature": [
-      {
-        "type": "minecraft:sheep",
-        "maxCount": 4,
-        "minCount": 4,
-        "weight": 12
-      },
       {
         "type": "minecraft:fox",
         "maxCount": 4,

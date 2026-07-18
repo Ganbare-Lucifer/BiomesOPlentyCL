@@ -1,7 +1,9 @@
 {
   "replace": false,
   "values": [
-    "biomesoplenty:rose",
+    "biomesoplenty:origin_dandelion",
+	"biomesoplenty:origin_rose",
+    "biomesoplenty:marigold",
     "biomesoplenty:violet",
     "biomesoplenty:lavender",
 	"biomesoplenty:white_lavender",

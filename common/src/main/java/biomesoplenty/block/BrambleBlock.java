@@ -9,12 +9,12 @@ import biomesoplenty.api.damagesource.BOPDamageTypes;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.InsideBlockEffectApplier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.PipeBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -27,7 +27,7 @@ public class BrambleBlock extends PipeBlock
 
     public BrambleBlock(Block.Properties builder)
     {
-        super(0.25F, builder);
+        super(8.0F, builder);
         this.registerDefaultState(this.stateDefinition.any().setValue(NORTH, Boolean.valueOf(false)).setValue(EAST, Boolean.valueOf(false)).setValue(SOUTH, Boolean.valueOf(false)).setValue(WEST, Boolean.valueOf(false)).setValue(UP, Boolean.valueOf(false)).setValue(DOWN, Boolean.valueOf(false)));
     }
 
@@ -61,19 +61,19 @@ public class BrambleBlock extends PipeBlock
     }
 
      @Override
-     public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, LevelAccessor worldIn, BlockPos currentPos, BlockPos facingPos)
+     protected BlockState updateShape(BlockState state, LevelReader level, ScheduledTickAccess tickAccess, BlockPos pos, Direction facing, BlockPos facingPos, BlockState facingState, RandomSource random)
      {
     	Block block = facingState.getBlock();
-     	boolean flag = block == this || (block == BOPBlocks.BRAMBLE_LEAVES && facingState.getValue(BrambleLeavesBlock.FACING) == facing) || Block.isShapeFullBlock(facingState.getCollisionShape(worldIn, facingPos));
-     	return stateIn.setValue(PROPERTY_BY_DIRECTION.get(facing), Boolean.valueOf(flag));
+     	boolean flag = block == this || (block == BOPBlocks.BRAMBLE_LEAVES && facingState.getValue(BrambleLeavesBlock.FACING) == facing) || Block.isShapeFullBlock(facingState.getCollisionShape(level, facingPos));
+     	return state.setValue(PROPERTY_BY_DIRECTION.get(facing), Boolean.valueOf(flag));
      }
 
      @Override
-     public void entityInside(BlockState state, Level level, BlockPos pos, Entity entityIn)
+     protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier effectApplier, boolean b)
      {
-         if (entityIn instanceof Player)
+         if (entity instanceof Player)
          {
-             Player playerEntity = (Player) entityIn;
+             Player playerEntity = (Player) entity;
              playerEntity.hurt(level.damageSources().source(BOPDamageTypes.BRAMBLE), 1.0F);
          }
       }

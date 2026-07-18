@@ -11,11 +11,11 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.PinkPetalsBlock;
+import net.minecraft.world.level.block.FlowerBedBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 
-public class CloverBlock extends PinkPetalsBlock
+public class CloverBlock extends FlowerBedBlock
 {
     public CloverBlock(Properties properties)
     {
@@ -46,8 +46,8 @@ public class CloverBlock extends PinkPetalsBlock
     public boolean growHugeClover(ServerLevel level, RandomSource rand, BlockPos pos, BlockState state)
     {
         level.removeBlock(pos, false);
-        Registry<ConfiguredFeature<?, ?>> configuredFeatureRegistry = level.registryAccess().registryOrThrow(Registries.CONFIGURED_FEATURE);
-        ConfiguredFeature<?, ?> configuredfeature = configuredFeatureRegistry.get(BOPVegetationFeatures.HUGE_CLOVER);
+        Registry<ConfiguredFeature<?, ?>> configuredFeatureRegistry = level.registryAccess().lookupOrThrow(Registries.CONFIGURED_FEATURE);
+        ConfiguredFeature<?, ?> configuredfeature = configuredFeatureRegistry.get(BOPVegetationFeatures.HUGE_CLOVER).orElseThrow().value();
 
         if (configuredfeature.place(level, level.getChunkSource().getGenerator(), rand, pos))
         {

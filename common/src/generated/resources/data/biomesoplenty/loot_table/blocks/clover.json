@@ -2,12 +2,11 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "bonus_rolls": 0.0,
       "conditions": [
         {
           "condition": "minecraft:match_tool",
           "predicate": {
-            "items": "#biomesoplenty:shears"
+            "items": "#c:tools/shear"
           }
         }
       ],
@@ -16,7 +15,6 @@
           "type": "minecraft:item",
           "functions": [
             {
-              "add": false,
               "conditions": [
                 {
                   "block": "biomesoplenty:clover",
@@ -30,7 +28,6 @@
               "function": "minecraft:set_count"
             },
             {
-              "add": false,
               "conditions": [
                 {
                   "block": "biomesoplenty:clover",
@@ -44,7 +41,6 @@
               "function": "minecraft:set_count"
             },
             {
-              "add": false,
               "conditions": [
                 {
                   "block": "biomesoplenty:clover",
@@ -58,7 +54,6 @@
               "function": "minecraft:set_count"
             },
             {
-              "add": false,
               "conditions": [
                 {
                   "block": "biomesoplenty:clover",

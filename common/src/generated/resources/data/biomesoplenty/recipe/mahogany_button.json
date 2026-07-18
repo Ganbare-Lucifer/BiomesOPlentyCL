@@ -3,12 +3,9 @@
   "category": "redstone",
   "group": "wooden_button",
   "ingredients": [
-    {
-      "item": "biomesoplenty:mahogany_planks"
-    }
+    "biomesoplenty:mahogany_planks"
   ],
   "result": {
-    "count": 1,
     "id": "biomesoplenty:mahogany_button"
   }
 }

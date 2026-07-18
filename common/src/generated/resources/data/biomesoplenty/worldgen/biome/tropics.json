@@ -1,29 +1,27 @@
 {
-  "carvers": {
-    "air": [
-      "minecraft:cave",
-      "minecraft:cave_extra_underground",
-      "minecraft:canyon"
-    ]
+  "attributes": {
+    "minecraft:audio/background_music": {
+      "default": {
+        "max_delay": 24000,
+        "min_delay": 12000,
+        "sound": "minecraft:music.overworld.jungle"
+      }
+    },
+    "minecraft:gameplay/can_pillager_patrol_spawn": false,
+    "minecraft:gameplay/increased_fire_burnout": true,
+    "minecraft:visual/cloud_color": "#00ffffff",
+    "minecraft:visual/fog_color": "#b2edff",
+    "minecraft:visual/sky_color": "#66bcff",
+    "minecraft:visual/water_fog_color": "#041f33"
   },
+  "carvers": [
+    "minecraft:cave",
+    "minecraft:cave_extra_underground",
+    "minecraft:canyon"
+  ],
   "downfall": 1.0,
   "effects": {
-    "fog_color": 11726335,
-    "mood_sound": {
-      "block_search_extent": 8,
-      "offset": 2.0,
-      "sound": "minecraft:ambient.cave",
-      "tick_delay": 6000
-    },
-    "music": {
-      "max_delay": 24000,
-      "min_delay": 12000,
-      "replace_current_music": false,
-      "sound": "minecraft:music.overworld.jungle"
-    },
-    "sky_color": 6733055,
-    "water_color": 4445678,
-    "water_fog_color": 270131
+    "water_color": "#43d5ee"
   },
   "features": [
     [],
@@ -84,6 +82,7 @@
       "biomesoplenty:patch_blue_hydrangea",
       "biomesoplenty:rose_bush_normal",
       "biomesoplenty:short_bamboo",
+      "biomesoplenty:patch_bush_1",
       "biomesoplenty:patch_grass_12"
     ],
     [

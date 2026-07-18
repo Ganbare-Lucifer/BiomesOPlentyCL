@@ -1,37 +1,53 @@
 {
-  "carvers": {
-    "air": [
-      "minecraft:cave",
-      "minecraft:cave_extra_underground",
-      "minecraft:canyon"
-    ]
+  "attributes": {
+    "minecraft:audio/background_music": {
+      "default": {
+        "max_delay": 24000,
+        "min_delay": 12000,
+        "sound": "minecraft:music.overworld.jagged_peaks"
+      }
+    },
+    "minecraft:gameplay/snow_golem_melts": true,
+    "minecraft:visual/ambient_particles": [
+      {
+        "particle": {
+          "type": "minecraft:white_ash"
+        },
+        "probability": 0.059046667
+      }
+    ],
+    "minecraft:visual/cloud_color": "#ff7f7f7f",
+    "minecraft:visual/cloud_fog_end_distance": {
+      "argument": 0.25,
+      "modifier": "multiply"
+    },
+    "minecraft:visual/fog_color": "#7f7f7f",
+    "minecraft:visual/fog_end_distance": {
+      "argument": 0.25,
+      "modifier": "multiply"
+    },
+    "minecraft:visual/sky_color": "#77a8ff",
+    "minecraft:visual/sky_fog_end_distance": {
+      "argument": 0.25,
+      "modifier": "multiply"
+    },
+    "minecraft:visual/water_fog_color": "#041633",
+    "minecraft:visual/water_fog_end_distance": {
+      "argument": 0.85,
+      "modifier": "multiply"
+    }
   },
+  "carvers": [
+    "minecraft:cave",
+    "minecraft:cave_extra_underground",
+    "minecraft:canyon"
+  ],
   "downfall": 0.3,
   "effects": {
-    "fog_color": 8355711,
-    "foliage_color": 5537090,
-    "grass_color": 4878395,
-    "mood_sound": {
-      "block_search_extent": 8,
-      "offset": 2.0,
-      "sound": "minecraft:ambient.cave",
-      "tick_delay": 6000
-    },
-    "music": {
-      "max_delay": 24000,
-      "min_delay": 12000,
-      "replace_current_music": false,
-      "sound": "minecraft:music.overworld.jagged_peaks"
-    },
-    "particle": {
-      "options": {
-        "type": "minecraft:white_ash"
-      },
-      "probability": 0.059046667
-    },
-    "sky_color": 7842047,
-    "water_color": 4566514,
-    "water_fog_color": 267827
+    "dry_foliage_color": "#977a6a",
+    "foliage_color": "#547d42",
+    "grass_color": "#4a703b",
+    "water_color": "#45adf2"
   },
   "features": [
     [],

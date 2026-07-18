@@ -39,7 +39,7 @@ public class MushroomBlockBOP extends MushroomBlock implements BonemealableBlock
         BlockPos below = pos.below();
         BlockState ground = level.getBlockState(below);
 
-        return ground.is(BlockTags.MUSHROOM_GROW_BLOCK) || this.mayPlaceOn(ground, level, below);
+        return ground.is(BlockTags.OVERRIDES_MUSHROOM_LIGHT_REQUIREMENT) || this.mayPlaceOn(ground, level, below);
     }
 
     @Override
@@ -47,11 +47,11 @@ public class MushroomBlockBOP extends MushroomBlock implements BonemealableBlock
     {
         level.removeBlock(p_226940_2_, false);
 
-        Registry<ConfiguredFeature<?, ?>> configuredFeatureRegistry = level.registryAccess().registryOrThrow(Registries.CONFIGURED_FEATURE);
+        Registry<ConfiguredFeature<?, ?>> configuredFeatureRegistry = level.registryAccess().lookupOrThrow(Registries.CONFIGURED_FEATURE);
         ConfiguredFeature<?, ?> feature;
         if (this == BOPBlocks.GLOWSHROOM)
         {
-            feature = configuredFeatureRegistry.get(BOPCaveFeatures.HUGE_GLOWSHROOM_CAVE);
+            feature = configuredFeatureRegistry.get(BOPCaveFeatures.HUGE_GLOWSHROOM_CAVE).orElseThrow().value();
         }
         else
         {
@@ -61,7 +61,7 @@ public class MushroomBlockBOP extends MushroomBlock implements BonemealableBlock
                 return false;
             }
 
-            feature = configuredFeatureRegistry.get(BOPVegetationFeatures.HUGE_TOADSTOOL);
+            feature = configuredFeatureRegistry.get(BOPVegetationFeatures.HUGE_TOADSTOOL).orElseThrow().value();
         }
 
         if (feature.place(level, level.getChunkSource().getGenerator(), p_226940_4_, p_226940_2_))

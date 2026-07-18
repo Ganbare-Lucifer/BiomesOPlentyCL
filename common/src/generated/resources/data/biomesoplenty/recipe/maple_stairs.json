@@ -3,9 +3,7 @@
   "category": "building",
   "group": "wooden_stairs",
   "key": {
-    "#": {
-      "item": "biomesoplenty:maple_planks"
-    }
+    "#": "biomesoplenty:maple_planks"
   },
   "pattern": [
     "#  ",

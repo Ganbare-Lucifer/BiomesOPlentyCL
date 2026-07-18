@@ -1,31 +1,26 @@
 {
-  "carvers": {
-    "air": [
-      "minecraft:cave",
-      "minecraft:cave_extra_underground",
-      "minecraft:canyon"
-    ]
+  "attributes": {
+    "minecraft:audio/background_music": {
+      "default": {
+        "max_delay": 24000,
+        "min_delay": 12000,
+        "sound": "biomesoplenty:music.overworld.nostalgic"
+      }
+    },
+    "minecraft:gameplay/snow_golem_melts": true,
+    "minecraft:visual/fog_color": "#c0d8ff",
+    "minecraft:visual/sky_color": "#9e9dff"
   },
+  "carvers": [
+    "minecraft:cave",
+    "minecraft:cave_extra_underground",
+    "minecraft:canyon"
+  ],
   "downfall": 0.05,
   "effects": {
-    "fog_color": 12638463,
-    "foliage_color": 14344371,
-    "grass_color": 15065001,
-    "mood_sound": {
-      "block_search_extent": 8,
-      "offset": 2.0,
-      "sound": "minecraft:ambient.cave",
-      "tick_delay": 6000
-    },
-    "music": {
-      "max_delay": 24000,
-      "min_delay": 12000,
-      "replace_current_music": false,
-      "sound": "minecraft:music.overworld.desert"
-    },
-    "sky_color": 10395135,
-    "water_color": 4159204,
-    "water_fog_color": 329011
+    "foliage_color": "#dae0b3",
+    "grass_color": "#e5dfa9",
+    "water_color": "#3f76e4"
   },
   "features": [
     [],
@@ -77,8 +72,9 @@
     ],
     [
       "minecraft:glow_lichen",
+      "minecraft:patch_dry_grass_desert",
+      "minecraft:patch_leaf_litter",
       "biomesoplenty:trees_dryland",
-      "biomesoplenty:patch_bush_1",
       "biomesoplenty:patch_grass_6",
       "biomesoplenty:patch_dead_bush_4",
       "biomesoplenty:patch_tiny_cactus"
@@ -168,6 +164,18 @@
         "maxCount": 1,
         "minCount": 1,
         "weight": 5
+      },
+      {
+        "type": "minecraft:husk",
+        "maxCount": 4,
+        "minCount": 4,
+        "weight": 80
+      },
+      {
+        "type": "minecraft:parched",
+        "maxCount": 4,
+        "minCount": 4,
+        "weight": 50
       }
     ],
     "underground_water_creature": [

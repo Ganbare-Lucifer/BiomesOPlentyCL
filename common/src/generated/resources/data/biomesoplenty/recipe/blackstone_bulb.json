@@ -1,13 +1,8 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "key": {
-    "#": {
-      "item": "minecraft:blackstone"
-    },
-    "O": {
-      "item": "minecraft:crying_obsidian"
-    }
+    "#": "minecraft:blackstone",
+    "O": "minecraft:crying_obsidian"
   },
   "pattern": [
     "O",

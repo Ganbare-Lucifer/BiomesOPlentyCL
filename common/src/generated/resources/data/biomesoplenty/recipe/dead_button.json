@@ -3,12 +3,9 @@
   "category": "redstone",
   "group": "wooden_button",
   "ingredients": [
-    {
-      "item": "biomesoplenty:dead_planks"
-    }
+    "biomesoplenty:dead_planks"
   ],
   "result": {
-    "count": 1,
     "id": "biomesoplenty:dead_button"
   }
 }

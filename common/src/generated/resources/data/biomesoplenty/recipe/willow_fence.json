@@ -1,14 +1,9 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "group": "wooden_fence",
   "key": {
-    "#": {
-      "item": "minecraft:stick"
-    },
-    "W": {
-      "item": "biomesoplenty:willow_planks"
-    }
+    "#": "minecraft:stick",
+    "W": "biomesoplenty:willow_planks"
   },
   "pattern": [
     "W#W",

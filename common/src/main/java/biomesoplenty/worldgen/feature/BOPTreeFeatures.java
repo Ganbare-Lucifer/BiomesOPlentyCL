@@ -7,13 +7,17 @@ package biomesoplenty.worldgen.feature;
 import biomesoplenty.api.block.BOPBlocks;
 import biomesoplenty.util.worldgen.BOPFeatureUtils;
 import biomesoplenty.worldgen.feature.configurations.*;
+import net.minecraft.core.HolderGetter;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.data.worldgen.features.VegetationFeatures;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.util.random.SimpleWeightedRandomList;
+import net.minecraft.util.random.WeightedList;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.util.valueproviders.WeightedListInt;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LeavesBlock;
@@ -24,7 +28,9 @@ import net.minecraft.world.level.levelgen.feature.configurations.TreeConfigurati
 import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.CherryFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
+import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
 import net.minecraft.world.level.levelgen.feature.treedecorators.BeehiveDecorator;
+import net.minecraft.world.level.levelgen.feature.treedecorators.PlaceOnGroundDecorator;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.CherryTrunkPlacer;
 
 public class BOPTreeFeatures
@@ -36,13 +42,17 @@ public class BOPTreeFeatures
     public static final ResourceKey<ConfiguredFeature<?, ?>> RED_MAPLE_TREE = BOPFeatureUtils.createKey("red_maple_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORANGE_MAPLE_TREE = BOPFeatureUtils.createKey("orange_maple_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> YELLOW_MAPLE_TREE = BOPFeatureUtils.createKey("yellow_maple_tree");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> ORIGIN_TREE = BOPFeatureUtils.createKey("origin_tree");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> RAINBOW_BIRCH_TREE = BOPFeatureUtils.createKey("rainbow_birch_tree");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> RED_MAPLE_TREE_LEAF_LITTER = BOPFeatureUtils.createKey("red_maple_tree_leaf_litter");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORANGE_MAPLE_TREE_LEAF_LITTER = BOPFeatureUtils.createKey("orange_maple_tree_leaf_litter");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> YELLOW_MAPLE_TREE_LEAF_LITTER = BOPFeatureUtils.createKey("yellow_maple_tree_leaf_litter");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORIGIN_OAK_TREE = BOPFeatureUtils.createKey("origin_oak_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> SMALL_DEAD_TREE = BOPFeatureUtils.createKey("small_dead_tree");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> SMALL_DEAD_TREE_LEAF_LITTER = BOPFeatureUtils.createKey("small_dead_tree_leaf_litter");
     public static final ResourceKey<ConfiguredFeature<?, ?>> SNOWBLOSSOM_TREE = BOPFeatureUtils.createKey("snowblossom_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> WILLOW_TREE = BOPFeatureUtils.createKey("willow_tree");
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> ASPEN_TREE = BOPFeatureUtils.createKey("aspen_tree");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> BIG_BIRCH_TREE = BOPFeatureUtils.createKey("big_birch_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> BIG_FLOWERING_OAK_TREE = BOPFeatureUtils.createKey("big_flowering_oak_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> BIG_FLOWERING_OAK_TREE_BEES = BOPFeatureUtils.createKey("big_flowering_oak_tree_bees");
     public static final ResourceKey<ConfiguredFeature<?, ?>> BIG_HELLBARK_TREE = BOPFeatureUtils.createKey("big_hellbark_tree");
@@ -51,10 +61,13 @@ public class BOPTreeFeatures
     public static final ResourceKey<ConfiguredFeature<?, ?>> BIG_RED_MAPLE_TREE = BOPFeatureUtils.createKey("big_red_maple_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> BIG_ORANGE_MAPLE_TREE = BOPFeatureUtils.createKey("big_orange_maple_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> BIG_YELLOW_MAPLE_TREE = BOPFeatureUtils.createKey("big_yellow_maple_tree");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> BIG_RED_MAPLE_TREE_LEAF_LITTER = BOPFeatureUtils.createKey("big_red_maple_tree_leaf_litter");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> BIG_ORANGE_MAPLE_TREE_LEAF_LITTER = BOPFeatureUtils.createKey("big_orange_maple_tree_leaf_litter");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> BIG_YELLOW_MAPLE_TREE_LEAF_LITTER = BOPFeatureUtils.createKey("big_yellow_maple_tree_leaf_litter");
     public static final ResourceKey<ConfiguredFeature<?, ?>> BIG_OAK_TREE = BOPFeatureUtils.createKey("big_oak_tree");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> BIG_ORIGIN_TREE = BOPFeatureUtils.createKey("big_origin_tree");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> BIG_RAINBOW_BIRCH_TREE = BOPFeatureUtils.createKey("big_rainbow_birch_tree");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> BIG_ORIGIN_OAK_TREE = BOPFeatureUtils.createKey("big_origin_oak_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> DYING_TREE = BOPFeatureUtils.createKey("dying_tree");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> DYING_TREE_LEAF_LITTER = BOPFeatureUtils.createKey("dying_tree_leaf_litter");
     public static final ResourceKey<ConfiguredFeature<?, ?>> DYING_TREE_WASTELAND = BOPFeatureUtils.createKey("dying_tree_wasteland");
     public static final ResourceKey<ConfiguredFeature<?, ?>> GIANT_TREE = BOPFeatureUtils.createKey("giant_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> SPARSE_ACACIA_TREE = BOPFeatureUtils.createKey("sparse_acacia_tree");
@@ -80,15 +93,17 @@ public class BOPTreeFeatures
     public static final ResourceKey<ConfiguredFeature<?, ?>> ACACIA_TWIGLET_SMALL = BOPFeatureUtils.createKey("acacia_twiglet_small");
     public static final ResourceKey<ConfiguredFeature<?, ?>> DEAD_TREE_WASTELAND = BOPFeatureUtils.createKey("dead_tree_wasteland");
     public static final ResourceKey<ConfiguredFeature<?, ?>> DEAD_TWIGLET_TREE = BOPFeatureUtils.createKey("dead_twiglet_tree");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> DEAD_TWIGLET_TREE_LEAF_LITTER = BOPFeatureUtils.createKey("dead_twiglet_tree_leaf_litter");
     public static final ResourceKey<ConfiguredFeature<?, ?>> DEAD_TWIGLET_TREE_SMALL = BOPFeatureUtils.createKey("dead_twiglet_tree_small");
     public static final ResourceKey<ConfiguredFeature<?, ?>> HELLBARK_TREE = BOPFeatureUtils.createKey("hellbark_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> JUNGLE_TWIGLET_TREE = BOPFeatureUtils.createKey("jungle_twiglet_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> MANGROVE_TWIGLET_TREE = BOPFeatureUtils.createKey("mangrove_twiglet_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> MAPLE_TWIGLET_TREE = BOPFeatureUtils.createKey("maple_twiglet_tree");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> CHERRY_TWIGLET_TREE = BOPFeatureUtils.createKey("cherry_twiglet_tree");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> SNOWBLOSSOM_TWIGLET_TREE = BOPFeatureUtils.createKey("snowblossom_twiglet_tree");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PALE_OAK_TWIGLET_TREE = BOPFeatureUtils.createKey("pale_oak_twiglet_tree");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PALM_TWIGLET_TREE = BOPFeatureUtils.createKey("palm_twiglet_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> SPRUCE_TWIGLET_TREE = BOPFeatureUtils.createKey("spruce_twiglet_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> TALL_DEAD_TWIGLET_TREE = BOPFeatureUtils.createKey("tall_dead_twiglet_tree");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> TALL_DEAD_TWIGLET_TREE_LEAF_LITTER = BOPFeatureUtils.createKey("tall_dead_twiglet_tree_leaf_litter");
     public static final ResourceKey<ConfiguredFeature<?, ?>> TALL_TWIGLET_TREE = BOPFeatureUtils.createKey("tall_twiglet_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> TWIGLET_TREE = BOPFeatureUtils.createKey("twiglet_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> TWIGLET_TREE_VOLCANO = BOPFeatureUtils.createKey("twiglet_tree_volcano");
@@ -103,6 +118,18 @@ public class BOPTreeFeatures
 
     public static void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> context)
     {
+        PlaceOnGroundDecorator redMapleLeafLitterDecorator = new PlaceOnGroundDecorator(96, 4, 2, new WeightedStateProvider(BOPVegetationFeatures.leafLitterPatchBuilder(BOPBlocks.RED_MAPLE_LEAF_LITTER,1, 3)));
+        PlaceOnGroundDecorator redMapleLeafLitterDecorator1 = new PlaceOnGroundDecorator(150, 2, 2, new WeightedStateProvider(BOPVegetationFeatures.leafLitterPatchBuilder(BOPBlocks.RED_MAPLE_LEAF_LITTER,1, 4)));
+        PlaceOnGroundDecorator orangeMapleLeafLitterDecorator = new PlaceOnGroundDecorator(96, 4, 2, new WeightedStateProvider(BOPVegetationFeatures.leafLitterPatchBuilder(BOPBlocks.ORANGE_MAPLE_LEAF_LITTER,1, 3)));
+        PlaceOnGroundDecorator orangeMapleLeafLitterDecorator1 = new PlaceOnGroundDecorator(150, 2, 2, new WeightedStateProvider(BOPVegetationFeatures.leafLitterPatchBuilder(BOPBlocks.ORANGE_MAPLE_LEAF_LITTER,1, 4)));
+        PlaceOnGroundDecorator yellowMapleLeafLitterDecorator = new PlaceOnGroundDecorator(96, 4, 2, new WeightedStateProvider(BOPVegetationFeatures.leafLitterPatchBuilder(BOPBlocks.YELLOW_MAPLE_LEAF_LITTER,1, 3)));
+        PlaceOnGroundDecorator yellowMapleLeafLitterDecorator1 = new PlaceOnGroundDecorator(150, 2, 2, new WeightedStateProvider(BOPVegetationFeatures.leafLitterPatchBuilder(BOPBlocks.YELLOW_MAPLE_LEAF_LITTER,1, 4)));
+        PlaceOnGroundDecorator leafLitterDecorator = new PlaceOnGroundDecorator(96, 4, 2, new WeightedStateProvider(VegetationFeatures.leafLitterPatchBuilder(1, 3)));
+        PlaceOnGroundDecorator leafLitterDecorator1 = new PlaceOnGroundDecorator(150, 2, 2, new WeightedStateProvider(VegetationFeatures.leafLitterPatchBuilder(1, 4)));
+
+        HolderGetter<Biome> biomes = context.lookup(Registries.BIOME);
+        BlockStateProvider belowTrunkProvider = TreeConfiguration.defaultPlaceBelowTreeTrunkProvider(biomes);
+
         register(context, BOPTreeFeatures.FLOWERING_OAK_TREE, BOPBaseFeatures.BASIC_TREE, new BasicTreeConfiguration.Builder().trunk(BlockStateProvider.simple(Blocks.OAK_LOG)).foliage(BlockStateProvider.simple(Blocks.OAK_LEAVES)).altFoliage(BlockStateProvider.simple(BOPBlocks.FLOWERING_OAK_LEAVES)).build());
         register(context, BOPTreeFeatures.FLOWERING_OAK_TREE_BEES, BOPBaseFeatures.BASIC_TREE, new BasicTreeConfiguration.Builder().trunk(BlockStateProvider.simple(Blocks.OAK_LOG)).foliage(BlockStateProvider.simple(Blocks.OAK_LEAVES)).altFoliage(BlockStateProvider.simple(BOPBlocks.FLOWERING_OAK_LEAVES)).decorator(new BeehiveDecorator(0.05f)).build());
         register(context, BOPTreeFeatures.JACARANDA_TREE, BOPBaseFeatures.BASIC_TREE, new BasicTreeConfiguration.Builder().trunk(BlockStateProvider.simple(BOPBlocks.JACARANDA_LOG)).foliage(BlockStateProvider.simple(BOPBlocks.JACARANDA_LEAVES)).hanging(BlockStateProvider.simple(BOPBlocks.JACARANDA_LEAVES)).build());
@@ -110,11 +137,15 @@ public class BOPTreeFeatures
         register(context, BOPTreeFeatures.RED_MAPLE_TREE, BOPBaseFeatures.BASIC_TREE, new BasicTreeConfiguration.Builder().trunk(BlockStateProvider.simple(BOPBlocks.MAPLE_LOG)).foliage(BlockStateProvider.simple(BOPBlocks.RED_MAPLE_LEAVES)).minHeight(5).maxHeight(10).build());
         register(context, BOPTreeFeatures.ORANGE_MAPLE_TREE, BOPBaseFeatures.BASIC_TREE, new BasicTreeConfiguration.Builder().trunk(BlockStateProvider.simple(BOPBlocks.MAPLE_LOG)).foliage(BlockStateProvider.simple(BOPBlocks.ORANGE_MAPLE_LEAVES)).minHeight(5).maxHeight(8).build());
         register(context, BOPTreeFeatures.YELLOW_MAPLE_TREE, BOPBaseFeatures.BASIC_TREE, new BasicTreeConfiguration.Builder().trunk(BlockStateProvider.simple(BOPBlocks.MAPLE_LOG)).foliage(BlockStateProvider.simple(BOPBlocks.YELLOW_MAPLE_LEAVES)).minHeight(5).maxHeight(8).build());
-        register(context, BOPTreeFeatures.ORIGIN_TREE, BOPBaseFeatures.BASIC_TREE, new BasicTreeConfiguration.Builder().trunk(BlockStateProvider.simple(Blocks.OAK_LOG)).foliage(BlockStateProvider.simple(BOPBlocks.ORIGIN_LEAVES)).minHeight(5).maxHeight(8).build());
-        register(context, BOPTreeFeatures.RAINBOW_BIRCH_TREE, BOPBaseFeatures.BASIC_TREE, new BasicTreeConfiguration.Builder().trunk(BlockStateProvider.simple(Blocks.BIRCH_LOG)).foliage(BlockStateProvider.simple(BOPBlocks.RAINBOW_BIRCH_LEAVES)).build());
+        register(context, BOPTreeFeatures.RED_MAPLE_TREE_LEAF_LITTER, BOPBaseFeatures.BASIC_TREE, new BasicTreeConfiguration.Builder().trunk(BlockStateProvider.simple(BOPBlocks.MAPLE_LOG)).foliage(BlockStateProvider.simple(BOPBlocks.RED_MAPLE_LEAVES)).minHeight(5).maxHeight(10).decorator(redMapleLeafLitterDecorator).decorator(redMapleLeafLitterDecorator1).build());
+        register(context, BOPTreeFeatures.ORANGE_MAPLE_TREE_LEAF_LITTER, BOPBaseFeatures.BASIC_TREE, new BasicTreeConfiguration.Builder().trunk(BlockStateProvider.simple(BOPBlocks.MAPLE_LOG)).foliage(BlockStateProvider.simple(BOPBlocks.ORANGE_MAPLE_LEAVES)).minHeight(5).maxHeight(8).decorator(orangeMapleLeafLitterDecorator).decorator(orangeMapleLeafLitterDecorator1).build());
+        register(context, BOPTreeFeatures.YELLOW_MAPLE_TREE_LEAF_LITTER, BOPBaseFeatures.BASIC_TREE, new BasicTreeConfiguration.Builder().trunk(BlockStateProvider.simple(BOPBlocks.MAPLE_LOG)).foliage(BlockStateProvider.simple(BOPBlocks.YELLOW_MAPLE_LEAVES)).minHeight(5).maxHeight(8).decorator(yellowMapleLeafLitterDecorator).decorator(yellowMapleLeafLitterDecorator1).build());
+        register(context, BOPTreeFeatures.ORIGIN_OAK_TREE, BOPBaseFeatures.BASIC_TREE, new BasicTreeConfiguration.Builder().trunk(BlockStateProvider.simple(BOPBlocks.ORIGIN_OAK_LOG)).foliage(BlockStateProvider.simple(BOPBlocks.ORIGIN_OAK_LEAVES)).minHeight(5).maxHeight(8).build());
         register(context, BOPTreeFeatures.SMALL_DEAD_TREE, BOPBaseFeatures.BASIC_TREE, new BasicTreeConfiguration.Builder().trunk(BlockStateProvider.simple(BOPBlocks.DEAD_LOG)).foliage(BlockStateProvider.simple(BOPBlocks.DEAD_LEAVES)).build());
+        register(context, BOPTreeFeatures.SMALL_DEAD_TREE_LEAF_LITTER, BOPBaseFeatures.BASIC_TREE, new BasicTreeConfiguration.Builder().trunk(BlockStateProvider.simple(BOPBlocks.DEAD_LOG)).foliage(BlockStateProvider.simple(BOPBlocks.DEAD_LEAVES)).decorator(leafLitterDecorator).decorator(leafLitterDecorator1).build());
         register(context, BOPTreeFeatures.WILLOW_TREE, BOPBaseFeatures.BASIC_TREE, new BasicTreeConfiguration.Builder().trunk(BlockStateProvider.simple(BOPBlocks.WILLOW_LOG)).foliage(BlockStateProvider.simple(BOPBlocks.WILLOW_LEAVES)).vine(BlockStateProvider.simple(BOPBlocks.WILLOW_VINE)).minHeight(6).maxHeight(10).leavesOffset(0).maxLeavesRadius(2).build());
-        register(context, BOPTreeFeatures.ASPEN_TREE, BOPBaseFeatures.CYPRESS_TREE, new CypressTreeConfiguration.Builder().trunk(BlockStateProvider.simple(Blocks.BIRCH_LOG)).foliage(BlockStateProvider.simple(BOPBlocks.YELLOW_MAPLE_LEAVES)).maxHeight(20).build());
+        register(context, BOPTreeFeatures.ASPEN_TREE, BOPBaseFeatures.CYPRESS_TREE, new CypressTreeConfiguration.Builder().trunk(BlockStateProvider.simple(Blocks.BIRCH_LOG)).foliage(BlockStateProvider.simple(BOPBlocks.YELLOW_MAPLE_LEAVES)).maxHeight(20).decorator(yellowMapleLeafLitterDecorator).decorator(yellowMapleLeafLitterDecorator1).build());
+        register(context, BOPTreeFeatures.BIG_BIRCH_TREE, BOPBaseFeatures.BIG_TREE, new BigTreeConfiguration.Builder().trunk(BlockStateProvider.simple(Blocks.BIRCH_LOG)).foliage(BlockStateProvider.simple(Blocks.BIRCH_LEAVES)).build());
         register(context, BOPTreeFeatures.BIG_FLOWERING_OAK_TREE, BOPBaseFeatures.BIG_TREE, new BigTreeConfiguration.Builder().trunk(BlockStateProvider.simple(Blocks.OAK_LOG)).foliage(BlockStateProvider.simple(Blocks.OAK_LEAVES)).altFoliage(BlockStateProvider.simple(BOPBlocks.FLOWERING_OAK_LEAVES)).build());
         register(context, BOPTreeFeatures.BIG_FLOWERING_OAK_TREE_BEES, BOPBaseFeatures.BIG_TREE, new BigTreeConfiguration.Builder().trunk(BlockStateProvider.simple(Blocks.OAK_LOG)).foliage(BlockStateProvider.simple(Blocks.OAK_LEAVES)).altFoliage(BlockStateProvider.simple(BOPBlocks.FLOWERING_OAK_LEAVES)).decorator(new BeehiveDecorator(0.05f)).build());
         register(context, BOPTreeFeatures.BIG_HELLBARK_TREE, BOPBaseFeatures.BIG_TREE, new BigTreeConfiguration.Builder().trunk(BlockStateProvider.simple(BOPBlocks.HELLBARK_LOG)).foliage(BlockStateProvider.simple(BOPBlocks.HELLBARK_LEAVES)).maxHeight(10).foliageHeight(2).build());
@@ -123,12 +154,15 @@ public class BOPTreeFeatures
         register(context, BOPTreeFeatures.BIG_RED_MAPLE_TREE, BOPBaseFeatures.BIG_TREE, new BigTreeConfiguration.Builder().trunk(BlockStateProvider.simple(BOPBlocks.MAPLE_LOG)).foliage(BlockStateProvider.simple(BOPBlocks.RED_MAPLE_LEAVES)).build());
         register(context, BOPTreeFeatures.BIG_ORANGE_MAPLE_TREE, BOPBaseFeatures.BIG_TREE, new BigTreeConfiguration.Builder().trunk(BlockStateProvider.simple(BOPBlocks.MAPLE_LOG)).foliage(BlockStateProvider.simple(BOPBlocks.ORANGE_MAPLE_LEAVES)).build());
         register(context, BOPTreeFeatures.BIG_YELLOW_MAPLE_TREE, BOPBaseFeatures.BIG_TREE, new BigTreeConfiguration.Builder().trunk(BlockStateProvider.simple(BOPBlocks.MAPLE_LOG)).foliage(BlockStateProvider.simple(BOPBlocks.YELLOW_MAPLE_LEAVES)).build());
+        register(context, BOPTreeFeatures.BIG_RED_MAPLE_TREE_LEAF_LITTER, BOPBaseFeatures.BIG_TREE, new BigTreeConfiguration.Builder().trunk(BlockStateProvider.simple(BOPBlocks.MAPLE_LOG)).foliage(BlockStateProvider.simple(BOPBlocks.RED_MAPLE_LEAVES)).decorator(redMapleLeafLitterDecorator).decorator(redMapleLeafLitterDecorator1).build());
+        register(context, BOPTreeFeatures.BIG_ORANGE_MAPLE_TREE_LEAF_LITTER, BOPBaseFeatures.BIG_TREE, new BigTreeConfiguration.Builder().trunk(BlockStateProvider.simple(BOPBlocks.MAPLE_LOG)).foliage(BlockStateProvider.simple(BOPBlocks.ORANGE_MAPLE_LEAVES)).decorator(orangeMapleLeafLitterDecorator).decorator(orangeMapleLeafLitterDecorator1).build());
+        register(context, BOPTreeFeatures.BIG_YELLOW_MAPLE_TREE_LEAF_LITTER, BOPBaseFeatures.BIG_TREE, new BigTreeConfiguration.Builder().trunk(BlockStateProvider.simple(BOPBlocks.MAPLE_LOG)).foliage(BlockStateProvider.simple(BOPBlocks.YELLOW_MAPLE_LEAVES)).decorator(yellowMapleLeafLitterDecorator).decorator(yellowMapleLeafLitterDecorator1).build());
         register(context, BOPTreeFeatures.BIG_OAK_TREE, BOPBaseFeatures.BIG_TREE, new BigTreeConfiguration.Builder().build());
-        register(context, BOPTreeFeatures.BIG_ORIGIN_TREE, BOPBaseFeatures.BIG_TREE, new BigTreeConfiguration.Builder().trunk(BlockStateProvider.simple(Blocks.OAK_LOG)).foliage(BlockStateProvider.simple(BOPBlocks.ORIGIN_LEAVES)).build());
-        register(context, BOPTreeFeatures.BIG_RAINBOW_BIRCH_TREE, BOPBaseFeatures.BIG_TREE, new BigTreeConfiguration.Builder().trunk(BlockStateProvider.simple(Blocks.BIRCH_LOG)).foliage(BlockStateProvider.simple(BOPBlocks.RAINBOW_BIRCH_LEAVES)).build());
+        register(context, BOPTreeFeatures.BIG_ORIGIN_OAK_TREE, BOPBaseFeatures.BIG_TREE, new BigTreeConfiguration.Builder().trunk(BlockStateProvider.simple(BOPBlocks.ORIGIN_OAK_LOG)).foliage(BlockStateProvider.simple(BOPBlocks.ORIGIN_OAK_LEAVES)).build());
         register(context, BOPTreeFeatures.DYING_TREE, BOPBaseFeatures.BIG_TREE, new BigTreeConfiguration.Builder().trunk(BlockStateProvider.simple(BOPBlocks.DEAD_LOG)).foliage(BlockStateProvider.simple(BOPBlocks.DEAD_LEAVES)).maxHeight(10).foliageHeight(2).build());
-        register(context, BOPTreeFeatures.DYING_TREE_WASTELAND, BOPBaseFeatures.BIG_TREE, new BigTreeConfiguration.Builder().trunk(BlockStateProvider.simple(BOPBlocks.DEAD_LOG)).foliage(BlockStateProvider.simple(BOPBlocks.DEAD_LEAVES)).maxHeight(10).foliageHeight(1).build());
-        register(context, BOPTreeFeatures.GIANT_TREE, BOPBaseFeatures.BIG_TREE, new BigTreeConfiguration.Builder().trunk(BlockStateProvider.simple(Blocks.DARK_OAK_LOG)).foliage(BlockStateProvider.simple(Blocks.DARK_OAK_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true))).minHeight(15).maxHeight(20).trunkWidth(4).build());
+        register(context, BOPTreeFeatures.DYING_TREE_LEAF_LITTER, BOPBaseFeatures.BIG_TREE, new BigTreeConfiguration.Builder().trunk(BlockStateProvider.simple(BOPBlocks.DEAD_LOG)).foliage(BlockStateProvider.simple(BOPBlocks.DEAD_LEAVES)).maxHeight(10).foliageHeight(2).decorator(leafLitterDecorator).decorator(leafLitterDecorator1).build());
+        register(context, BOPTreeFeatures.DYING_TREE_WASTELAND, BOPBaseFeatures.BIG_TREE, new BigTreeConfiguration.Builder().trunk(BlockStateProvider.simple(BOPBlocks.DEAD_LOG)).foliage(BlockStateProvider.simple(BOPBlocks.DEAD_LEAVES)).maxHeight(10).foliageHeight(1).decorator(leafLitterDecorator).decorator(leafLitterDecorator1).build());
+        register(context, BOPTreeFeatures.GIANT_TREE, BOPBaseFeatures.BIG_TREE, new BigTreeConfiguration.Builder().trunk(BlockStateProvider.simple(Blocks.DARK_OAK_LOG)).foliage(BlockStateProvider.simple(Blocks.DARK_OAK_LEAVES)).minHeight(15).maxHeight(20).trunkWidth(4).build());
         register(context, BOPTreeFeatures.SPARSE_ACACIA_TREE, BOPBaseFeatures.BIG_TREE, new BigTreeConfiguration.Builder().trunk(BlockStateProvider.simple(Blocks.ACACIA_LOG)).foliage(BlockStateProvider.simple(Blocks.ACACIA_LEAVES)).maxHeight(8).foliageHeight(1).build());
         register(context, BOPTreeFeatures.SPARSE_OAK_TREE, BOPBaseFeatures.BIG_TREE, new BigTreeConfiguration.Builder().maxHeight(10).foliageHeight(2).build());
         register(context, BOPTreeFeatures.FIR_TREE, BOPBaseFeatures.TAIGA_TREE, createFir().minHeight(5).maxHeight(28).build());
@@ -150,17 +184,19 @@ public class BOPTreeFeatures
         register(context, BOPTreeFeatures.SPRUCE_BUSH, BOPBaseFeatures.BUSH_TREE, new BasicTreeConfiguration.Builder().maxHeight(2).minHeight(2).trunk(BlockStateProvider.simple(Blocks.SPRUCE_LOG)).foliage(BlockStateProvider.simple(Blocks.SPRUCE_LEAVES)).build());
         register(context, BOPTreeFeatures.ACACIA_TWIGLET, BOPBaseFeatures.TWIGLET_TREE, new TwigletTreeConfiguration.Builder().trunk(BlockStateProvider.simple(Blocks.ACACIA_LOG)).foliage(BlockStateProvider.simple(Blocks.ACACIA_LEAVES)).build());
         register(context, BOPTreeFeatures.ACACIA_TWIGLET_SMALL, BOPBaseFeatures.TWIGLET_TREE, new TwigletTreeConfiguration.Builder().trunk(BlockStateProvider.simple(Blocks.ACACIA_LOG)).foliage(BlockStateProvider.simple(Blocks.ACACIA_LEAVES)).minHeight(1).maxHeight(2).build());
-        register(context, BOPTreeFeatures.DEAD_TREE_WASTELAND, BOPBaseFeatures.TWIGLET_TREE, new TwigletTreeConfiguration.Builder().trunkFruit(BlockStateProvider.simple(BOPBlocks.DEAD_BRANCH)).leafChance(0.0F, 0.0F).trunk(BlockStateProvider.simple(BOPBlocks.DEAD_LOG)).foliage(BlockStateProvider.simple(Blocks.AIR)).minHeight(6).maxHeight(10).build());
+        register(context, BOPTreeFeatures.DEAD_TREE_WASTELAND, BOPBaseFeatures.TWIGLET_TREE, new TwigletTreeConfiguration.Builder().trunkFruit(BlockStateProvider.simple(BOPBlocks.DEAD_BRANCH)).leafChance(0.0F, 0.0F).trunk(BlockStateProvider.simple(BOPBlocks.DEAD_LOG)).foliage(BlockStateProvider.simple(Blocks.AIR)).minHeight(6).maxHeight(10).decorator(leafLitterDecorator).build());
         register(context, BOPTreeFeatures.DEAD_TWIGLET_TREE, BOPBaseFeatures.TWIGLET_TREE, new TwigletTreeConfiguration.Builder().trunkFruit(BlockStateProvider.simple(BOPBlocks.DEAD_BRANCH)).leafChance(0.05F, 0.25F).trunk(BlockStateProvider.simple(BOPBlocks.DEAD_LOG)).foliage(BlockStateProvider.simple(BOPBlocks.DEAD_LEAVES)).minHeight(6).maxHeight(10).build());
+        register(context, BOPTreeFeatures.DEAD_TWIGLET_TREE_LEAF_LITTER, BOPBaseFeatures.TWIGLET_TREE, new TwigletTreeConfiguration.Builder().trunkFruit(BlockStateProvider.simple(BOPBlocks.DEAD_BRANCH)).leafChance(0.05F, 0.25F).trunk(BlockStateProvider.simple(BOPBlocks.DEAD_LOG)).foliage(BlockStateProvider.simple(BOPBlocks.DEAD_LEAVES)).minHeight(6).maxHeight(10).decorator(leafLitterDecorator).build());
         register(context, BOPTreeFeatures.DEAD_TWIGLET_TREE_SMALL, BOPBaseFeatures.TWIGLET_TREE, new TwigletTreeConfiguration.Builder().trunk(BlockStateProvider.simple(BOPBlocks.DEAD_LOG)).foliage(BlockStateProvider.simple(BOPBlocks.DEAD_LEAVES)).minHeight(1).maxHeight(2).build());
         register(context, BOPTreeFeatures.HELLBARK_TREE, BOPBaseFeatures.TWIGLET_TREE, new TwigletTreeConfiguration.Builder().trunk(BlockStateProvider.simple(BOPBlocks.HELLBARK_LOG)).foliage(BlockStateProvider.simple(BOPBlocks.HELLBARK_LEAVES)).minHeight(3).maxHeight(7).leafChance(0.75F,1.0F).build());
         register(context, BOPTreeFeatures.JUNGLE_TWIGLET_TREE, BOPBaseFeatures.TWIGLET_TREE, new TwigletTreeConfiguration.Builder().trunk(BlockStateProvider.simple(Blocks.JUNGLE_LOG)).foliage(BlockStateProvider.simple(Blocks.JUNGLE_LEAVES)).trunkFruit(BlockStateProvider.simple(Blocks.COCOA)).minHeight(1).maxHeight(2).build());
         register(context, BOPTreeFeatures.MANGROVE_TWIGLET_TREE, BOPBaseFeatures.TWIGLET_TREE, new TwigletTreeConfiguration.Builder().trunk(BlockStateProvider.simple(Blocks.MANGROVE_LOG)).foliage(BlockStateProvider.simple(Blocks.MANGROVE_LEAVES)).minHeight(1).maxHeight(2).build());
         register(context, BOPTreeFeatures.MAPLE_TWIGLET_TREE, BOPBaseFeatures.TWIGLET_TREE, new TwigletTreeConfiguration.Builder().trunk(BlockStateProvider.simple(BOPBlocks.MAPLE_LOG)).foliage(BlockStateProvider.simple(BOPBlocks.RED_MAPLE_LEAVES)).minHeight(1).maxHeight(2).build());
-        register(context, BOPTreeFeatures.CHERRY_TWIGLET_TREE, BOPBaseFeatures.TWIGLET_TREE, new TwigletTreeConfiguration.Builder().trunk(BlockStateProvider.simple(Blocks.CHERRY_LOG)).foliage(BlockStateProvider.simple(Blocks.CHERRY_LEAVES)).minHeight(1).maxHeight(1).leafChance(1.0F, 1.0F).build());
-        register(context, BOPTreeFeatures.SNOWBLOSSOM_TWIGLET_TREE, BOPBaseFeatures.TWIGLET_TREE, new TwigletTreeConfiguration.Builder().trunk(BlockStateProvider.simple(Blocks.CHERRY_LOG)).foliage(BlockStateProvider.simple(BOPBlocks.SNOWBLOSSOM_LEAVES)).minHeight(2).maxHeight(2).leafChance(1.0F, 1.0F).build());
+        register(context, BOPTreeFeatures.PALE_OAK_TWIGLET_TREE, BOPBaseFeatures.TWIGLET_TREE, new TwigletTreeConfiguration.Builder().trunk(BlockStateProvider.simple(Blocks.PALE_OAK_LOG)).foliage(BlockStateProvider.simple(Blocks.PALE_OAK_LEAVES)).minHeight(1).maxHeight(2).build());
+        register(context, BOPTreeFeatures.PALM_TWIGLET_TREE, BOPBaseFeatures.TWIGLET_TREE, new TwigletTreeConfiguration.Builder().trunk(BlockStateProvider.simple(BOPBlocks.PALM_LOG)).foliage(BlockStateProvider.simple(BOPBlocks.PALM_LEAVES)).minHeight(1).maxHeight(2).leafChance(1.0F,1.0F).build());
         register(context, BOPTreeFeatures.SPRUCE_TWIGLET_TREE, BOPBaseFeatures.TWIGLET_TREE, new TwigletTreeConfiguration.Builder().trunk(BlockStateProvider.simple(Blocks.SPRUCE_LOG)).foliage(BlockStateProvider.simple(Blocks.SPRUCE_LEAVES)).minHeight(1).maxHeight(2).build());
         register(context, BOPTreeFeatures.TALL_DEAD_TWIGLET_TREE, BOPBaseFeatures.TWIGLET_TREE, new TwigletTreeConfiguration.Builder().trunkFruit(BlockStateProvider.simple(BOPBlocks.DEAD_BRANCH)).leafChance(0.15F, 0.6F).trunk(BlockStateProvider.simple(BOPBlocks.DEAD_LOG)).foliage(BlockStateProvider.simple(BOPBlocks.DEAD_LEAVES)).minHeight(12).maxHeight(18).build());
+        register(context, BOPTreeFeatures.TALL_DEAD_TWIGLET_TREE_LEAF_LITTER, BOPBaseFeatures.TWIGLET_TREE, new TwigletTreeConfiguration.Builder().trunkFruit(BlockStateProvider.simple(BOPBlocks.DEAD_BRANCH)).leafChance(0.15F, 0.6F).trunk(BlockStateProvider.simple(BOPBlocks.DEAD_LOG)).foliage(BlockStateProvider.simple(BOPBlocks.DEAD_LEAVES)).minHeight(12).maxHeight(18).decorator(leafLitterDecorator).decorator(leafLitterDecorator1).build());
         register(context, BOPTreeFeatures.TALL_TWIGLET_TREE, BOPBaseFeatures.TWIGLET_TREE, new TwigletTreeConfiguration.Builder().minHeight(2).maxHeight(4).build());
         register(context, BOPTreeFeatures.TWIGLET_TREE, BOPBaseFeatures.TWIGLET_TREE, new TwigletTreeConfiguration.Builder().minHeight(1).maxHeight(2).build());
         register(context, BOPTreeFeatures.TWIGLET_TREE_VOLCANO, BOPBaseFeatures.TWIGLET_TREE, new TwigletTreeConfiguration.Builder().trunk(BlockStateProvider.simple(Blocks.DARK_OAK_LOG)).foliage(BlockStateProvider.simple(Blocks.DARK_OAK_LEAVES)).minHeight(1).maxHeight(2).build());
@@ -168,15 +204,32 @@ public class BOPTreeFeatures
         register(context, BOPTreeFeatures.REDWOOD_TREE_MEDIUM, BOPBaseFeatures.REDWOOD_TREE, createRedwood(BOPBlocks.REDWOOD_WOOD).minHeight(25).maxHeight(40).trunkWidth(2).build());
         register(context, BOPTreeFeatures.MAHOGANY_TREE, BOPBaseFeatures.MAHOGANY_TREE, new MahoganyTreeConfiguration.Builder().build());
         register(context, BOPTreeFeatures.PALM_TREE, BOPBaseFeatures.PALM_TREE, new PalmTreeConfiguration.Builder().build());
-        register(context, BOPTreeFeatures.SNOWBLOSSOM_TREE, Feature.TREE, snowblossom().build());
+        register(context, BOPTreeFeatures.SNOWBLOSSOM_TREE, Feature.TREE, snowblossom(belowTrunkProvider).build());
         register(context, BOPTreeFeatures.REDWOOD_TREE_LARGE, BOPBaseFeatures.REDWOOD_TREE, createRedwood(BOPBlocks.REDWOOD_WOOD).minHeight(45).maxHeight(60).trunkWidth(3).build());
         register(context, BOPTreeFeatures.PINE_TREE, BOPBaseFeatures.PINE_TREE, new PineTreeConfiguration.Builder().build());
         register(context, BOPTreeFeatures.EMPYREAL_TREE, BOPBaseFeatures.EMPYREAL_TREE, new EmpyrealTreeConfiguration.Builder().build());
         register(context, BOPTreeFeatures.NULL_TREE, BOPBaseFeatures.BASIC_TREE, new BasicTreeConfiguration.Builder().trunk(BlockStateProvider.simple(BOPBlocks.NULL_BLOCK)).foliage(BlockStateProvider.simple(BOPBlocks.NULL_LEAVES)).build());
     }
 
-    private static TreeConfiguration.TreeConfigurationBuilder snowblossom() {
-        return (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(Blocks.CHERRY_LOG), new CherryTrunkPlacer(7, 1, 0, new WeightedListInt(SimpleWeightedRandomList.<IntProvider>builder().add(ConstantInt.of(1), 1).add(ConstantInt.of(2), 1).add(ConstantInt.of(3), 1).build()), UniformInt.of(2, 4), UniformInt.of(-4, -3), UniformInt.of(-1, 0)), BlockStateProvider.simple(BOPBlocks.SNOWBLOSSOM_LEAVES), new CherryFoliagePlacer(ConstantInt.of(4), ConstantInt.of(0), ConstantInt.of(5), 0.25F, 0.5F, 0.16666667F, 0.33333334F), new TwoLayersFeatureSize(1, 0, 2))).ignoreVines();
+    private static TreeConfiguration.TreeConfigurationBuilder snowblossom(final BlockStateProvider belowTrunkProvider) {
+        return new TreeConfiguration.TreeConfigurationBuilder(
+                BlockStateProvider.simple(Blocks.CHERRY_LOG),
+                new CherryTrunkPlacer(
+                        7,
+                        1,
+                        0,
+                        new WeightedListInt(
+                                WeightedList.<IntProvider>builder().add(ConstantInt.of(1), 1).add(ConstantInt.of(2), 1).add(ConstantInt.of(3), 1).build()
+                        ),
+                        UniformInt.of(2, 4),
+                        UniformInt.of(-4, -3),
+                        UniformInt.of(-1, 0)
+                ),
+                BlockStateProvider.simple(BOPBlocks.SNOWBLOSSOM_LEAVES),
+                new CherryFoliagePlacer(ConstantInt.of(4), ConstantInt.of(0), ConstantInt.of(5), 0.25F, 0.5F, 0.16666667F, 0.33333334F),
+                new TwoLayersFeatureSize(1, 0, 2),
+                belowTrunkProvider
+        ).ignoreVines();
     }
 
     private static TaigaTreeConfiguration.Builder createFir()

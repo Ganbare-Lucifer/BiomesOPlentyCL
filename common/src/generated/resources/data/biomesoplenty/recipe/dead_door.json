@@ -3,9 +3,7 @@
   "category": "redstone",
   "group": "wooden_door",
   "key": {
-    "#": {
-      "item": "biomesoplenty:dead_planks"
-    }
+    "#": "biomesoplenty:dead_planks"
   },
   "pattern": [
     "##",

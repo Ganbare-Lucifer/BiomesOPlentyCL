@@ -3,9 +3,7 @@
   "category": "redstone",
   "group": "wooden_door",
   "key": {
-    "#": {
-      "item": "biomesoplenty:maple_planks"
-    }
+    "#": "biomesoplenty:maple_planks"
   },
   "pattern": [
     "##",

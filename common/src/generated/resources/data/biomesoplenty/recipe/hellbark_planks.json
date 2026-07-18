@@ -3,9 +3,7 @@
   "category": "building",
   "group": "planks",
   "ingredients": [
-    {
-      "tag": "biomesoplenty:hellbark_logs"
-    }
+    "#biomesoplenty:hellbark_logs"
   ],
   "result": {
     "count": 4,

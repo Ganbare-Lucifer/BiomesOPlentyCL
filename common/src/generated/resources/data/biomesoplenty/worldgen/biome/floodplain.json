@@ -1,31 +1,30 @@
 {
-  "carvers": {
-    "air": [
-      "minecraft:cave",
-      "minecraft:cave_extra_underground",
-      "minecraft:canyon"
-    ]
+  "attributes": {
+    "minecraft:audio/background_music": {
+      "default": {
+        "max_delay": 24000,
+        "min_delay": 12000,
+        "sound": "minecraft:music.overworld.jungle"
+      }
+    },
+    "minecraft:gameplay/increased_fire_burnout": true,
+    "minecraft:visual/sky_color": "#75aaff",
+    "minecraft:visual/water_fog_color": "#041a2c",
+    "minecraft:visual/water_fog_end_distance": {
+      "argument": 0.85,
+      "modifier": "multiply"
+    }
   },
+  "carvers": [
+    "minecraft:cave",
+    "minecraft:cave_extra_underground",
+    "minecraft:canyon"
+  ],
   "downfall": 2.0,
   "effects": {
-    "fog_color": 12638463,
-    "foliage_color": 6016293,
-    "grass_color": 8377405,
-    "mood_sound": {
-      "block_search_extent": 8,
-      "offset": 2.0,
-      "sound": "minecraft:ambient.cave",
-      "tick_delay": 6000
-    },
-    "music": {
-      "max_delay": 24000,
-      "min_delay": 12000,
-      "replace_current_music": false,
-      "sound": "minecraft:music.overworld.jungle"
-    },
-    "sky_color": 7711487,
-    "water_color": 4172478,
-    "water_fog_color": 268844
+    "foliage_color": "#5bcd25",
+    "grass_color": "#7fd43d",
+    "water_color": "#3faabe"
   },
   "features": [
     [],
@@ -136,7 +135,7 @@
         "type": "minecraft:skeleton",
         "maxCount": 4,
         "minCount": 4,
-        "weight": 100
+        "weight": 70
       },
       {
         "type": "minecraft:creeper",
@@ -161,6 +160,18 @@
         "maxCount": 1,
         "minCount": 1,
         "weight": 5
+      },
+      {
+        "type": "minecraft:slime",
+        "maxCount": 1,
+        "minCount": 1,
+        "weight": 1
+      },
+      {
+        "type": "minecraft:bogged",
+        "maxCount": 4,
+        "minCount": 4,
+        "weight": 30
       }
     ],
     "underground_water_creature": [

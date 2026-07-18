@@ -3,9 +3,7 @@
   "category": "building",
   "group": "bark",
   "key": {
-    "#": {
-      "item": "biomesoplenty:willow_log"
-    }
+    "#": "biomesoplenty:willow_log"
   },
   "pattern": [
     "##",

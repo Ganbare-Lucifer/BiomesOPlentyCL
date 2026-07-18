@@ -3,15 +3,9 @@
   "category": "building",
   "key": {
     "#": [
-      {
-        "item": "biomesoplenty:orange_sandstone"
-      },
-      {
-        "item": "biomesoplenty:chiseled_orange_sandstone"
-      },
-      {
-        "item": "biomesoplenty:cut_orange_sandstone"
-      }
+      "biomesoplenty:orange_sandstone",
+      "biomesoplenty:chiseled_orange_sandstone",
+      "biomesoplenty:cut_orange_sandstone"
     ]
   },
   "pattern": [

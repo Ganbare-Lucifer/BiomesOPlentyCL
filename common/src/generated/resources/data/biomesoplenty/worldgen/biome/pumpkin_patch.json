@@ -1,31 +1,24 @@
 {
-  "carvers": {
-    "air": [
-      "minecraft:cave",
-      "minecraft:cave_extra_underground",
-      "minecraft:canyon"
-    ]
+  "attributes": {
+    "minecraft:audio/background_music": {
+      "default": {
+        "max_delay": 24000,
+        "min_delay": 12000,
+        "sound": "minecraft:music.overworld.forest"
+      }
+    },
+    "minecraft:visual/sky_color": "#7ca4ff"
   },
+  "carvers": [
+    "minecraft:cave",
+    "minecraft:cave_extra_underground",
+    "minecraft:canyon"
+  ],
   "downfall": 0.8,
   "effects": {
-    "fog_color": 12638463,
-    "foliage_color": 13553994,
-    "grass_color": 14532426,
-    "mood_sound": {
-      "block_search_extent": 8,
-      "offset": 2.0,
-      "sound": "minecraft:ambient.cave",
-      "tick_delay": 6000
-    },
-    "music": {
-      "max_delay": 24000,
-      "min_delay": 12000,
-      "replace_current_music": false,
-      "sound": "minecraft:music.overworld.forest"
-    },
-    "sky_color": 8168703,
-    "water_color": 4159204,
-    "water_fog_color": 329011
+    "foliage_color": "#ced14a",
+    "grass_color": "#ddbf4a",
+    "water_color": "#3f76e4"
   },
   "features": [
     [],
@@ -83,13 +76,16 @@
       "minecraft:brown_mushroom_normal",
       "minecraft:red_mushroom_normal",
       "biomesoplenty:trees_seasonal_pumpkin_patch",
+      "biomesoplenty:flower_pumpkin_patch",
+      "biomesoplenty:fallen_birch_log",
+      "biomesoplenty:patch_barley_sparse",
       "biomesoplenty:big_pumpkin",
       "biomesoplenty:pumpkin_patch",
       "biomesoplenty:toadstool_normal",
       "biomesoplenty:patch_sprouts_10",
       "biomesoplenty:patch_reed_5",
       "biomesoplenty:patch_grass_6",
-      "biomesoplenty:orange_maple_leaf_piles"
+      "biomesoplenty:yellow_maple_leaf_litter"
     ],
     [
       "minecraft:freeze_top_layer"

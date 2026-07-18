@@ -9,14 +9,13 @@ import biomesoplenty.worldgen.feature.configurations.BOPTreeConfiguration;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.tags.BlockItemTags;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelSimulatedReader;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.BushBlock;
-import net.minecraft.world.level.block.VineBlock;
+import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.levelgen.feature.TreeFeature;
@@ -32,35 +31,35 @@ public abstract class BOPTreeFeature<FC extends BOPTreeConfiguration> extends Tr
         super((Codec)codec);
     }
 
-    public boolean placeLeaves(LevelAccessor level, BlockPos pos, FoliagePlacer.FoliageSetter leaves, FC config)
+    public boolean placeLeaves(WorldGenLevel level, BlockPos pos, FoliagePlacer.FoliageSetter leaves, FC config)
     {
         if (canReplace(level, pos))
         {
-            leaves.set(pos, config.foliageProvider.getState(level.getRandom(), pos));
+            leaves.set(pos, config.foliageProvider.getState(level, level.getRandom(), pos));
             return true;
         }
         return false;
     }
 
-    public boolean placeAltLeaves(LevelAccessor level, BlockPos pos, FoliagePlacer.FoliageSetter leaves, FC config)
+    public boolean placeAltLeaves(WorldGenLevel level, BlockPos pos, FoliagePlacer.FoliageSetter leaves, FC config)
     {
         if (canReplace(level, pos))
         {
-            leaves.set(pos, config.altFoliageProvider.getState(level.getRandom(), pos));
+            leaves.set(pos, config.altFoliageProvider.getState(level, level.getRandom(), pos));
             return true;
         }
         return false;
     }
 
-    public boolean placeLog(LevelAccessor world, BlockPos pos, BiConsumer<BlockPos, BlockState> logs, FC config)
+    public boolean placeLog(WorldGenLevel world, BlockPos pos, BiConsumer<BlockPos, BlockState> logs, FC config)
     {
         return this.placeLog(world, pos, null, logs, config);
     }
 
-    public boolean placeLog(LevelAccessor level, BlockPos pos, Direction.Axis axis, BiConsumer<BlockPos, BlockState> logs, FC config)
+    public boolean placeLog(WorldGenLevel level, BlockPos pos, Direction.Axis axis, BiConsumer<BlockPos, BlockState> logs, FC config)
     {
         Property logAxisProperty = this.getLogAxisProperty(level, pos, config);
-        BlockState log = config.trunkProvider.getState(level.getRandom(), pos);
+        BlockState log = config.trunkProvider.getState(level, level.getRandom(), pos);
         BlockState directedLog = (axis != null && logAxisProperty != null) ? log.setValue(logAxisProperty, axis) : log;
 
         if (canReplace(level, pos))
@@ -73,9 +72,9 @@ public abstract class BOPTreeFeature<FC extends BOPTreeConfiguration> extends Tr
         return false;
     }
 
-    public boolean setVine(LevelAccessor world, RandomSource rand, BlockPos pos, Direction side, int length, FC config)
+    public boolean setVine(WorldGenLevel world, RandomSource rand, BlockPos pos, Direction side, int length, FC config)
     {
-        BlockState vine = config.vineProvider.getState(rand, pos);
+        BlockState vine = config.vineProvider.getState(world, rand, pos);
         BlockState directedVine = vine.getBlock() instanceof VineBlock ? vine.setValue(VineBlock.NORTH, Boolean.valueOf(side == Direction.NORTH)).setValue(VineBlock.EAST, Boolean.valueOf(side == Direction.EAST)).setValue(VineBlock.SOUTH, Boolean.valueOf(side == Direction.SOUTH)).setValue(VineBlock.WEST, Boolean.valueOf(side == Direction.WEST)) : vine;
         boolean setOne = false;
         while (world.getBlockState(pos).isAir() && length > 0 && rand.nextInt(12) > 0)
@@ -88,9 +87,9 @@ public abstract class BOPTreeFeature<FC extends BOPTreeConfiguration> extends Tr
         return setOne;
     }
 
-    public boolean setHanging(LevelAccessor level, BlockPos pos, FC config)
+    public boolean setHanging(WorldGenLevel level, BlockPos pos, FC config)
     {
-        BlockState hanging = config.hangingProvider.getState(level.getRandom(), pos);
+        BlockState hanging = config.hangingProvider.getState(level, level.getRandom(), pos);
 
         if (this.canReplace(level, pos))
         {
@@ -99,9 +98,9 @@ public abstract class BOPTreeFeature<FC extends BOPTreeConfiguration> extends Tr
         return false;
     }
 
-    public boolean setTrunkFruit(LevelAccessor level, BlockPos pos, FC config)
+    public boolean setTrunkFruit(WorldGenLevel level, BlockPos pos, FC config)
     {
-        BlockState trunkFruit = config.trunkFruitProvider.getState(level.getRandom(), pos);
+        BlockState trunkFruit = config.trunkFruitProvider.getState(level, level.getRandom(), pos);
 
         if (trunkFruit == null)
         {
@@ -118,13 +117,13 @@ public abstract class BOPTreeFeature<FC extends BOPTreeConfiguration> extends Tr
     {
         return TreeFeature.isAirOrLeaves(level, pos) || level.isStateAtPosition(pos, (state) -> {
             Block block = state.getBlock();
-            return state.is(BlockTags.REPLACEABLE_BY_TREES) || state.is(BlockTags.SAPLINGS) || block == Blocks.VINE || block == BOPBlocks.WILLOW_VINE || block == BOPBlocks.DEAD_BRANCH || block == Blocks.MOSS_CARPET || block == BOPBlocks.SPANISH_MOSS || block instanceof BushBlock;
+            return state.is(BlockTags.REPLACEABLE_BY_TREES) || state.is(BlockItemTags.SAPLINGS.block()) || block == Blocks.VINE || block == BOPBlocks.WILLOW_VINE || block == BOPBlocks.DEAD_BRANCH || block == Blocks.MOSS_CARPET || block == BOPBlocks.SPANISH_MOSS || block instanceof VegetationBlock;
         });
     }
 
-    protected Property getLogAxisProperty(LevelAccessor level, BlockPos pos, FC config)
+    protected Property getLogAxisProperty(WorldGenLevel level, BlockPos pos, FC config)
     {
-        BlockState log = config.trunkProvider.getState(level.getRandom(), pos);
+        BlockState log = config.trunkProvider.getState(level, level.getRandom(), pos);
 
         for (Property property : log.getProperties())
         {

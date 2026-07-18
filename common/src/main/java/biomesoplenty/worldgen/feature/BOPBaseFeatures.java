@@ -5,15 +5,17 @@
 package biomesoplenty.worldgen.feature;
 
 import biomesoplenty.core.BiomesOPlenty;
+import biomesoplenty.worldgen.BOPSurfaceRuleData;
 import biomesoplenty.worldgen.feature.configurations.*;
 import biomesoplenty.worldgen.feature.misc.*;
 import biomesoplenty.worldgen.feature.tree.*;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.LakeFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.LargeDripstoneConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
+import terrablender.api.SurfaceRuleManager;
 
 import java.util.function.BiConsumer;
 
@@ -29,6 +31,7 @@ public class BOPBaseFeatures
     public static Feature<NoneFeatureConfiguration> JAGGED_SANDSTONE;
     public static Feature<NoneFeatureConfiguration> MONOLITH;
     public static Feature<NoneFeatureConfiguration> ANOMALY;
+    public static Feature<NoneFeatureConfiguration> ENDSCRAPER;
     public static Feature<NoneFeatureConfiguration> BIG_DRIPLEAF;
     public static Feature<NoneFeatureConfiguration> BIG_PUMPKIN;
     public static Feature<NoneFeatureConfiguration> BLACK_SAND_SPLATTER;
@@ -46,6 +49,7 @@ public class BOPBaseFeatures
     public static Feature<NoneFeatureConfiguration> FALLEN_LOG;
     public static Feature<NoneFeatureConfiguration> FALLEN_FIR_LOG;
     public static Feature<NoneFeatureConfiguration> FALLEN_BIRCH_LOG;
+    public static Feature<NoneFeatureConfiguration> FALLEN_DEAD_LOG;
     public static Feature<NoneFeatureConfiguration> FALLEN_JACARANDA_LOG;
     public static Feature<NoneFeatureConfiguration> FLESH_TENDON;
     public static Feature<NoneFeatureConfiguration> GIANT_GLOWSHROOM;
@@ -54,6 +58,7 @@ public class BOPBaseFeatures
     public static Feature<NoneFeatureConfiguration> HANGING_FLESH_TENDON;
     public static Feature<NoneFeatureConfiguration> HUGE_TOADSTOOL;
     public static Feature<NoneFeatureConfiguration> HUGE_CLOVER;
+    public static Feature<NoneFeatureConfiguration> HUGE_FLOWER;
     public static Feature<NoneFeatureConfiguration> HUGE_LILY_PAD;
     public static Feature<NoneFeatureConfiguration> HUGE_GLOWSHROOM;
     public static Feature<NoneFeatureConfiguration> INFERNO_SPLATTER;
@@ -71,9 +76,6 @@ public class BOPBaseFeatures
     public static BOPTreeFeature<PineTreeConfiguration> PINE_TREE;
     public static BOPTreeFeature<CypressTreeConfiguration> CYPRESS_TREE;
     public static Feature<NoneFeatureConfiguration> PUMPKIN_PATCH;
-    public static Feature<NoneFeatureConfiguration> RED_MAPLE_LEAF_PILE;
-    public static Feature<NoneFeatureConfiguration> ORANGE_MAPLE_LEAF_PILE;
-    public static Feature<NoneFeatureConfiguration> YELLOW_MAPLE_LEAF_PILE;
     public static Feature<NoneFeatureConfiguration> SPARSE_DUNE_GRASS;
     public static Feature<NoneFeatureConfiguration> RAINFOREST_CLIFFS_VINES;
     public static BOPTreeFeature<TaigaTreeConfiguration> REDWOOD_TREE;
@@ -100,9 +102,10 @@ public class BOPBaseFeatures
     public static Feature<NoneFeatureConfiguration> DEAD_CORAL_MUSHROOM;
     public static Feature<NoneFeatureConfiguration> DEAD_CORAL_CLAW;
     public static Feature<NoneFeatureConfiguration> BARNACLES;
+    public static Feature<NoneFeatureConfiguration> ERODED_PILLAR;
     public static BOPLakeFeature LAKE;
 
-    public static void registerFeatures(BiConsumer<ResourceLocation, Feature<?>> func)
+    public static void registerFeatures(BiConsumer<Identifier, Feature<?>> func)
     {
         BASIC_TREE = register(func, "basic_tree", new BasicTreeFeature(BasicTreeConfiguration.CODEC));
         HIGH_GRASS = register(func, "high_grass", new HighGrassFeature(NoneFeatureConfiguration.CODEC));
@@ -112,6 +115,7 @@ public class BOPBaseFeatures
         WISPJELLY = register(func, "wispjelly", new WispjellyFeature(NoneFeatureConfiguration.CODEC));
         JAGGED_SANDSTONE = register(func, "jagged_sandstone", new JaggedSandstoneFeature(NoneFeatureConfiguration.CODEC));
         ANOMALY = register(func, "anomaly", new AnomalyFeature(NoneFeatureConfiguration.CODEC));
+        ENDSCRAPER = register(func, "endscraper", new EndscraperFeature(NoneFeatureConfiguration.CODEC));
         MONOLITH = register(func, "monolith", new MonolithFeature(NoneFeatureConfiguration.CODEC));
         BIG_DRIPLEAF = register(func, "big_dripleaf", new BigDripleafFeature(NoneFeatureConfiguration.CODEC));
         BIG_PUMPKIN = register(func, "big_pumpkin", new BigPumpkinFeature(NoneFeatureConfiguration.CODEC));
@@ -130,6 +134,7 @@ public class BOPBaseFeatures
         FALLEN_LOG = register(func, "fallen_log", new FallenLogFeature(NoneFeatureConfiguration.CODEC));
         FALLEN_FIR_LOG = register(func, "fallen_fir_log", new FallenFirLogFeature(NoneFeatureConfiguration.CODEC));
         FALLEN_BIRCH_LOG = register(func, "fallen_birch_log", new FallenBirchLogFeature(NoneFeatureConfiguration.CODEC));
+        FALLEN_DEAD_LOG = register(func, "fallen_dead_log", new FallenDeadLogFeature(NoneFeatureConfiguration.CODEC));
         FALLEN_JACARANDA_LOG = register(func, "fallen_jacaranda_log", new FallenJacarandaLogFeature(NoneFeatureConfiguration.CODEC));
         FLESH_TENDON = register(func, "flesh_tendon", new FleshTendonFeature(NoneFeatureConfiguration.CODEC));
         GIANT_GLOWSHROOM = register(func, "giant_glowshroom", new GiantGlowshroomFeature(NoneFeatureConfiguration.CODEC));
@@ -138,6 +143,7 @@ public class BOPBaseFeatures
         HANGING_FLESH_TENDON = register(func, "hanging_flesh_tendon", new HangingFleshTendonFeature(NoneFeatureConfiguration.CODEC));
         HUGE_TOADSTOOL = register(func, "huge_toadstool", new HugeToadstoolFeature(NoneFeatureConfiguration.CODEC));
         HUGE_CLOVER = register(func, "huge_clover", new HugeCloverFeature(NoneFeatureConfiguration.CODEC));
+        HUGE_FLOWER = register(func, "huge_flower", new HugeFlowerFeature(NoneFeatureConfiguration.CODEC));
         HUGE_LILY_PAD = register(func, "huge_lily_pad", new HugeLilyPadFeature(NoneFeatureConfiguration.CODEC));
         HUGE_GLOWSHROOM = register(func, "huge_glowshroom", new HugeGlowshroomFeature(NoneFeatureConfiguration.CODEC));
         INFERNO_SPLATTER = register(func, "inferno_splatter", new InfernoSplatterFeature(NoneFeatureConfiguration.CODEC));
@@ -155,9 +161,6 @@ public class BOPBaseFeatures
         PINE_TREE = register(func, "pine_tree", new PineTreeFeature(PineTreeConfiguration.CODEC));
         CYPRESS_TREE = register(func, "cypress_tree", new CypressTreeFeature(CypressTreeConfiguration.CODEC));
         PUMPKIN_PATCH = register(func, "pumpkin_patch", new PumpkinPatchFeature(NoneFeatureConfiguration.CODEC));
-        RED_MAPLE_LEAF_PILE = register(func, "red_maple_leaf_pile", new RedMapleLeafPileFeature(NoneFeatureConfiguration.CODEC));
-        ORANGE_MAPLE_LEAF_PILE = register(func, "orange_maple_leaf_pile", new OrangeMapleLeafPileFeature(NoneFeatureConfiguration.CODEC));
-        YELLOW_MAPLE_LEAF_PILE = register(func, "yellow_maple_leaf_pile", new YellowMapleLeafPileFeature(NoneFeatureConfiguration.CODEC));
         SPARSE_DUNE_GRASS = register(func, "sparse_dune_grass", new SparseDuneGrassFeature(NoneFeatureConfiguration.CODEC));
         RAINFOREST_CLIFFS_VINES = register(func, "rainforest_cliffs_vines", new RainforestCliffsVinesFeature(NoneFeatureConfiguration.CODEC));
         REDWOOD_TREE = register(func, "redwood_tree", new RedwoodTreeFeature(TaigaTreeConfiguration.CODEC));
@@ -184,12 +187,15 @@ public class BOPBaseFeatures
         DEAD_CORAL_MUSHROOM = register(func, "dead_coral_mushroom", new DeadCoralMushroomFeature(NoneFeatureConfiguration.CODEC));
         DEAD_CORAL_CLAW = register(func, "dead_coral_claw", new DeadCoralClawFeature(NoneFeatureConfiguration.CODEC));
         BARNACLES = register(func, "barnacles", new BarnacleFeature(NoneFeatureConfiguration.CODEC));
+        ERODED_PILLAR = register(func, "eroded_pillar", new ErodedPillarFeature(NoneFeatureConfiguration.CODEC));
         LAKE = register(func, "lake", new BOPLakeFeature(LakeFeature.Configuration.CODEC));
+
+
     }
 
-    private static <C extends FeatureConfiguration, F extends Feature<C>> F register(BiConsumer<ResourceLocation, Feature<?>> func, String name, F feature)
+    private static <C extends FeatureConfiguration, F extends Feature<C>> F register(BiConsumer<Identifier, Feature<?>> func, String name, F feature)
     {
-        func.accept(ResourceLocation.fromNamespaceAndPath(BiomesOPlenty.MOD_ID, name), feature);
+        func.accept(Identifier.fromNamespaceAndPath(BiomesOPlenty.MOD_ID, name), feature);
         return feature;
     }
 }

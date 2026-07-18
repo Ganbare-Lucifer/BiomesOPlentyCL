@@ -1,31 +1,29 @@
 {
-  "carvers": {
-    "air": [
-      "minecraft:cave",
-      "minecraft:cave_extra_underground",
-      "minecraft:canyon"
-    ]
+  "attributes": {
+    "minecraft:audio/background_music": {
+      "default": {
+        "max_delay": 24000,
+        "min_delay": 12000,
+        "sound": "minecraft:music.overworld.swamp"
+      }
+    },
+    "minecraft:visual/sky_color": "#7aa5ff",
+    "minecraft:visual/water_fog_color": "#0c031b",
+    "minecraft:visual/water_fog_end_distance": {
+      "argument": 0.85,
+      "modifier": "multiply"
+    }
   },
+  "carvers": [
+    "minecraft:cave",
+    "minecraft:cave_extra_underground",
+    "minecraft:canyon"
+  ],
   "downfall": 0.7,
   "effects": {
-    "fog_color": 12638463,
-    "foliage_color": 5215831,
-    "grass_color": 5935967,
-    "mood_sound": {
-      "block_search_extent": 8,
-      "offset": 2.0,
-      "sound": "minecraft:ambient.cave",
-      "tick_delay": 6000
-    },
-    "music": {
-      "max_delay": 24000,
-      "min_delay": 12000,
-      "replace_current_music": false,
-      "sound": "minecraft:music.overworld.swamp"
-    },
-    "sky_color": 8037887,
-    "water_color": 2564473,
-    "water_fog_color": 787227
+    "foliage_color": "#4f9657",
+    "grass_color": "#5a935f",
+    "water_color": "#272179"
   },
   "features": [
     [],
@@ -81,9 +79,10 @@
       "minecraft:glow_lichen",
       "minecraft:brown_mushroom_normal",
       "minecraft:red_mushroom_normal",
-      "minecraft:patch_sugar_cane",
+      "minecraft:patch_leaf_litter",
       "minecraft:patch_pumpkin",
-      "minecraft:seagrass_swamp",
+      "minecraft:patch_sugar_cane",
+      "minecraft:patch_firefly_bush_near_water",
       "biomesoplenty:trees_wetland",
       "biomesoplenty:flower_wetland",
       "biomesoplenty:patch_cattail_extra",
@@ -154,7 +153,7 @@
         "type": "minecraft:skeleton",
         "maxCount": 4,
         "minCount": 4,
-        "weight": 100
+        "weight": 70
       },
       {
         "type": "minecraft:creeper",
@@ -179,6 +178,18 @@
         "maxCount": 1,
         "minCount": 1,
         "weight": 5
+      },
+      {
+        "type": "minecraft:slime",
+        "maxCount": 1,
+        "minCount": 1,
+        "weight": 1
+      },
+      {
+        "type": "minecraft:bogged",
+        "maxCount": 4,
+        "minCount": 4,
+        "weight": 30
       }
     ],
     "underground_water_creature": [

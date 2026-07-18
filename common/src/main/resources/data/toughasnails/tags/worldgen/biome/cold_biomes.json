@@ -1,9 +1,5 @@
 {
   "values": [
-    {
-      "id": "biomesoplenty:aspen_glade",
-	  "required": false
-    },
 	{
       "id": "biomesoplenty:bog",
 	  "required": false
@@ -18,6 +14,10 @@
     },
 	{
       "id": "biomesoplenty:end_corruption",
+      "required": false
+    },
+    {
+      "id": "biomesoplenty:end_flats",
       "required": false
     },
 	{

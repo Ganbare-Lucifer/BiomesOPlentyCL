@@ -35,7 +35,7 @@ public class MagicTreeFeature extends BOPTreeFeature<MagicTreeConfiguration>
 
         //Generate only if we are above the lowest bedrock level (1) and reach less than the world height
         //There must be a gap of 1 between the top leaf block and the world height
-        if (pos.getY() >= world.getMinBuildHeight()+1 && pos.getY() + height + 1 <= world.getMaxBuildHeight())
+        if (pos.getY() >= world.getMinY()+1 && pos.getY() + height + 1 <= world.getMaxY())
         {
             int radius;
 
@@ -60,7 +60,7 @@ public class MagicTreeFeature extends BOPTreeFeature<MagicTreeConfiguration>
                 {
                     for (int z = pos.getZ() - radius; z <= pos.getZ() + radius && hasSpace; ++z)
                     {
-                        if (y >= world.getMinBuildHeight() && y < world.getMaxBuildHeight())
+                        if (y >= world.getMinY() && y < world.getMaxY())
                         {
                             if (!this.canReplace(world, new BlockPos(x, y, z)))
                             {
@@ -84,7 +84,7 @@ public class MagicTreeFeature extends BOPTreeFeature<MagicTreeConfiguration>
                 BlockPos soilPos = pos.below();
                 Block soil = world.getBlockState(soilPos).getBlock();
 
-                if (pos.getY() < world.getMaxBuildHeight() - height - 1)
+                if (pos.getY() < world.getMaxY() - height - 1)
                 {
                     world.setBlock(soilPos, Blocks.DIRT.defaultBlockState(), 3);
                     this.generateTrunk(logs, leaves, world, pos, height, config);
@@ -102,7 +102,7 @@ public class MagicTreeFeature extends BOPTreeFeature<MagicTreeConfiguration>
         }
     }
 
-    protected void generateTrunk(BiConsumer<BlockPos, BlockState> logs, FoliagePlacer.FoliageSetter leaves, LevelAccessor world, BlockPos start, int height, MagicTreeConfiguration config)
+    protected void generateTrunk(BiConsumer<BlockPos, BlockState> logs, FoliagePlacer.FoliageSetter leaves, WorldGenLevel world, BlockPos start, int height, MagicTreeConfiguration config)
     {
         int endHeight = height;
 
@@ -134,7 +134,7 @@ public class MagicTreeFeature extends BOPTreeFeature<MagicTreeConfiguration>
         }
     }
 
-    private void generateLargeOrb(BiConsumer<BlockPos, BlockState> logs, FoliagePlacer.FoliageSetter leaves, LevelAccessor world, BlockPos middle, MagicTreeConfiguration config)
+    private void generateLargeOrb(BiConsumer<BlockPos, BlockState> logs, FoliagePlacer.FoliageSetter leaves, WorldGenLevel world, BlockPos middle, MagicTreeConfiguration config)
     {
         BlockPos pos = middle;
 
@@ -177,7 +177,7 @@ public class MagicTreeFeature extends BOPTreeFeature<MagicTreeConfiguration>
         }
     }
 
-    private void generateMediumOrb(BiConsumer<BlockPos, BlockState> logs, FoliagePlacer.FoliageSetter leaves, LevelAccessor world, BlockPos middle, MagicTreeConfiguration config)
+    private void generateMediumOrb(BiConsumer<BlockPos, BlockState> logs, FoliagePlacer.FoliageSetter leaves, WorldGenLevel world, BlockPos middle, MagicTreeConfiguration config)
     {
         BlockPos pos = middle;
 
@@ -225,7 +225,7 @@ public class MagicTreeFeature extends BOPTreeFeature<MagicTreeConfiguration>
         this.placeLeaves(world, pos.offset(0,3,2), leaves, config);
     }
 
-    private void generateSmallOrb(BiConsumer<BlockPos, BlockState> logs, FoliagePlacer.FoliageSetter leaves, LevelAccessor world, BlockPos middle, MagicTreeConfiguration config)
+    private void generateSmallOrb(BiConsumer<BlockPos, BlockState> logs, FoliagePlacer.FoliageSetter leaves, WorldGenLevel world, BlockPos middle, MagicTreeConfiguration config)
     {
         BlockPos pos = middle;
 

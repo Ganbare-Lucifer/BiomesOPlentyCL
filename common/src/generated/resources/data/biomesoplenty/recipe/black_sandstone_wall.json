@@ -1,10 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "key": {
-    "#": {
-      "item": "biomesoplenty:black_sandstone"
-    }
+    "#": "biomesoplenty:black_sandstone"
   },
   "pattern": [
     "###",

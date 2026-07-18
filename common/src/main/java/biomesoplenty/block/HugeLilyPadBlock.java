@@ -9,18 +9,21 @@ import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.FluidTags;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.InsideBlockEffectApplier;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.vehicle.Boat;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.vehicle.boat.Boat;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
@@ -29,10 +32,10 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
 
-public class HugeLilyPadBlock extends BushBlock
+public class HugeLilyPadBlock extends VegetationBlockBOP
 {
     public static final MapCodec<HugeLilyPadBlock> CODEC = simpleCodec(HugeLilyPadBlock::new);
-    public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
+    public static final EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
     public static final EnumProperty<QuarterProperty> QUARTER = EnumProperty.create("quarter", QuarterProperty.class);
 
     protected static final VoxelShape AABB = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 1.5D, 16.0D);
@@ -62,62 +65,62 @@ public class HugeLilyPadBlock extends BushBlock
     }
 
     @Override
-    public BlockState updateShape(BlockState p_51028_, Direction p_49526_, BlockState p_49527_, LevelAccessor p_51029_, BlockPos p_51030_, BlockPos p_49530_)
+    protected BlockState updateShape(BlockState state, LevelReader level, ScheduledTickAccess tickAccess, BlockPos pos, Direction direction, BlockPos facingPos, BlockState facingState, RandomSource random)
     {
         boolean lilypadSurvive = true;
-        Direction facing = p_51028_.getValue(FACING);
-        BlockPos sw = p_51030_;
-        BlockPos nw = p_51030_.relative(facing);
+        Direction facing = state.getValue(FACING);
+        BlockPos sw = pos;
+        BlockPos nw = pos.relative(facing);
         BlockPos ne = nw.relative(facing.getClockWise());
-        BlockPos se = p_51030_.relative(facing.getClockWise());
+        BlockPos se = pos.relative(facing.getClockWise());
 
-        if (p_51028_.getValue(QUARTER) == QuarterProperty.SOUTH_WEST)
+        if (state.getValue(QUARTER) == QuarterProperty.SOUTH_WEST)
         {
-            sw = p_51030_;
-            nw = p_51030_.relative(facing);
+            sw = pos;
+            nw = pos.relative(facing);
             ne = nw.relative(facing.getClockWise());
-            se = p_51030_.relative(facing.getClockWise());
+            se = pos.relative(facing.getClockWise());
         }
-        if (p_51028_.getValue(QUARTER) == QuarterProperty.NORTH_WEST)
+        if (state.getValue(QUARTER) == QuarterProperty.NORTH_WEST)
         {
-            sw = p_51030_.relative(facing.getOpposite());
-            nw = p_51030_;
-            ne = p_51030_.relative(facing.getClockWise());
+            sw = pos.relative(facing.getOpposite());
+            nw = pos;
+            ne = pos.relative(facing.getClockWise());
             se = sw.relative(facing.getClockWise());
         }
-        if (p_51028_.getValue(QUARTER) == QuarterProperty.NORTH_EAST)
+        if (state.getValue(QUARTER) == QuarterProperty.NORTH_EAST)
         {
-            nw = p_51030_.relative(facing.getCounterClockWise());
-            ne = p_51030_;
-            se = p_51030_.relative(facing.getOpposite());
+            nw = pos.relative(facing.getCounterClockWise());
+            ne = pos;
+            se = pos.relative(facing.getOpposite());
             sw = se.relative(facing);
         }
-        if (p_51028_.getValue(QUARTER) == QuarterProperty.SOUTH_EAST)
+        if (state.getValue(QUARTER) == QuarterProperty.SOUTH_EAST)
         {
-            sw = p_51030_.relative(facing.getCounterClockWise());
-            ne = p_51030_.relative(facing);
-            se = p_51030_;
+            sw = pos.relative(facing.getCounterClockWise());
+            ne = pos.relative(facing);
+            se = pos;
             nw = ne.relative(facing.getCounterClockWise());
         }
 
-        if (!p_51029_.getBlockState(sw).is(this) || !p_51029_.getBlockState(nw).is(this) || !p_51029_.getBlockState(ne).is(this) || !p_51029_.getBlockState(se).is(this))
+        if (!level.getBlockState(sw).is(this) || !level.getBlockState(nw).is(this) || !level.getBlockState(ne).is(this) || !level.getBlockState(se).is(this))
         {
             lilypadSurvive = false;
         }
 
-        if (p_51029_.getBlockState(sw).is(this) && p_51029_.getBlockState(sw).getValue(FACING) != facing && p_51029_.getBlockState(sw).getValue(QUARTER) != QuarterProperty.SOUTH_WEST)
+        if (level.getBlockState(sw).is(this) && level.getBlockState(sw).getValue(FACING) != facing && level.getBlockState(sw).getValue(QUARTER) != QuarterProperty.SOUTH_WEST)
         {
             lilypadSurvive = false;
         }
-        if (p_51029_.getBlockState(nw).is(this) && p_51029_.getBlockState(nw).getValue(FACING) != facing && p_51029_.getBlockState(nw).getValue(QUARTER) != QuarterProperty.NORTH_WEST)
+        if (level.getBlockState(nw).is(this) && level.getBlockState(nw).getValue(FACING) != facing && level.getBlockState(nw).getValue(QUARTER) != QuarterProperty.NORTH_WEST)
         {
             lilypadSurvive = false;
         }
-        if (p_51029_.getBlockState(ne).is(this) && p_51029_.getBlockState(ne).getValue(FACING) != facing && p_51029_.getBlockState(ne).getValue(QUARTER) != QuarterProperty.NORTH_EAST)
+        if (level.getBlockState(ne).is(this) && level.getBlockState(ne).getValue(FACING) != facing && level.getBlockState(ne).getValue(QUARTER) != QuarterProperty.NORTH_EAST)
         {
             lilypadSurvive = false;
         }
-        if (p_51029_.getBlockState(se).is(this) && p_51029_.getBlockState(se).getValue(FACING) != facing && p_51029_.getBlockState(se).getValue(QUARTER) != QuarterProperty.SOUTH_EAST)
+        if (level.getBlockState(se).is(this) && level.getBlockState(se).getValue(FACING) != facing && level.getBlockState(se).getValue(QUARTER) != QuarterProperty.SOUTH_EAST)
         {
             lilypadSurvive = false;
         }
@@ -128,7 +131,7 @@ public class HugeLilyPadBlock extends BushBlock
         }
         else
         {
-            return super.updateShape(p_51028_, p_49526_, p_49527_, p_51029_, p_51030_, p_49530_);
+            return super.updateShape(state, level, tickAccess, pos, direction, facingPos, facingState, random);
         }
     }
 
@@ -152,17 +155,17 @@ public class HugeLilyPadBlock extends BushBlock
     public void setPlacedBy(Level p_49499_, BlockPos p_49500_, BlockState p_49501_, @Nullable LivingEntity p_49502_, ItemStack p_49503_)
     {
         super.setPlacedBy(p_49499_, p_49500_, p_49501_, p_49502_, p_49503_);
-        if (!p_49499_.isClientSide) {
+        if (!p_49499_.isClientSide()) {
             BlockPos blockpos = p_49500_.relative(p_49501_.getValue(FACING));
             BlockPos blockpos1 = blockpos.relative(p_49501_.getValue(FACING).getClockWise());
             BlockPos blockpos2 = p_49500_.relative(p_49501_.getValue(FACING).getClockWise());
             p_49499_.setBlock(blockpos, p_49501_.setValue(QUARTER, QuarterProperty.NORTH_WEST), 26);
             p_49499_.setBlock(blockpos1, p_49501_.setValue(QUARTER, QuarterProperty.NORTH_EAST), 26);
             p_49499_.setBlock(blockpos2, p_49501_.setValue(QUARTER, QuarterProperty.SOUTH_EAST), 26);
-            p_49499_.blockUpdated(p_49500_, Blocks.AIR);
-            p_49499_.blockUpdated(blockpos, Blocks.AIR);
-            p_49499_.blockUpdated(blockpos1, Blocks.AIR);
-            p_49499_.blockUpdated(blockpos2, Blocks.AIR);
+            p_49499_.updateNeighborsAt(p_49500_, Blocks.AIR);
+            p_49499_.updateNeighborsAt(blockpos, Blocks.AIR);
+            p_49499_.updateNeighborsAt(blockpos1, Blocks.AIR);
+            p_49499_.updateNeighborsAt(blockpos2, Blocks.AIR);
             p_49501_.updateNeighbourShapes(p_49499_, p_49500_, 26);
             p_49501_.updateNeighbourShapes(p_49499_, blockpos, 26);
             p_49501_.updateNeighbourShapes(p_49499_, blockpos1, 26);
@@ -171,22 +174,51 @@ public class HugeLilyPadBlock extends BushBlock
     }
 
     @Override
-    public void entityInside(BlockState p_58164_, Level p_58165_, BlockPos p_58166_, Entity p_58167_)
+    protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier effectApplier, boolean b)
     {
-        super.entityInside(p_58164_, p_58165_, p_58166_, p_58167_);
-        if (p_58165_ instanceof ServerLevel && p_58167_ instanceof Boat)
+        if (level instanceof ServerLevel && entity instanceof Boat)
         {
-            p_58165_.destroyBlock(new BlockPos(p_58166_), true, p_58167_);
+            level.destroyBlock(new BlockPos(pos), true, entity);
+        }
+    }
+
+    @Override
+    public BlockState playerWillDestroy(Level p_52878_, BlockPos p_52879_, BlockState p_52880_, Player p_52881_)
+    {
+        if (!p_52878_.isClientSide())
+        {
+            if (p_52881_.preventsBlockDrops())
+            {
+                return super.playerWillDestroy(p_52878_, p_52879_, p_52880_, p_52881_);
+            }
+            else
+            {
+                dropResources(p_52880_, p_52878_, p_52879_, null, p_52881_, p_52881_.getMainHandItem());
+            }
         }
 
+        return super.playerWillDestroy(p_52878_, p_52879_, p_52880_, p_52881_);
+    }
+
+    @Override
+    public void playerDestroy(Level p_52865_, Player p_52866_, BlockPos p_52867_, BlockState p_52868_, @Nullable BlockEntity p_52869_, ItemStack p_52870_)
+    {
+        super.playerDestroy(p_52865_, p_52866_, p_52867_, Blocks.AIR.defaultBlockState(), p_52869_, p_52870_);
+    }
+
+    @Override
+    public boolean canSurvive(BlockState p_51028_, LevelReader p_51029_, BlockPos p_51030_)
+    {
+        BlockPos blockpos = p_51030_.below();
+        return this.mayPlaceOn(p_51029_.getBlockState(blockpos), p_51029_, blockpos);
     }
 
     @Override
     protected boolean mayPlaceOn(BlockState p_58174_, BlockGetter p_58175_, BlockPos p_58176_)
     {
-        FluidState fluidstate = p_58175_.getFluidState(p_58176_);
-        FluidState fluidstate1 = p_58175_.getFluidState(p_58176_.above());
-        return (fluidstate.getType() == Fluids.WATER || p_58174_.getBlock() instanceof IceBlock) && fluidstate1.getType() == Fluids.EMPTY;
+        FluidState fluidState = p_58175_.getFluidState(p_58176_);
+        FluidState fluidState1 = p_58175_.getFluidState(p_58176_.above());
+        return (fluidState.is(FluidTags.SUPPORTS_LILY_PAD) || p_58174_.is(BlockTags.SUPPORTS_LILY_PAD)) && fluidState1.getType() == Fluids.EMPTY;
     }
 
     @Override

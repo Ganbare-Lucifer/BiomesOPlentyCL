@@ -3,9 +3,7 @@
   "category": "building",
   "group": "wooden_slab",
   "key": {
-    "#": {
-      "item": "biomesoplenty:dead_planks"
-    }
+    "#": "biomesoplenty:dead_planks"
   },
   "pattern": [
     "###"

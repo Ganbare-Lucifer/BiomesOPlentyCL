@@ -38,7 +38,7 @@ public class ThinBambooFeature extends Feature<NoneFeatureConfiguration>
         BlockPos pos = context.origin();
         RandomSource rand = context.random();
 
-        while (pos.getY() >= world.getMinBuildHeight()+1 && this.replace.matches(world, pos)) {pos = pos.below();}
+        while (pos.getY() >= world.getMinY()+1 && this.replace.matches(world, pos)) {pos = pos.below();}
 
         if (!this.placeOn.matches(world, pos))
         {

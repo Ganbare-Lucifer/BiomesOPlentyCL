@@ -10,27 +10,11 @@
         "description": {
             "translate": "advancements.biomesoplenty.root.description"
         },
-        "background": "biomesoplenty:textures/gui/advancements/backgrounds/biomesoplenty.png",
+        "background": "biomesoplenty:gui/advancements/backgrounds/biomesoplenty",
         "show_toast": false,
         "announce_to_chat": false
     },
     "criteria": {
-		"aspen_glade": {
-			"trigger": "minecraft:location",
-			"conditions": {
-				"player": [
-					{
-						"condition": "minecraft:entity_properties",
-						"entity": "this",
-						"predicate": {
-							"location": {
-								"biomes": "biomesoplenty:aspen_glade"
-							}
-						}
-					}
-				]
-			}
-		},
 		"auroral_garden": {
 			"trigger": "minecraft:location",
 			"conditions": {
@@ -223,6 +207,22 @@
 			]
 		  }
         },
+		"end_flats": {
+			"trigger": "minecraft:location",
+			"conditions": {
+				"player": [
+					{
+						"condition": "minecraft:entity_properties",
+						"entity": "this",
+						"predicate": {
+							"location": {
+								"biomes": "biomesoplenty:end_flats"
+							}
+						}
+					}
+				]
+			}
+		},
 		"end_reef": {
             "trigger": "minecraft:location",
             "conditions": {
@@ -367,22 +367,6 @@
 			]
 		  }
         },
-		"grassland": {
-            "trigger": "minecraft:location",
-            "conditions": {
-			"player": [
-			  {
-				"condition": "minecraft:entity_properties",
-				"entity": "this",
-				"predicate": {
-				  "location": {
-					"biomes": "biomesoplenty:grassland"
-				  }
-				}
-			  }
-			]
-		  }
-        },
 		"gravel_beach": {
 			"trigger": "minecraft:location",
 			"conditions": {
@@ -425,22 +409,6 @@
 						"predicate": {
 							"location": {
 								"biomes": "biomesoplenty:hot_springs"
-							}
-						}
-					}
-				]
-			}
-		},
-		"jacaranda_glade": {
-			"trigger": "minecraft:location",
-			"conditions": {
-				"player": [
-					{
-						"condition": "minecraft:entity_properties",
-						"entity": "this",
-						"predicate": {
-							"location": {
-								"biomes": "biomesoplenty:jacaranda_glade"
 							}
 						}
 					}
@@ -927,6 +895,22 @@
 			]
 		  }
         },
+		"subtropics": {
+			"trigger": "minecraft:location",
+			"conditions": {
+				"player": [
+					{
+						"condition": "minecraft:entity_properties",
+						"entity": "this",
+						"predicate": {
+							"location": {
+								"biomes": "biomesoplenty:subtropics"
+							}
+						}
+					}
+				]
+			}
+		},
         "tropics": {
             "trigger": "minecraft:location",
             "conditions": {
@@ -1122,7 +1106,6 @@
     },
 	"requirements": [
         [
-		"aspen_glade",
 		"auroral_garden",
 		"bayou",
 		"bog",
@@ -1134,6 +1117,7 @@
 		"dryland",
 		"dune_beach",
 		"end_corruption",
+		"end_flats",
 		"end_reef",
 		"end_wilds",
 		"erupting_inferno",
@@ -1143,11 +1127,9 @@
 		"forested_field",
 		"fungal_jungle",
 		"glowing_grotto",
-		"grassland",
 		"gravel_beach",
 		"highland",
 		"hot_springs",
-		"jacaranda_glade",
 		"jade_cliffs",
 		"lavender_field",
 		"lush_desert",
@@ -1179,6 +1161,7 @@
 		"snowy_fir_clearing",
 		"snowy_maple_woods",
 		"spider_nest",
+		"subtropics",
 		"tropics",
 		"tundra",
 		"undergrowth",

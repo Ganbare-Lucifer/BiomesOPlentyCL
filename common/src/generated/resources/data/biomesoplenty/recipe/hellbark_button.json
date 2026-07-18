@@ -3,12 +3,9 @@
   "category": "redstone",
   "group": "wooden_button",
   "ingredients": [
-    {
-      "item": "biomesoplenty:hellbark_planks"
-    }
+    "biomesoplenty:hellbark_planks"
   ],
   "result": {
-    "count": 1,
     "id": "biomesoplenty:hellbark_button"
   }
 }

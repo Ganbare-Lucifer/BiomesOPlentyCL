@@ -11,8 +11,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.HugeMushroomBlock;
+import net.minecraft.world.level.block.VegetationBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.Feature;
@@ -23,7 +23,7 @@ import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConf
 public class MediumGlowshroomFeature extends Feature<NoneFeatureConfiguration>
 {
     protected SimpleBlockPredicate placeOn = (world, pos) -> world.getBlockState(pos).getBlock() == Blocks.GRASS_BLOCK || world.getBlockState(pos).getBlock() == Blocks.MYCELIUM || world.getBlockState(pos).getBlock() == Blocks.STONE || world.getBlockState(pos).getBlock() == Blocks.DEEPSLATE || world.getBlockState(pos).getBlock() == BOPBlocks.GLOWING_MOSS_BLOCK || world.getBlockState(pos).getBlock() == Blocks.MUD;
-    protected SimpleBlockPredicate replace = (world, pos) -> TreeFeature.isAirOrLeaves(world, pos) || world.getBlockState(pos).getBlock() instanceof BushBlock || world.getBlockState(pos).getBlock() == BOPBlocks.GLOWING_MOSS_CARPET || world.getBlockState(pos).getBlock() == Blocks.MOSS_CARPET;
+    protected SimpleBlockPredicate replace = (world, pos) -> TreeFeature.isAirOrLeaves(world, pos) || world.getBlockState(pos).getBlock() instanceof VegetationBlock || world.getBlockState(pos).getBlock() == BOPBlocks.GLOWING_MOSS_CARPET || world.getBlockState(pos).getBlock() == Blocks.MOSS_CARPET;
 
     public MediumGlowshroomFeature(Codec<NoneFeatureConfiguration> deserializer)
     {
@@ -38,7 +38,7 @@ public class MediumGlowshroomFeature extends Feature<NoneFeatureConfiguration>
         RandomSource rand = featurePlaceContext.random();
         BlockPos startPos = featurePlaceContext.origin();
         NoneFeatureConfiguration config = featurePlaceContext.config();
-        while (startPos.getY() >= world.getMinBuildHeight()+1 && this.replace.matches(world, startPos)) {
+        while (startPos.getY() >= world.getMinY()+1 && this.replace.matches(world, startPos)) {
             startPos = startPos.below();
         }
 
@@ -66,6 +66,21 @@ public class MediumGlowshroomFeature extends Feature<NoneFeatureConfiguration>
             for (int z = -(radius-1); z <= (radius-1); z++)
             {
                 this.setBlock(world, pos.offset(x, height, z), BOPBlocks.GLOWSHROOM_BLOCK.defaultBlockState().setValue(HugeMushroomBlock.DOWN, false));
+
+                if (rand.nextInt(6) == 0)
+                {
+                    this.setBlock(world,pos.offset(x, height + 1, z), BOPBlocks.GLOWSHROOM.defaultBlockState());
+                }
+
+                if (rand.nextInt(3) == 0)
+                {
+                    int length = rand.nextInt(4);
+                    for (int i = 0; i < length; i++)
+                    {
+                        this.setBlock(world,pos.offset(x, height - 1 - i, z), BOPBlocks.GLOWWORM_SILK_STRAND.defaultBlockState());
+                    }
+                    this.setBlock(world,pos.offset(x, height - 1 - length, z), BOPBlocks.GLOWWORM_SILK.defaultBlockState());
+                }
             }
         }
 
@@ -83,21 +98,81 @@ public class MediumGlowshroomFeature extends Feature<NoneFeatureConfiguration>
                     {
                         this.setBlock(world, pos.offset(x, height - 1, z), BOPBlocks.GLOWSHROOM_BLOCK.defaultBlockState().setValue(HugeMushroomBlock.WEST, false));
                         this.setBlock(world, pos.offset(x, height - 2, z), BOPBlocks.GLOWSHROOM_BLOCK.defaultBlockState().setValue(HugeMushroomBlock.WEST, false));
+
+                        if (rand.nextInt(6) == 0)
+                        {
+                            this.setBlock(world,pos.offset(x, height, z), BOPBlocks.GLOWSHROOM.defaultBlockState());
+                        }
+
+                        if (rand.nextInt(3) == 0)
+                        {
+                            int length = rand.nextInt(4);
+                            for (int i = 0; i < length; i++)
+                            {
+                                this.setBlock(world,pos.offset(x, height - 2 - i, z), BOPBlocks.GLOWWORM_SILK_STRAND.defaultBlockState());
+                            }
+                            this.setBlock(world,pos.offset(x, height - 2 - length, z), BOPBlocks.GLOWWORM_SILK.defaultBlockState());
+                        }
                     }
                     if (x == -radius)
                     {
                         this.setBlock(world, pos.offset(x, height - 1, z), BOPBlocks.GLOWSHROOM_BLOCK.defaultBlockState().setValue(HugeMushroomBlock.EAST, false));
                         this.setBlock(world, pos.offset(x, height - 2, z), BOPBlocks.GLOWSHROOM_BLOCK.defaultBlockState().setValue(HugeMushroomBlock.EAST, false));
+
+                        if (rand.nextInt(6) == 0)
+                        {
+                            this.setBlock(world,pos.offset(x, height, z), BOPBlocks.GLOWSHROOM.defaultBlockState());
+                        }
+
+                        if (rand.nextInt(3) == 0)
+                        {
+                            int length = rand.nextInt(4);
+                            for (int i = 0; i < length; i++)
+                            {
+                                this.setBlock(world,pos.offset(x, height - 2 - i, z), BOPBlocks.GLOWWORM_SILK_STRAND.defaultBlockState());
+                            }
+                            this.setBlock(world,pos.offset(x, height - 2 - length, z), BOPBlocks.GLOWWORM_SILK.defaultBlockState());
+                        }
                     }
                     if (z == radius)
                     {
                         this.setBlock(world, pos.offset(x, height - 1, z), BOPBlocks.GLOWSHROOM_BLOCK.defaultBlockState().setValue(HugeMushroomBlock.NORTH, false));
                         this.setBlock(world, pos.offset(x, height - 2, z), BOPBlocks.GLOWSHROOM_BLOCK.defaultBlockState().setValue(HugeMushroomBlock.NORTH, false));
+
+                        if (rand.nextInt(6) == 0)
+                        {
+                            this.setBlock(world,pos.offset(x, height, z), BOPBlocks.GLOWSHROOM.defaultBlockState());
+                        }
+
+                        if (rand.nextInt(3) == 0)
+                        {
+                            int length = rand.nextInt(4);
+                            for (int i = 0; i < length; i++)
+                            {
+                                this.setBlock(world,pos.offset(x, height - 2 - i, z), BOPBlocks.GLOWWORM_SILK_STRAND.defaultBlockState());
+                            }
+                            this.setBlock(world,pos.offset(x, height - 2 - length, z), BOPBlocks.GLOWWORM_SILK.defaultBlockState());
+                        }
                     }
                     if (z == -radius)
                     {
                         this.setBlock(world, pos.offset(x, height - 1, z), BOPBlocks.GLOWSHROOM_BLOCK.defaultBlockState().setValue(HugeMushroomBlock.SOUTH, false));
                         this.setBlock(world, pos.offset(x, height - 2, z), BOPBlocks.GLOWSHROOM_BLOCK.defaultBlockState().setValue(HugeMushroomBlock.SOUTH, false));
+
+                        if (rand.nextInt(6) == 0)
+                        {
+                            this.setBlock(world,pos.offset(x, height, z), BOPBlocks.GLOWSHROOM.defaultBlockState());
+                        }
+
+                        if (rand.nextInt(3) == 0)
+                        {
+                            int length = rand.nextInt(4);
+                            for (int i = 0; i < length; i++)
+                            {
+                                this.setBlock(world,pos.offset(x, height - 2 - i, z), BOPBlocks.GLOWWORM_SILK_STRAND.defaultBlockState());
+                            }
+                            this.setBlock(world,pos.offset(x, height - 2 - length, z), BOPBlocks.GLOWWORM_SILK.defaultBlockState());
+                        }
                     }
                 }
             }

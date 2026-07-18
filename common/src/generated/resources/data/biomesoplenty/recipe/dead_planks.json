@@ -3,9 +3,7 @@
   "category": "building",
   "group": "planks",
   "ingredients": [
-    {
-      "tag": "biomesoplenty:dead_logs"
-    }
+    "#biomesoplenty:dead_logs"
   ],
   "result": {
     "count": 4,

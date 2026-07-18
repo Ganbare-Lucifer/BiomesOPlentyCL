@@ -11,6 +11,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.Util;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
@@ -18,7 +19,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
-import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.lighting.LightEngine;
 
@@ -32,18 +32,18 @@ public class AlgalEndStoneBlock extends Block implements BonemealableBlock
         super(properties);
     }
 
-    private static boolean canBeGrass(BlockState p_56824_, LevelReader p_56825_, BlockPos p_56826_)
+    private static boolean canBeGrass(BlockState state, LevelReader p_56825_, BlockPos p_56826_)
     {
-        BlockPos blockpos = p_56826_.above();
-        BlockState blockstate = p_56825_.getBlockState(blockpos);
-        if (blockstate.getFluidState().getAmount() == 8)
+        BlockPos abovePos = p_56826_.above();
+        BlockState aboveState = p_56825_.getBlockState(abovePos);
+        if (aboveState.getFluidState().getAmount() == 8)
         {
             return false;
         }
         else
         {
-            int i = LightEngine.getLightBlockInto(p_56825_, p_56824_, p_56826_, blockstate, blockpos, Direction.UP, blockstate.getLightBlock(p_56825_, blockpos));
-            return i < p_56825_.getMaxLightLevel();
+            int i = LightEngine.getLightDampeningInto(state, aboveState, Direction.UP, aboveState.getLightDampening());
+            return i < 15;
         }
     }
 
@@ -72,7 +72,7 @@ public class AlgalEndStoneBlock extends Block implements BonemealableBlock
     public void performBonemeal(ServerLevel p_221270_, RandomSource p_221271_, BlockPos p_221272_, BlockState p_221273_)
     {
         BlockPos blockpos = p_221272_.above();
-        Optional<Holder.Reference<PlacedFeature>> optional = p_221270_.registryAccess().registryOrThrow(Registries.PLACED_FEATURE).getHolder(BOPEndPlacements.ENDERPHYTE_BONEMEAL);
+        Optional<Holder.Reference<PlacedFeature>> optional = p_221270_.registryAccess().lookupOrThrow(Registries.PLACED_FEATURE).get(BOPEndPlacements.ENDERPHYTE_BONEMEAL);
 
         label49:
         for(int i = 0; i < 128; ++i)
@@ -91,21 +91,12 @@ public class AlgalEndStoneBlock extends Block implements BonemealableBlock
             if (blockstate1.isAir()) {
                 Holder<PlacedFeature> holder;
                 if (p_221271_.nextInt(8) == 0) {
-                    List<ConfiguredFeature<?, ?>> list = p_221270_.getBiome(blockpos1).value().getGenerationSettings().getFlowerFeatures();
-                    if (list.isEmpty()) {
-                        continue;
+                    List<ConfiguredFeature<?, ?>> features = p_221270_.getBiome(blockpos1).value().getGenerationSettings().getBoneMealFeatures();
+                    if (!features.isEmpty()) {
+                        ConfiguredFeature<?, ?> placementFeature = Util.getRandom(features, p_221271_);
+                        placementFeature.place(p_221270_, p_221270_.getChunkSource().getGenerator(), p_221271_, blockpos1);
                     }
-
-                    holder = ((RandomPatchConfiguration)list.get(0).config()).feature();
-                } else {
-                    if (!optional.isPresent()) {
-                        continue;
-                    }
-
-                    holder = optional.get();
                 }
-
-                holder.value().place(p_221270_, p_221270_.getChunkSource().getGenerator(), p_221271_, blockpos1);
             }
         }
     }

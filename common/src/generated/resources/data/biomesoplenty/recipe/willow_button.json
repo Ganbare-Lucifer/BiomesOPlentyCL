@@ -3,12 +3,9 @@
   "category": "redstone",
   "group": "wooden_button",
   "ingredients": [
-    {
-      "item": "biomesoplenty:willow_planks"
-    }
+    "biomesoplenty:willow_planks"
   ],
   "result": {
-    "count": 1,
     "id": "biomesoplenty:willow_button"
   }
 }

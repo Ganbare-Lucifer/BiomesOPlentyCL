@@ -14,7 +14,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.BushBlock;
+import net.minecraft.world.level.block.VegetationBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.Feature;
@@ -24,7 +24,7 @@ import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConf
 public class AnomalyFeature extends Feature<NoneFeatureConfiguration>
 {
     protected SimpleBlockPredicate placeOn = (world, pos) -> world.getBlockState(pos).getBlock() == Blocks.END_STONE || world.getBlockState(pos).getBlock() == BOPBlocks.UNMAPPED_END_STONE;
-    protected SimpleBlockPredicate replace = (world, pos) -> world.getBlockState(pos).is(BlockTags.REPLACEABLE_BY_TREES) || world.getBlockState(pos).getBlock() instanceof BushBlock || world.getBlockState(pos).is(ModTags.Blocks.NULL_REPLACEABLE);
+    protected SimpleBlockPredicate replace = (world, pos) -> world.getBlockState(pos).is(BlockTags.REPLACEABLE_BY_TREES) || world.getBlockState(pos).getBlock() instanceof VegetationBlock || world.getBlockState(pos).is(ModTags.Blocks.NULL_REPLACEABLE);
 
     public AnomalyFeature(Codec<NoneFeatureConfiguration> deserializer)
     {
@@ -39,7 +39,7 @@ public class AnomalyFeature extends Feature<NoneFeatureConfiguration>
         RandomSource rand = featurePlaceContext.random();
         BlockPos startPos = featurePlaceContext.origin();
         NoneFeatureConfiguration config = featurePlaceContext.config();
-        while (startPos.getY() >= world.getMinBuildHeight()+1 && !this.placeOn.matches(world, startPos)) {startPos = startPos.below();}
+        while (startPos.getY() >= world.getMinY()+1 && !this.placeOn.matches(world, startPos)) {startPos = startPos.below();}
 
         if (!this.placeOn.matches(world, startPos.offset(0, 0, 0)))
         {
@@ -47,8 +47,8 @@ public class AnomalyFeature extends Feature<NoneFeatureConfiguration>
             return false;
         }
 
-        int size = rand.nextInt(3) + 2;
-        int anomalyHeight = rand.nextInt(4);
+        int size = rand.nextInt(4) + 3;
+        int anomalyHeight = rand.nextInt(8) + 2;
 
         if (!this.checkSpace(world, startPos, size, anomalyHeight))
         {
@@ -58,7 +58,7 @@ public class AnomalyFeature extends Feature<NoneFeatureConfiguration>
 
         BlockPos pos = startPos;
 
-        for (int y = 4; y > -128; y--)
+        for (int y = 6; y > -128; y--)
         {
             for (int x = -3; x <= size+3; x++)
             {
@@ -93,7 +93,14 @@ public class AnomalyFeature extends Feature<NoneFeatureConfiguration>
                                 }
                                 else
                                 {
-                                    this.setBlock(world, pos.offset(x,y,z), BOPBlocks.NULL_END_STONE.defaultBlockState());
+                                    if (rand.nextInt(4) == 0)
+                                    {
+                                        this.setBlock(world, pos.offset(x,y,z), BOPBlocks.NULL_BLOCK.defaultBlockState());
+                                    }
+                                    else
+                                    {
+                                        this.setBlock(world, pos.offset(x,y,z), BOPBlocks.NULL_END_STONE.defaultBlockState());
+                                    }
                                 }
                             }
                         }
@@ -140,7 +147,7 @@ public class AnomalyFeature extends Feature<NoneFeatureConfiguration>
                     AnomalyBlock.AnomalyType type = AnomalyBlock.AnomalyType.STABLE;
                     if (y == 0 || y == size || x == 0 || x == size || z == 0 || z == size)
                     {
-                        switch (rand.nextInt(6))
+                        switch (rand.nextInt(5))
                         {
                             default:
                             case 0:

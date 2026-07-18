@@ -1,14 +1,9 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "group": "wooden_sign",
   "key": {
-    "#": {
-      "item": "biomesoplenty:hellbark_planks"
-    },
-    "X": {
-      "item": "minecraft:stick"
-    }
+    "#": "biomesoplenty:hellbark_planks",
+    "X": "minecraft:stick"
   },
   "pattern": [
     "###",

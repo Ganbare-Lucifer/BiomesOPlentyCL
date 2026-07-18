@@ -5,7 +5,6 @@
 package biomesoplenty.worldgen.feature.tree;
 
 import biomesoplenty.api.block.BOPBlocks;
-import biomesoplenty.block.WillowLeavesBlock;
 import biomesoplenty.util.biome.GeneratorUtil;
 import biomesoplenty.worldgen.feature.configurations.BayouTreeConfiguration;
 import com.mojang.serialization.Codec;
@@ -62,7 +61,7 @@ public class BayouTreeFeature extends BOPTreeFeature<BayouTreeConfiguration>
     }
 
     // generates a layer of leaves
-    public void generateLeafLayer(LevelAccessor world, RandomSource rand, BlockPos pos, int leavesRadius, FoliagePlacer.FoliageSetter leaves, BayouTreeConfiguration config)
+    public void generateLeafLayer(WorldGenLevel world, RandomSource rand, BlockPos pos, int leavesRadius, FoliagePlacer.FoliageSetter leaves, BayouTreeConfiguration config)
     {
         int start = -leavesRadius;
         int end = leavesRadius;
@@ -88,7 +87,7 @@ public class BayouTreeFeature extends BOPTreeFeature<BayouTreeConfiguration>
         }
     }
 
-    public void generateBranch(LevelAccessor world, RandomSource rand, BlockPos pos, Direction direction, int length, BiConsumer<BlockPos, BlockState> logs, FoliagePlacer.FoliageSetter leaves, BayouTreeConfiguration config)
+    public void generateBranch(WorldGenLevel world, RandomSource rand, BlockPos pos, Direction direction, int length, BiConsumer<BlockPos, BlockState> logs, FoliagePlacer.FoliageSetter leaves, BayouTreeConfiguration config)
     {
         Direction.Axis axis = direction.getAxis();
         Direction sideways = direction.getClockWise();
@@ -120,7 +119,7 @@ public class BayouTreeFeature extends BOPTreeFeature<BayouTreeConfiguration>
         BayouTreeConfiguration config = (BayouTreeConfiguration)configBase;
 
         // Move down until we reach the ground
-        while (startPos.getY() >= world.getMinBuildHeight()+1 && this.canReplace(world, startPos) || world.getBlockState(startPos).is(BlockTags.LEAVES)) {startPos = startPos.below();}
+        while (startPos.getY() >= world.getMinY()+1 && this.canReplace(world, startPos) || world.getBlockState(startPos).is(BlockTags.LEAVES)) {startPos = startPos.below();}
 
         // Choose heights
         int height = GeneratorUtil.nextIntBetween(random, config.minHeight, config.maxHeight);
@@ -275,12 +274,6 @@ public class BayouTreeFeature extends BOPTreeFeature<BayouTreeConfiguration>
 
     public static void placeSpanishMossColumn(LevelAccessor p_236427_0_, RandomSource p_236427_1_, BlockPos.MutableBlockPos p_236427_2_, int p_236427_3_, int p_236427_4_, int p_236427_5_)
     {
-        BlockState leaves = p_236427_0_.getBlockState(p_236427_2_.above());
-        if (leaves.getBlock() == BOPBlocks.WILLOW_LEAVES)
-        {
-            p_236427_0_.setBlock(p_236427_2_.above(), leaves.setValue(WillowLeavesBlock.MOSSY, Boolean.valueOf(true)), 2);
-        }
-
         for(int i = 0; i <= p_236427_3_; ++i)
         {
             if (p_236427_0_.isEmptyBlock(p_236427_2_))
@@ -300,16 +293,16 @@ public class BayouTreeFeature extends BOPTreeFeature<BayouTreeConfiguration>
     }
 
     @Override
-    public boolean placeLeaves(LevelAccessor level, BlockPos pos, FoliagePlacer.FoliageSetter leaves, BayouTreeConfiguration config)
+    public boolean placeLeaves(WorldGenLevel level, BlockPos pos, FoliagePlacer.FoliageSetter leaves, BayouTreeConfiguration config)
     {
         if (isAirOrLeaves(level, pos))
         {
-            leaves.set(pos, config.foliageProvider.getState(level.getRandom(), pos));
+            leaves.set(pos, config.foliageProvider.getState(level, level.getRandom(), pos));
             return true;
         }
         else if (level.getBlockState(pos).getFluidState().is(Fluids.WATER))
         {
-            leaves.set(pos, config.foliageProvider.getState(level.getRandom(), pos).setValue(BlockStateProperties.WATERLOGGED, Boolean.valueOf(level.isWaterAt(pos))));
+            leaves.set(pos, config.foliageProvider.getState(level, level.getRandom(), pos).setValue(BlockStateProperties.WATERLOGGED, Boolean.valueOf(level.isWaterAt(pos))));
             return true;
         }
 

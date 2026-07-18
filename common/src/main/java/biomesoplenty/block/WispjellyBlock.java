@@ -41,7 +41,7 @@ public class WispjellyBlock extends Block
     }
 
     @Override
-    public boolean propagatesSkylightDown(BlockState $$0, BlockGetter $$1, BlockPos $$2) {
+    public boolean propagatesSkylightDown(BlockState state) {
         return true;
     }
 

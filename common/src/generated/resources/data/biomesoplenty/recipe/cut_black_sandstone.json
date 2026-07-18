@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "#": {
-      "item": "biomesoplenty:black_sandstone"
-    }
+    "#": "biomesoplenty:black_sandstone"
   },
   "pattern": [
     "##",

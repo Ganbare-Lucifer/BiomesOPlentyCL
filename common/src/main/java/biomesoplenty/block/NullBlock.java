@@ -70,7 +70,7 @@ public class NullBlock extends Block implements BonemealableBlock
     public void performBonemeal(ServerLevel p_221270_, RandomSource p_221271_, BlockPos p_221272_, BlockState p_221273_)
     {
         BlockPos blockpos = p_221272_.above();
-        Optional<Holder.Reference<PlacedFeature>> optional = p_221270_.registryAccess().registryOrThrow(Registries.PLACED_FEATURE).getHolder(BOPEndPlacements.NULL_PLANT_BONEMEAL);
+        Optional<Holder.Reference<PlacedFeature>> optional = p_221270_.registryAccess().lookupOrThrow(Registries.PLACED_FEATURE).get(BOPEndPlacements.NULL_PLANT_BONEMEAL);
 
         label49:
         for(int i = 0; i < 128; ++i)

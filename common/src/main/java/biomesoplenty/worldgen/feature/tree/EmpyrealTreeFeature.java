@@ -33,7 +33,7 @@ public class EmpyrealTreeFeature extends BOPTreeFeature<EmpyrealTreeConfiguratio
         EmpyrealTreeConfiguration config = (EmpyrealTreeConfiguration)configBase;
 
         // Move down until we reach the ground
-        while (startPos.getY() >= world.getMinBuildHeight()+1 && world.isEmptyBlock(startPos) || world.getBlockState(startPos).is(BlockTags.LEAVES)) {startPos = startPos.below();}
+        while (startPos.getY() >= world.getMinY()+1 && world.isEmptyBlock(startPos) || world.getBlockState(startPos).is(BlockTags.LEAVES)) {startPos = startPos.below();}
 
         // Generation settings
         int height = GeneratorUtil.nextIntBetween(random, config.minHeight, config.maxHeight);
@@ -54,14 +54,7 @@ public class EmpyrealTreeFeature extends BOPTreeFeature<EmpyrealTreeConfiguratio
 
         BlockPos topPos = pos.above(height);
 
-        if (world.getRandom().nextInt(5) == 0)
-        {
-            world.setBlock(topPos.offset(0, 0, 0), Blocks.SHROOMLIGHT.defaultBlockState(), 2);
-        }
-        else
-        {
-            this.placeLog(world, topPos.offset(0, 0, 0), logs, config);
-        }
+        this.placeLog(world, topPos.offset(0, 0, 0), logs, config);
 
         if (random.nextInt(2) == 0)
         {
@@ -246,14 +239,7 @@ public class EmpyrealTreeFeature extends BOPTreeFeature<EmpyrealTreeConfiguratio
         this.placeLeaves(world, topPos.offset(0, 9, 1), leaves, config);
         this.placeLeaves(world, topPos.offset(0, 9, -1), leaves, config);
 
-        if (world.getRandom().nextInt(5) == 0)
-        {
-            world.setBlock(topPos.offset(0, 8, 0), Blocks.SHROOMLIGHT.defaultBlockState(), 2);
-        }
-        else
-        {
-            this.placeLeaves(world, topPos.offset(0, 8, 0), leaves, config);
-        }
+        this.placeLeaves(world, topPos.offset(0, 8, 0), leaves, config);
 
         this.placeLeaves(world, topPos.offset(1, 8, 0), leaves, config);
         this.placeLeaves(world, topPos.offset(-1, 8, 0), leaves, config);
@@ -293,7 +279,7 @@ public class EmpyrealTreeFeature extends BOPTreeFeature<EmpyrealTreeConfiguratio
     }
 
     // generate the top of the tree
-    public void generateTop(LevelAccessor world, BlockPos pos, BiConsumer<BlockPos, BlockState> logs, FoliagePlacer.FoliageSetter leaves, EmpyrealTreeConfiguration config)
+    public void generateTop(WorldGenLevel world, BlockPos pos, BiConsumer<BlockPos, BlockState> logs, FoliagePlacer.FoliageSetter leaves, EmpyrealTreeConfiguration config)
     {
         placeLeaves(world, pos.offset(0, 0, 0), leaves, config);
         placeLeaves(world, pos.offset(1, 0, 0), leaves, config);
@@ -315,14 +301,7 @@ public class EmpyrealTreeFeature extends BOPTreeFeature<EmpyrealTreeConfiguratio
         placeLeaves(world, pos.offset(0, 1, 2), leaves, config);
         placeLeaves(world, pos.offset(0, 1, -2), leaves, config);
 
-        if (world.getRandom().nextInt(5) == 0)
-        {
-            world.setBlock(pos.offset(0, 2, 0), Blocks.SHROOMLIGHT.defaultBlockState(), 2);
-        }
-        else
-        {
-            placeLog(world, pos.offset(0, 2, 0), logs, config);
-        }
+        placeLog(world, pos.offset(0, 2, 0), logs, config);
 
         placeLeaves(world, pos.offset(1, 2, 0), leaves, config);
         placeLeaves(world, pos.offset(-1, 2, 0), leaves, config);

@@ -2,15 +2,10 @@
   "type": "minecraft:crafting_shapeless",
   "category": "building",
   "ingredients": [
-    {
-      "item": "minecraft:end_stone"
-    },
-    {
-      "item": "biomesoplenty:null_leaves"
-    }
+    "minecraft:end_stone",
+    "biomesoplenty:null_leaves"
   ],
   "result": {
-    "count": 1,
     "id": "biomesoplenty:null_end_stone"
   }
 }

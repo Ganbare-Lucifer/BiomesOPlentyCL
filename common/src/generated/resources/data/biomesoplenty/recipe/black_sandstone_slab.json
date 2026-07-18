@@ -3,12 +3,8 @@
   "category": "building",
   "key": {
     "#": [
-      {
-        "item": "biomesoplenty:black_sandstone"
-      },
-      {
-        "item": "biomesoplenty:chiseled_black_sandstone"
-      }
+      "biomesoplenty:black_sandstone",
+      "biomesoplenty:chiseled_black_sandstone"
     ]
   },
   "pattern": [

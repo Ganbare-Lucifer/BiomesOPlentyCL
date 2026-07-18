@@ -11,6 +11,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
@@ -38,8 +39,8 @@ public class HighGrassBlock extends GrowingPlantHeadBlock
     }
 
     @Override
-    public BlockState getStateForPlacement(LevelAccessor p_53949_) {
-        return this.defaultBlockState().setValue(AGE, Integer.valueOf(p_53949_.getRandom().nextInt(MAX_AGE)));
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+        return this.defaultBlockState().setValue(AGE, Integer.valueOf(context.getLevel().getRandom().nextInt(MAX_AGE)));
     }
 
     @Override
@@ -98,7 +99,7 @@ public class HighGrassBlock extends GrowingPlantHeadBlock
         }
         else
         {
-            return block == this.getHeadBlock() || block == this.getBodyBlock() || blockstate.is(BlockTags.DIRT);
+            return block == this.getHeadBlock() || block == this.getBodyBlock() || blockstate.is(BlockTags.SUPPORTS_VEGETATION);
         }
     }
 }

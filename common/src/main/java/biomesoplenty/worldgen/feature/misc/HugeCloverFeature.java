@@ -13,8 +13,8 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.VegetationBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.Feature;
@@ -24,8 +24,8 @@ import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConf
 
 public class HugeCloverFeature extends Feature<NoneFeatureConfiguration>
 {
-    protected SimpleBlockPredicate placeOn = (world, pos) -> world.getBlockState(pos).is(BlockTags.DIRT);
-    protected SimpleBlockPredicate replace = (world, pos) -> TreeFeature.isAirOrLeaves(world, pos) || world.getBlockState(pos).getBlock() instanceof BushBlock;
+    protected SimpleBlockPredicate placeOn = (world, pos) -> world.getBlockState(pos).is(BlockTags.SUPPORTS_VEGETATION);
+    protected SimpleBlockPredicate replace = (world, pos) -> TreeFeature.isAirOrLeaves(world, pos) || world.getBlockState(pos).getBlock() instanceof VegetationBlock;
 
     public HugeCloverFeature(Codec<NoneFeatureConfiguration> deserializer)
     {
@@ -40,7 +40,7 @@ public class HugeCloverFeature extends Feature<NoneFeatureConfiguration>
         RandomSource rand = featurePlaceContext.random();
         BlockPos startPos = featurePlaceContext.origin();
         NoneFeatureConfiguration config = featurePlaceContext.config();
-        while (startPos.getY() >= world.getMinBuildHeight()+1 && this.replace.matches(world, startPos)) {startPos = startPos.below();}
+        while (startPos.getY() >= world.getMinY()+1 && this.replace.matches(world, startPos)) {startPos = startPos.below();}
 
         if (!this.placeOn.matches(world, startPos))
         {
